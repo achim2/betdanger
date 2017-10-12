@@ -1,0 +1,17 @@
+//Global settings
+html {
+	position: relative;
+	min-height: 100%;
+
+	&::-webkit-scrollbar {
+		display: none;
+	}
+}
+
+body.main {
+	margin-top: 56px;
+	@include footer-height(500px);
+	background-color: $WARM_YELLOW;
+	display: block;
+
+}

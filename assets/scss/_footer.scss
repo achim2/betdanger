@@ -1,0 +1,78 @@
+// FOOTER //////////////////////////////////////////////////////////////////////////////////////////////// FOOTER
+footer {
+	background-color: $FOOTER_TOP_BG;
+	height: 500px;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	overflow: hidden;
+	color: $FOOTER_TOP_BG;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	section.footer-top {
+		padding: 0;
+		display: flex;
+		align-items: center;
+		height: auto;
+
+		h2 {
+			margin-bottom: 30px;
+			color: $FOOTER_TOP_TEXT;
+		}
+
+		form {
+			@include placeholder {
+				//color: $footer_top_text_color;
+			}
+
+			input:not([type=submit]), textarea, textarea:focus {
+				//background-color: $dark_grayish;
+				//color: $footer_bottom_text_color;
+
+			}
+
+			textarea {
+				resize: none;
+			}
+		}
+
+		div.footer_menu {
+			display: flex;
+			align-items: center;
+			justify-content: space-around;
+
+			ul {
+				margin: 0;
+				padding: 0;
+				list-style-type: none;
+
+				li {
+					text-align: center;
+				}
+			}
+		}
+	}
+
+	section.footer-bottom {
+		padding: 0 16px;
+		background-color: $FOOTER_BOTTOM_BG;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+
+		height: 50px;
+			color: $FOOTER_BOTTOM_TEXT;
+
+		p {
+			margin-bottom: 0;
+		}
+
+	}
+}

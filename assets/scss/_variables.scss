@@ -1,0 +1,65 @@
+$NAVY_BLUE: #18121E;
+$GUNMENTAL: #233237;
+$RUSTY_RED: #984B43;
+$WARM_YELLOW: #EAC67A;
+$WHITE: #ffffff;
+$BOOTSTRAP_DANGER_COLOR: #dc3545;
+
+//footer bg color
+$FOOTER_TOP_BG: #2a2a2a;
+//footer top text_color
+$FOOTER_TOP_TEXT: rgba(255, 255, 255, 0.5);
+//footer bottom bg color
+$FOOTER_BOTTOM_BG: #242424;
+//footer bottom text color
+$FOOTER_BOTTOM_TEXT: rgba(255, 255, 255, 0.3);
+
+//social icons
+//facebook
+$FACEBOOK_COLOR: #3b5998;
+//twitter
+$TWITTER_COLOR: #1dcaff;
+//pinterest
+$PINTEREST_COLOR: #b22222;
+//instagram
+$INSTAGRAM_COLOR: #568dba;
+//email
+
+@mixin setAnchorSelector {
+	&,
+	&:hover,
+	&:active {
+		@content;
+	}
+}
+
+@mixin footer-height($x) {
+	margin-bottom: $x; // margin-bottom = footer height
+	footer {
+		height: $x; //footer height = body margin-bottom
+	}
+}
+
+//placeholder mixin
+@mixin placeholder {
+	::-webkit-input-placeholder {
+		@content
+	}
+	:-moz-placeholder {
+		@content
+	}
+	::-moz-placeholder {
+		@content
+	}
+	:-ms-input-placeholder {
+		@content
+	}
+}
+
+@mixin custom_gradient($pos, $left-col, $right-col) {
+	background: $left-col; /* For browsers that do not support gradients */
+	background: -webkit-linear-gradient($pos, $left-col , $right-col); /* For Safari 5.1 to 6.0 */
+	background: -o-linear-gradient($pos, $left-col, $right-col); /* For Opera 11.1 to 12.0 */
+	background: -moz-linear-gradient($pos, $left-col, $right-col); /* For Firefox 3.6 to 15 */
+	background: linear-gradient(to $pos, $left-col , $right-col); /* Standard syntax */
+}
