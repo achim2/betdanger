@@ -8,10 +8,10 @@ html {
 	}
 }
 
-body.main {
+body {
+	background-color: $RUSTY_RED;
 	margin-top: 56px;
-	@include footer-height(500px);
-	background-color: $WARM_YELLOW;
+	@include footer-height(100px);
 	display: block;
 
 }

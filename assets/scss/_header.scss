@@ -1,28 +1,289 @@
-nav.navbar {
-	background-color: $GUNMENTAL !important;
+// HEADER //////////////////////////////////////////////////////////////////////////////////////////////// HEADER
 
-	ul.navbar-nav {
-		li.nav-item {
-			a.nav-link {
-				color: $WHITE;
+@mixin nav-icon-item {
+	@include setAnchorSelector {
+		width: 50px;
+		height: 56px;
+		color: white;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		position: relative;
+		cursor: pointer;
+		transition: all .3s linear;
 
+		//it needs for the js
+		&::after {
+			content: "";
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+		}
+
+		&.open {
+			color: $RUSTY_RED;
+		}
+
+		span {
+			font-size: 1.1em;
+		}
+
+	}
+}
+
+p.flash_alert {
+	border-radius: 0 !important;
+}
+
+nav.custom-navbar {
+	background-color: $FOOTER_BOTTOM_BG;
+	padding: 0;
+	position: fixed;
+	z-index: 10;
+	top: 0;
+	left: 0;
+	right: 0;
+
+	div.navbar-container {
+		width: 100%;
+		height: 56px;
+		//padding: 0 30px;
+		padding: 0 15px;
+		margin-right: auto;
+		margin-left: auto;
+		max-width: 1140px;
+
+		display: flex;
+		align-items: center;
+
+		a.navbar-brand {
+			@include setAnchorSelector {
+				height: 100%;
+				display: flex;
+				align-items: center;
+				color: $RUSTY_RED;
+				font-size: 2em;
+			}
+		}
+
+		//full nav
+		ul.nav-items {
+			margin: 0 0 0 auto;
+			padding: 0;
+			border: 0;
+			list-style-type: none;
+
+			display: flex;
+
+			li.menu-toggler {
+
+				a.menu-trigger {
+					@media (min-width: 992px) {
+						display: none;
+					}
+
+					@media (max-width: 991px) {
+						@include nav-icon-item;
+					}
+				}
+
+				//menu items
+				ul.menu-items {
+					margin: 0;
+					padding: 0;
+					border: 0;
+					list-style-type: none;
+					position: relative;
+					display: flex;
+					transition: opacity .3s linear;
+
+					@media (max-width: 991px) {
+						position: fixed;
+						top: 57px;
+						left: 0;
+						right: 0;
+						background-color: $FOOTER_BOTTOM_BG;
+						display: block;
+
+						visibility: hidden;
+						opacity: 0;
+						height: 0;
+						overflow: hidden;
+
+						&.open {
+							visibility: visible;
+							opacity: 1;
+							height: auto;
+						}
+					}
+
+					//&::after {
+					//	content: "";
+					//	position: absolute;
+					//	right: 0;
+					//	top: 0;
+					//	bottom: 0;
+					//	width: 1px;
+					//	background-color: $RUSTY_RED;
+					//	margin: 15px 0;
+					//
+					//	@media (max-width: 991px) {
+					//		display: none;
+					//	}
+					//}
+
+					a {
+						@include setAnchorSelector {
+							text-decoration: none;
+							display: flex;
+							align-items: center;
+							height: 56px;
+							padding: 0 15px;
+							color: white;
+							transition: all .2s linear;
+
+							@media (max-width: 991px) {
+								padding: 7.5px 15px;
+								height: auto;
+							}
+
+							&:hover {
+								color: $RUSTY_RED;
+							}
+
+							&.active {
+								color: $RUSTY_RED;
+							}
+
+						}
+					}
+				}
+			}
+
+			li.user-part {
+				position: relative;
+
+				a.username {
+					@include nav-icon-item;
+					width: 100% !important;
+					padding: 0;
+
+					&.open {
+						span.ti-angle-up {
+							transform: rotateX(180deg);
+						}
+					}
+
+					span.ti-angle-up {
+						transition: all .2s linear;
+						width: 50px;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+					}
+
+					span.uname {
+						margin-left: -5px;
+					}
+
+				}
+
+				a.user-trigger {
+					@include nav-icon-item;
+				}
+
+				div.user-part-dropdown {
+					visibility: hidden;
+					opacity: 0;
+					height: 0;
+					overflow: hidden;
+
+					position: absolute;
+					top: 57px;
+					right: 0;
+					min-width: 100px;
+					background-color: $FOOTER_TOP_BG;
+					border-radius: 0 0 6px 6px;
+
+					transition: opacity .3s linear;
+
+					&.open {
+						visibility: visible;
+						opacity: 1;
+						height: auto;
+					}
+
+					a {
+						width: 100%;
+						justify-content: flex-start;
+						padding: 7.5px 15px;
+						color: white;
+						display: block;
+						cursor: pointer;
+						text-decoration: none;
+						transition: all .2s linear;
+
+						&:hover {
+							color: $RUSTY_RED;
+						}
+					}
+
+				}
+			}
+
+			li.search-part {
+				position: relative;
+
+				&::after {
+					content: "";
+					position: absolute;
+					top: 0;
+					right: 0;
+					bottom: 0;
+					width: 1px;
+					background-color: $RUSTY_RED;
+					margin: 15px 0;
+				}
+
+				&::before {
+					content: "";
+					position: absolute;
+					top: 0;
+					left: 0;
+					bottom: 0;
+					width: 1px;
+					background-color: $RUSTY_RED;
+					margin: 15px 0;
+				}
+
+				a.search-trigger {
+					@include nav-icon-item;
+				}
 			}
 		}
 	}
 }
 
-header {
-	//background-color: ;
-
-	.col-md-6:nth-of-type(1){
-		background-color: $RUSTY_RED;
-	}
-	.col-md-6:nth-of-type(2){
-		background-color: $NAVY_BLUE;
+section.search {
+	p.s-info {
+		text-align: center;
 	}
 
-	h1 {
-		margin: 50px 0;
-		font-size: 75px;
+	form {
+		input {
+			width: 100% !important;
+		}
+	}
+
+	div.search-output {
+		//background-color: $light;
+
+		a.searched-item {
+			@include setAnchorSelector {
+				display: block;
+			}
+		}
 	}
 }

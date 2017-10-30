@@ -1,3 +1,8 @@
+<?php
+var_dump($_SESSION);
+
+?>
+
 <section class="welcome">
     <div class="container">
         <div class="row">
