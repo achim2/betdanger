@@ -4,9 +4,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Search</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <span class="ti-close" data-dismiss="modal"></span>
+
             </div>
             <div class="modal-body">
                 <section class="search">

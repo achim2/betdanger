@@ -2,8 +2,6 @@ $NAVY_BLUE: #18121E;
 $GUNMENTAL: #233237;
 $RUSTY_RED: #984B43;
 $WARM_YELLOW: #EAC67A;
-$WHITE: #ffffff;
-$BOOTSTRAP_DANGER_COLOR: #dc3545;
 
 //footer bg color
 $FOOTER_TOP_BG: #2a2a2a;
@@ -62,4 +60,10 @@ $INSTAGRAM_COLOR: #568dba;
 	background: -o-linear-gradient($pos, $left-col, $right-col); /* For Opera 11.1 to 12.0 */
 	background: -moz-linear-gradient($pos, $left-col, $right-col); /* For Firefox 3.6 to 15 */
 	background: linear-gradient(to $pos, $left-col , $right-col); /* Standard syntax */
+}
+
+
+@mixin section-general{
+	border-radius: 6px;
+	padding: 15px;
 }

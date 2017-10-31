@@ -302,7 +302,7 @@ class User extends CI_Controller {
         $this->unsetUserData();
 
         //delete the events which bounded to the user
-        $this->Event_model->delete_event_by_user_id($user_id);
+//        $this->Event_model->delete_event_by_user_id($user_id);
 
         //delete user profile
         $this->User_model->delete_user($user_id);

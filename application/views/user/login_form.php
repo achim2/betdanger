@@ -5,9 +5,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Login</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <span class="ti-close" data-dismiss="modal"></span>
             </div>
             <div class="modal-body">
                 <form id="login">
@@ -18,8 +16,8 @@
                         <input type="password" name="password" class="form-control" placeholder="Password">
                     </div>
                     <div class="form-group clearfix">
-                        <input type="submit" class="btn btn-info float-left" value="Submit">
-                        <div class="automat_modal text-right">
+                        <input type="submit" class="btn btn-dark float-left" value="Submit">
+                        <div class="data-modal-btns text-right">
                             <a data-modal-close="#login" data-modal-open="#lost-pass">lost your pass?</a><br/>
                             <a data-modal-close="#login" data-modal-open="#sign-up">not registered?</a>
                         </div>

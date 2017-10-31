@@ -1,0 +1,24 @@
+section.contact {
+	@include section-general;
+		background-color: $FOOTER_TOP_BG;
+
+	p{
+		color: $FOOTER_TOP_TEXT;
+	}
+
+	form {
+
+		@include placeholder {
+			//color: $footer_top_text_color;
+		}
+
+		input:not([type=submit]),
+		textarea {
+			//color: $footer_bottom_text_color;
+		}
+
+		textarea {
+			resize: none;
+		}
+	}
+}

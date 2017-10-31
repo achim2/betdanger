@@ -4,9 +4,8 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title">Registration</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
+                <span class="ti-close" data-dismiss="modal"></span>
+
 			</div>
 			<div class="modal-body">
 				<form id="signup">
@@ -22,9 +21,9 @@
 					<div class="form-group">
 						<input type="password" name="password2" class="form-control" placeholder="Password again">
 					</div>
-					<div class="form-group">
-						<input type="submit" class="btn btn-info" value="Submit">
-						<div class="automat_modal text-right">
+					<div class="form-group clearfix">
+						<input type="submit" class="btn btn-dark float-left" value="Submit">
+						<div class="data-modal-btns text-right">
 							<a data-modal-close="#sign-up" data-modal-open="#login">login</a>
 						</div>
 					</div>
@@ -33,3 +32,10 @@
 		</div>
 	</div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        //ajax sign up modal
+        general_ajax_call('form#signup', '/user/signup');
+    });
+</script>

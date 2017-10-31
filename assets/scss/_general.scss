@@ -10,8 +10,20 @@ html {
 
 body {
 	background-color: $RUSTY_RED;
-	margin-top: 56px;
-	@include footer-height(100px);
+	margin-top: 56px; //navbar = 56px
+	@include footer-height(100px); //footer height
 	display: block;
 
+}
+
+p.flash_alert {
+	border-radius: 0 !important;
+}
+
+main{
+	padding: 30px 0;
+}
+
+.modal-backdrop.show {
+	opacity: 0.85;
 }

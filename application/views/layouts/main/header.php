@@ -28,9 +28,8 @@ $this->load->view('/search/search_form');
 
                 <ul class="menu-items">
                     <li><a <?php echo ($this->uri->segment(1) == '') ? 'class = "active"' : '' ?> href="/">news</a></li>
-                    <li><a <?php echo ($this->uri->segment(1) == 'usefull') ? 'class = "active"' : 'usefull' ?> href="#">useful things</a></li>
+                    <li><a <?php echo ($this->uri->segment(1) == 'usefull') ? 'class = "active"' : 'previews' ?> href="#">previews</a></li>
                     <li><a <?php echo ($this->uri->segment(1) == 'blog') ? 'class = "active"' : 'blog' ?> href="#">blog</a></li>
-                    <li><a <?php echo ($this->uri->segment(1) == 'contact') ? 'class = "active"' : 'contact' ?> href="/contact">contact</a></li>
                 </ul>
             </li>
 
@@ -52,8 +51,9 @@ $this->load->view('/search/search_form');
                     </a>
 
                     <div class="user-part-dropdown">
-                        <a href="<?php echo base_url('/user/profile'); ?>">profile</a>
-                        <a href="<?php echo base_url('/user/logout'); ?>">log out</a>
+                        <a href="#">my bets</a>
+                        <a href="/user/profile">profile</a>
+                        <a href="/user/logout">log out</a>
                     </div>
                 </li>
 

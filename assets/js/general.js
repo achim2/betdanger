@@ -35,7 +35,7 @@ $(document).ready(function () {
     //custom dropdown ( DD == dropdown )
 
     var nav = $('nav');
-    var allDDTrigger = $('a[data-set-dropdown]');
+    var allDDTrigger = $('[data-set-dropdown]');
     // console.log(allDDTrigger);
 
     allDDTrigger.on('click', function () {

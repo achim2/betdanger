@@ -1,77 +1,53 @@
 // FOOTER //////////////////////////////////////////////////////////////////////////////////////////////// FOOTER
 footer {
-	background-color: $FOOTER_TOP_BG;
-	height: 500px;
 	position: absolute;
 	bottom: 0;
 	left: 0;
 	width: 100%;
 	overflow: hidden;
-	color: $FOOTER_TOP_BG;
 	display: flex;
-	align-items: center;
-	justify-content: center;
+	flex-direction: column;
 
 	section.footer-top {
-		padding: 0;
-		display: flex;
-		align-items: center;
-		height: auto;
+		height: 50px;
+		background-color: $FOOTER_TOP_BG;
+		color: $FOOTER_TOP_TEXT;
 
-		h2 {
-			margin-bottom: 30px;
-			color: $FOOTER_TOP_TEXT;
-		}
+		ul {
+			margin: 0;
+			padding: 0;
+			border: none;
+			list-style-type: none;
+			height: 50px;
 
-		form {
-			@include placeholder {
-				//color: $footer_top_text_color;
-			}
-
-			input:not([type=submit]), textarea, textarea:focus {
-				//background-color: $dark_grayish;
-				//color: $footer_bottom_text_color;
-
-			}
-
-			textarea {
-				resize: none;
-			}
-		}
-
-		div.footer_menu {
 			display: flex;
 			align-items: center;
-			justify-content: space-around;
+			justify-content: center;
 
-			ul {
-				margin: 0;
-				padding: 0;
-				list-style-type: none;
+			li a {
+				transition: all .2s linear;
+				padding: 0 15px;
+				color: $FOOTER_TOP_TEXT;
+				text-decoration: none;
 
-				li {
-					text-align: center;
+				&:hover{
+					color: white;
 				}
 			}
 		}
 	}
 
 	section.footer-bottom {
-		padding: 0 16px;
-		background-color: $FOOTER_BOTTOM_BG;
-		position: absolute;
-		bottom: 0;
-		left: 0;
-		width: 100%;
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-
 		height: 50px;
-			color: $FOOTER_BOTTOM_TEXT;
+		background-color: $FOOTER_BOTTOM_BG;
+		color: $FOOTER_BOTTOM_TEXT;
 
-		p {
+		p.brand {
 			margin-bottom: 0;
+			height: 50px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
 		}
 
 	}

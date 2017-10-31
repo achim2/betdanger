@@ -10,20 +10,20 @@ class Email extends CI_Controller {
 
             $this->form_validation->set_rules('name', 'Name', 'trim|required|min_length[4]|xss_clean',
                 array(
-                    'min_length' => 'A %snek legalább 4 karaktert tartalmaznia kell.',
-                    'required' => 'A %s mező kitöltése kötelező.',
+//                    'min_length' => 'A %snek legalább 4 karaktert tartalmaznia kell.',
+//                    'required' => 'A %s mező kitöltése kötelező.',
                 )
             );
             $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|xss_clean',
                 array(
-                    'required' => 'A %s mező kitöltése kötelező.',
-                    'valid_email' => 'A %s cím formátuma nem megfelelő. pl: pelda@pelda.com',
+//                    'required' => 'A %s mező kitöltése kötelező.',
+//                    'valid_email' => 'A %s cím formátuma nem megfelelő. pl: pelda@pelda.com',
                 )
             );
             $this->form_validation->set_rules('message', 'Message', 'trim|required|min_length[4]|xss_clean',
                 array(
-                    'min_length' => 'A %snek legalább 4 karaktert tartalmaznia kell.',
-                    'required' => 'A %s mező kitöltése kötelező.',
+//                    'min_length' => 'A %snek legalább 4 karaktert tartalmaznia kell.',
+//                    'required' => 'A %s mező kitöltése kötelező.',
                 )
             );
 
@@ -49,7 +49,7 @@ class Email extends CI_Controller {
 
                 $this->email->from('info@sportsalmanac.org');
                 $this->email->to('ahimjuhasz@gmail.com');
-                $this->email->subject('Prisca email ' . $this->input->post('name') . '!');
+                $this->email->subject('betDANGER! email ' . $this->input->post('name') . '!');
 
                 $data = $this->input->post('name') . '<br/>';
                 $data .= 'Email: ' . $this->input->post('email') . '<br>';
@@ -92,7 +92,7 @@ class Email extends CI_Controller {
 
         $this->email->from('info@sportsalmanac.org');
         $this->email->to($user->email);
-        $this->email->subject('Prisca email ' . $user->username . '!');
+        $this->email->subject('betDANGER! email ' . $user->username . '!');
 
         $data = $user->username . '<br/>';
         $data .= 'Email: ' . $user->email . '<br>';
@@ -106,7 +106,7 @@ class Email extends CI_Controller {
 //        log_message('debug', $data);
 
         //set notice
-        $this->session->set_flashdata('verification_notice', 'Successful registering. You can verify your account at your given email (lol, low english skill :D).');
+        $this->session->set_flashdata('verification_notice', 'Successful registering. You can verify your account at your given email.');
         //redirect hte welcome page
         redirect(base_url());
     }
