@@ -1,7 +1,7 @@
 div.welcome-wrapper {
 	display: flex;
 
-	h3{
+	h3 {
 		border-bottom: 1px solid $RUSTY_RED;
 		font-size: 1em;
 	}
@@ -9,7 +9,7 @@ div.welcome-wrapper {
 	section.welcome_main {
 		width: calc(100% - 250px);
 
-		div.main_block{
+		div.main_block {
 			@include section-general;
 			background-color: white;
 			margin-bottom: 15px;
@@ -34,5 +34,116 @@ div.welcome-wrapper {
 			margin-bottom: 15px;
 		}
 
+	}
+}
+
+// Blog PAGE ///////////////////////
+
+//article bigger block
+a.bigger_block {
+	display: block;
+	background-color: $FOOTER_TOP_BG;
+	max-width: 400px;
+	width: 100%;
+	margin-bottom: 30px;
+	transition: .3s ease;
+	text-decoration: none;
+
+	//a.bigger block:hover div.img_wrapper
+	div.img_wrapper {
+		position: relative;
+
+		&:after {
+			content: '';
+			top: 0;
+			left: 0;
+			z-index: 1;
+			width: 100%;
+			height: 0;
+			display: block;
+			position: absolute;
+			opacity: 0;
+			transition: .3s ease;
+			background-color: transparent;
+		}
+
+		//the img parameters
+		img {
+			max-width: 400px;
+			max-height: 300px;
+			width: 100%;
+			height: 100%;
+
+		}
+	}
+
+	//a.bigger_block:hover div.img_wrapper:after
+	&:hover div.img_wrapper:after {
+		opacity: 0.75;
+		background-color: $FOOTER_BOTTOM_BG;
+		height: 100%;
+	}
+
+	//it shows after hovering
+	div.project_data {
+		z-index: 2;
+		color: #ffffff;
+		opacity: 0;
+		transition: .3s ease;
+		transition-delay: 0.1s;
+		text-align: center;
+		background-color: transparent;
+
+		//absolute positioning and stretching
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		width: 50%;
+		height: 0;
+		margin: auto;
+
+		img.rarrow {
+			width: auto;
+			height: auto;
+			margin-bottom: 10px;
+		}
+
+		p.readit {
+			font-size: 28px;
+
+			@media (max-width: 1199px) {
+				font-size: 20px;
+			}
+		}
+	}
+
+	//a.bigger_block:hover div.project_data
+	&:hover div.project_data {
+		opacity: 1;
+		height: 50%;
+
+		@media (max-width: 767px) {
+			height: 30%;
+		}
+
+	}
+
+	div.para_wrapper {
+		min-height: 96px;
+		display: flex;
+		align-items: center;
+
+		p {
+			color: $FOOTER_TOP_TEXT;
+			font-size: 22px;
+			margin-bottom: 0;
+			padding: 0 15px;
+
+			@media (max-width: 1199px) {
+				font-size: 18px;
+			}
+		}
 	}
 }

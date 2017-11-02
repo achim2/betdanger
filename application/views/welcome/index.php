@@ -46,18 +46,18 @@
                         </ul>
                     </div>
 
-                    <div class="aside_block">
-                        <h3>top bet masters</h3>
-                        <ul>
-                            <li><a href="#">Maecenas</a></li>
-                            <li><a href="#">Pellentesque</a></li>
-                            <li><a href="#">Donec</a></li>
-                            <li><a href="#">Etiam</a></li>
-                            <li><a href="#">Integer</a></li>
-                            <li><a href="#">Lorem</a></li>
-                            <li><a href="#">Proin</a></li>
-                        </ul>
-                    </div>
+<!--                    <div class="aside_block">-->
+<!--                        <h3>top bet masters</h3>-->
+<!--                        <ul>-->
+<!--                            <li><a href="#">Maecenas</a></li>-->
+<!--                            <li><a href="#">Pellentesque</a></li>-->
+<!--                            <li><a href="#">Donec</a></li>-->
+<!--                            <li><a href="#">Etiam</a></li>-->
+<!--                            <li><a href="#">Integer</a></li>-->
+<!--                            <li><a href="#">Lorem</a></li>-->
+<!--                            <li><a href="#">Proin</a></li>-->
+<!--                        </ul>-->
+<!--                    </div>-->
 
 
                     <div class="aside_block">

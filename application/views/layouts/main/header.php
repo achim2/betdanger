@@ -16,7 +16,10 @@ $this->load->view('/search/search_form');
 <nav class="custom-navbar">
     <div class="navbar-container">
 
-        <a href="/" class="navbar-brand">betDANGER!</a>
+        <a href="/" class="navbar-brand">
+            <span class="d-none d-sm-block">betDANGER!</span>
+            <span class="d-sm-none">bD!</span>
+        </a>
 
         <ul class="nav-items">
 
@@ -28,8 +31,9 @@ $this->load->view('/search/search_form');
 
                 <ul class="menu-items">
                     <li><a <?php echo ($this->uri->segment(1) == '') ? 'class = "active"' : '' ?> href="/">news</a></li>
-                    <li><a <?php echo ($this->uri->segment(1) == 'usefull') ? 'class = "active"' : 'previews' ?> href="#">previews</a></li>
-                    <li><a <?php echo ($this->uri->segment(1) == 'blog') ? 'class = "active"' : 'blog' ?> href="#">blog</a></li>
+                    <li><a <?php echo ($this->uri->segment(1) == 'preview') ? 'class = "active"' : '' ?> href="/preview">previews</a></li>
+                    <li><a <?php echo ($this->uri->segment(2) == 'tipsters') ? 'class = "active"' : '' ?> href="/tips/tipsters">tipsters</a></li>
+                    <li><a <?php echo ($this->uri->segment(1) == 'blog') ? 'class = "active"' : '' ?> href="/blog">blog</a></li>
                 </ul>
             </li>
 
@@ -51,7 +55,17 @@ $this->load->view('/search/search_form');
                     </a>
 
                     <div class="user-part-dropdown">
-                        <a href="#">my bets</a>
+                        <?php
+                        $user_type = $this->session->userdata('user_type');
+
+                        if ($user_type === 'moderator') {
+                            echo "<a href=" . base_url('/admin') . ">admin</a>";
+                        }
+                        ?>
+<!--                        <a href="#">my previews</a>-->
+<!--                        <a href="#">my blog posts</a>-->
+                        <a href="/content">my content</a>
+                        <a href="/tips/my_tips">my tips</a>
                         <a href="/user/profile">profile</a>
                         <a href="/user/logout">log out</a>
                     </div>

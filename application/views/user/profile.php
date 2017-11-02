@@ -17,12 +17,6 @@
                                 <p><?php echo $this->user->username; ?></p>
                             </a>
                         </div>
-
-                        <div id="collapseEmail" class="collapse" role="tabpanel" aria-labelledby="headingEmail" data-parent="#accordion">
-                            <div class="card-body">
-                                Group Item #1 body
-                            </div>
-                        </div>
                     </div>
 
                     <!-- Email -->
@@ -39,13 +33,20 @@
 
                     <!-- Newsletter sub change -->
                     <div class="card">
-                        <div class="card-header" role="tab" id="headingUsername">
-                            <a class="collapsed" data-toggle="collapse" href="" aria-expanded="false" aria-controls="collapseUsername">
+                        <div class="card-header" role="tab" id="headingNewsletter">
+                            <a class="collapsed" data-toggle="collapse" href="#collapseNewsletter" aria-expanded="false" aria-controls="collapseNewsletter">
                                 <h5>
                                     <span class="text-secondary">Newsletter:</span>
+                                    <span class="ti-angle-up"></span>
                                 </h5>
-                                <a id="newsletter_btn" class="btn btn-primary"><?php echo $this->user->newsletter == 'yes' ? 'Unsubscribe' : 'Subscribe'; ?></a>
+                                <p>You can subscribe or unsubscribe from our newsletter.</p>
                             </a>
+                        </div>
+
+                        <div id="collapseNewsletter" class="collapse" role="tabpanel" aria-labelledby="headingNewsletter" data-parent="#accordion">
+                            <div class="card-body">
+                                <a id="newsletter_btn" class="btn btn-outline-info"><?php echo $this->user->newsletter == 'yes' ? 'Unsubscribe' : 'Subscribe'; ?></a>
+                            </div>
                         </div>
                     </div>
 
@@ -57,7 +58,10 @@
                                     <span class="text-warning">Change password</span>
                                     <span class="ti-angle-up"></span>
                                 </h5>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus eros quam, feugiat ut risus sed, scelerisque imperdiet urna.</p>
+                                <div class="d-flex ">
+                                    <p class="mr-1">Your password is not safe? Change below your password or send a message within our </p>
+                                    <a class="text-primary" href="/contact">contact form.</a>
+                                </div>
                             </a>
                         </div>
                         <div id="collapsePass" class="collapse" role="tabpanel" aria-labelledby="headingPass" data-parent="#accordion">
@@ -91,8 +95,7 @@
                                     <span class="text-danger">Remove profile</span>
                                     <span class="ti-angle-up"></span>
                                 </h5>
-                                <!--                                <p>A profil törlésével a hozzá tartozó események is törlődnek.</p>-->
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus eros quam, feugiat ut risus sed, scelerisque imperdiet urna.</p>
+                                <p>If you don't need your profile anymore, just delete it, but your comments & bounded things will lost.</p>
                             </a>
                         </div>
                         <div id="collapseProfileDel" class="collapse" role="tabpanel" aria-labelledby="headingProfileDel" data-parent="#accordion">
@@ -132,9 +135,9 @@
             $.ajax({
                 url: '/user/newsletter_sub_change',
                 success: function (data) {
-                    if (newsletterBTN.text() === 'Subscribe'){
+                    if (newsletterBTN.text() === 'Subscribe') {
                         newsletterBTN.html('Unsubscribe');
-                    }else{
+                    } else {
                         newsletterBTN.html('Subscribe');
                     }
                 },

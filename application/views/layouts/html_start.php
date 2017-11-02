@@ -10,6 +10,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>betDANGER!</title>
 
+    <meta name="robots" content="noindex" />
+
     <!-- Global stylesheets -->
     <!--        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">-->
     <link rel="stylesheet" href="/assets/plugins/bootstrap-4.0.0-beta.2-dist/css/bootstrap.min.css">

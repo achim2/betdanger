@@ -1,6 +1,6 @@
 <nav class="admin-nav">
 
-    <a class="admin-brand" href="#">bD-Admin</a>
+    <a class="admin-brand" href="/admin/users">bD-Admin</a>
 
     <ul class="user-info">
         <li>
@@ -13,13 +13,19 @@
 
     <ul class="panel-dd">
         <li>
-            <a href="/">main page</a>
+            <a href="/admin/users">Users</a>
         </li>
         <li>
-            <a>Users</a>
+            <a href="/admin/previews">Previews</a>
         </li>
         <li>
-            <a href="/admin/newsletter">Newsletter</a>
+            <a href="/admin/blog_posts">Blog posts</a>
+        </li>
+        <li>
+            <a href="/admin/newsletters">Newsletter</a>
+        </li>
+        <li>
+            <a href="/">back to main page</a>
         </li>
     </ul>
 </nav>

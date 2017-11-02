@@ -1,0 +1,24 @@
+.content,
+.add_content,
+.edit_content{
+	@include section-general;
+	background-color: $FOOTER_TOP_BG;
+
+	tbody {
+		tr{
+			background-color: #CCCCCC;
+		}
+
+		a {
+			@include setAnchorSelector {
+				text-decoration: none;
+				cursor: pointer;
+
+				span.ti-pencil,
+				span.ti-close {
+					font-size: 1.4em;
+				}
+			}
+		}
+	}
+}

@@ -1,6 +1,6 @@
 
 body.admin {
-	background-color: $FOOTER_TOP_BG;
+	background-color: white;
 	padding-left: 320px;
 }
 
@@ -74,4 +74,11 @@ nav.admin-nav {
 
 	}
 
+}
+
+
+div.newsletter-yes{
+	background-color: $FOOTER_TOP_BG;
+	padding: 15px;
+	border-radius: 5px;
 }

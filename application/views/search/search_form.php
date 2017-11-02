@@ -9,7 +9,7 @@
             </div>
             <div class="modal-body">
                 <section class="search">
-                    <p class="s-info">find your event, buy a ticket, have fun</p>
+                    <p class="s-info">find your event</p>
                     <div class="form-wrapper">
                         <form class="search-form form-inline">
                             <input class="form-control mr-sm-2" type="text" name="search" id="execute_search" placeholder="Type & Enter">

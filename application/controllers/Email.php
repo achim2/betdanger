@@ -37,7 +37,7 @@ class Email extends CI_Controller {
 
                 $config['protocol'] = 'smtp';
                 $config['smtp_host'] = 's7.tarhely.com';
-                $config['smtp_user'] = 'info@sportsalmanac.org';
+                $config['smtp_user'] = 'info@betdanger.com';
                 $config['smtp_pass'] = 'nokedli123';
                 $config['smtp_port'] = 587;
                 $config['smtp_crypto'] = 'tls';
@@ -47,7 +47,7 @@ class Email extends CI_Controller {
 
                 $this->email->initialize($config);
 
-                $this->email->from('info@sportsalmanac.org');
+                $this->email->from('info@betdanger.com');
                 $this->email->to('ahimjuhasz@gmail.com');
                 $this->email->subject('betDANGER! email ' . $this->input->post('name') . '!');
 
@@ -80,7 +80,7 @@ class Email extends CI_Controller {
         //send verification email
         $config['protocol'] = 'smtp';
         $config['smtp_host'] = 's7.tarhely.com';
-        $config['smtp_user'] = 'info@sportsalmanac.org';
+        $config['smtp_user'] = 'info@betdanger.com';
         $config['smtp_pass'] = 'nokedli123';
         $config['smtp_port'] = 587;
         $config['smtp_crypto'] = 'tls';
@@ -90,13 +90,13 @@ class Email extends CI_Controller {
 
         $this->email->initialize($config);
 
-        $this->email->from('info@sportsalmanac.org');
+        $this->email->from('info@betdanger.com');
         $this->email->to($user->email);
-        $this->email->subject('betDANGER! email ' . $user->username . '!');
+        $this->email->subject('betDANGER! email: ' . $user->username . '!');
 
         $data = $user->username . '<br/>';
         $data .= 'Email: ' . $user->email . '<br>';
-        $data .= 'Üzenet: Email verification. Click the below the URL if you registered at Prisca.com <br/>';
+        $data .= 'Üzenet: User verification. Click below the URL if you registered at betDANGER.com <br/>';
         $data .= '<a href="' . base_url('/user/user_verify/' . $user->verify) . '">' . $user->verify . '</a>';
 
         $this->email->message($data);
@@ -131,7 +131,7 @@ class Email extends CI_Controller {
 
                 $config['protocol'] = 'smtp';
                 $config['smtp_host'] = 's7.tarhely.com';
-                $config['smtp_user'] = 'info@sportsalmanac.org';
+                $config['smtp_user'] = 'info@betdanger.com';
                 $config['smtp_pass'] = 'nokedli123';
                 $config['smtp_port'] = 587;
                 $config['smtp_crypto'] = 'tls';
@@ -141,7 +141,7 @@ class Email extends CI_Controller {
 
                 $this->email->initialize($config);
 
-                $this->email->from('info@sportsalmanac.org');
+                $this->email->from('info@betdanger.com');
                 $this->email->to($each_user->email);
                 $this->email->subject('betDANGER! email ' . $each_user->username . '!');
 

@@ -13,7 +13,6 @@ section.profile {
 			border: none;
 
 			a {
-				color: white;
 				text-decoration: none;
 
 				h5 {
@@ -23,13 +22,14 @@ section.profile {
 					span.ti-angle-up {
 						display: inline-block;
 						transition: all .2s linear;
+						color: white;
 					}
 
 				}
 
 				p {
 					margin: 0;
-
+					color: white;
 				}
 
 				//if area expanded true than ti angle up rateted 180 deg
@@ -40,9 +40,18 @@ section.profile {
 
 		}
 
-		input[type=submit]{
+		a#newsletter_btn {
+			color: #17a2b8;
+
+			&:hover {
+				color: #fff;
+			}
+		}
+
+		input[type=submit] {
 			cursor: pointer;
 		}
 	}
 
 }
+

@@ -328,11 +328,16 @@ class User extends CI_Controller {
         echo json_encode($jsonData);
     }
 
+    //a képet nem törli ha profileból lesz törölve a profile és a content
     public function delete_user($user_id) {
         //unset session user data
         $this->unsetUserData();
 
+//        //dlete contents which bounded to the user
+        $this->Content_model->delete_content_by_user_id($user_id);
+
         //delete user profile
         $this->User_model->delete_user($user_id);
+
     }
 }

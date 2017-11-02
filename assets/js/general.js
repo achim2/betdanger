@@ -96,14 +96,14 @@ $(document).ready(function () {
 
 
     //delete confirm
-    $('.del_event_trig').on('click', function (e) {
+    $('.del_content_trig').on('click', function (e) {
 
-        var delModal = $('#del_event_modal');
+        var delModal = $('#del_content_modal');
         var id = $(this).attr("id");
         var eventTitle = $(this).attr("name");
         var tr = $(this);
 
-        $("b#ev_title").empty().append(eventTitle);
+        $("b#content_title").empty().append(eventTitle);
 
         delModal
             .modal({backdrop: 'static', keyboard: true})
@@ -112,7 +112,7 @@ $(document).ready(function () {
                 // window.location.href = DELURL;
 
                 $.ajax({
-                    url: '/events/delete_event/' + id,
+                    url: '/content/delete_content/' + id,
                     success: function (data) {
                         // console.log("siker");
                         delModal.modal('hide');
