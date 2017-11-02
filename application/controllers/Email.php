@@ -97,7 +97,7 @@ class Email extends CI_Controller {
         $data = $user->username . '<br/>';
         $data .= 'Email: ' . $user->email . '<br>';
         $data .= 'Üzenet: Email verification. Click the below the URL if you registered at Prisca.com <br/>';
-        $data .= '<a href="' . base_url('/user/user_verify/' . $user->verify) .'">' . $user->verify . '</a>';
+        $data .= '<a href="' . base_url('/user/user_verify/' . $user->verify) . '">' . $user->verify . '</a>';
 
         $this->email->message($data);
         $this->email->send();
@@ -109,5 +109,60 @@ class Email extends CI_Controller {
         $this->session->set_flashdata('verification_notice', 'Successful registering. You can verify your account at your given email.');
         //redirect hte welcome page
         redirect(base_url());
+    }
+
+    public function send_newsletter() {
+        $jsonData = array();
+
+        $this->form_validation->set_rules('message', 'Message', 'trim|required|min_length[4]|xss_clean');
+
+        if ($this->form_validation->run() == false) {
+            $jsonData['message'] = $this->form_validation->error_array();
+            $jsonData['success'] = false;
+
+        } else {
+
+            $users = $this->User_model->get_user_to_newsletter();
+            $message = $this->input->post('message');
+            //leelenőrizni h nem e üres, stb
+
+            foreach ($users as $each_user) {
+//            var_dump($each_user);
+
+                $config['protocol'] = 'smtp';
+                $config['smtp_host'] = 's7.tarhely.com';
+                $config['smtp_user'] = 'info@sportsalmanac.org';
+                $config['smtp_pass'] = 'nokedli123';
+                $config['smtp_port'] = 587;
+                $config['smtp_crypto'] = 'tls';
+                $config['mailtype'] = 'html';
+
+                $this->load->library('email');
+
+                $this->email->initialize($config);
+
+                $this->email->from('info@sportsalmanac.org');
+                $this->email->to($each_user->email);
+                $this->email->subject('betDANGER! email ' . $each_user->username . '!');
+
+                $data = $each_user->username . '<br/>';
+                $data .= 'Email: ' . $each_user->email . '<br>';
+                $data .= 'Message:' . $message . '<br/>';
+//            $data .= '<a href="' . base_url('/user/user_verify/' . $user->verify) .'">' . $user->verify . '</a>';
+                $data .= '<a href="' . base_url('/user/unsubscribe_from_email/' . md5($each_user->username)) . '">Unsubscribe</a>';
+
+                $this->email->message($data);
+                $this->email->send();
+                $this->email->clear();
+            }
+
+            //send json data
+            $jsonData['message'] = array('info' => 'Sikeres üzenet küldés!');
+            $jsonData['success'] = true;
+
+        }
+
+        echo json_encode($jsonData);
+
     }
 }

@@ -21,6 +21,11 @@
 					<div class="form-group">
 						<input type="password" name="password2" class="form-control" placeholder="Password again">
 					</div>
+					<div class="form-group">
+                        <label class="form-check-label">
+                            <input class="form-check-input" name="newsletter" type="checkbox"> I want to get newsletters.
+                        </label>
+					</div>
 					<div class="form-group clearfix">
 						<input type="submit" class="btn btn-dark float-left" value="Submit">
 						<div class="data-modal-btns text-right">

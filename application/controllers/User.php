@@ -43,6 +43,7 @@ class User extends CI_Controller {
                     'username' => $this->input->post('username'),
                     'email' => $this->input->post('email'),
                     'password' => $encrypted_password,
+                    'newsletter' => $this->input->post('newsletter') == 'on' ? 'yes' : 'no',
                     'ip_address' => $this->input->ip_address(),
                     'verify' => random_string('md5', 16)
                 );
@@ -255,6 +256,36 @@ class User extends CI_Controller {
         echo json_encode($jsonData);
     }
 
+    public function unsubscribe_from_email($encoded_username) {
+        $users = $this->User_model->get_verified_users();
+
+        foreach ($users as $user) {
+            if ($encoded_username == md5($user->username)) {
+                $this->newsletter_sub_change($user->user_id);
+                $this->session->set_flashdata('unsubscribe', 'Successfully unsubscribe from the newsletter.');
+                redirect(base_url());
+
+            } else {
+                $this->session->set_flashdata('unsubscribe', 'Unsubscribe was not successfull. pls contact with the administrator');
+                redirect(base_url());            }
+        }
+    }
+
+    public function newsletter_sub_change($user_id = null) {
+        if ($user_id == null) {
+            $user = $this->User_model->get_user($this->session->userdata('user_id'));
+        } else {
+            $user = $this->User_model->get_user($user_id);
+        }
+
+        if ($user->newsletter == 'yes') {
+            $this->User_model->update_user($user->user_id, array('newsletter' => 'no'));
+
+        } else {
+            $this->User_model->update_user($user->user_id, array('newsletter' => 'yes'));
+        }
+    }
+
     public function delete_user_from_profile() {
         $jsonData = array();
 
@@ -300,9 +331,6 @@ class User extends CI_Controller {
     public function delete_user($user_id) {
         //unset session user data
         $this->unsetUserData();
-
-        //delete the events which bounded to the user
-//        $this->Event_model->delete_event_by_user_id($user_id);
 
         //delete user profile
         $this->User_model->delete_user($user_id);

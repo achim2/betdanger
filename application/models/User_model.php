@@ -42,6 +42,21 @@ class User_model extends CI_Model {
         }
     }
 
+    public function get_verified_users(){
+        $this->db->select('users.*');
+        $this->db->where('verify', 'verified');
+        $query = $this->db->get('users');
+        return $query->result();
+    }
+
+    public function get_user_to_newsletter(){
+        $this->db->select('users.*');
+        $this->db->where('newsletter', 'yes');
+        $this->db->where('verify', 'verified');
+        $query = $this->db->get('users');
+        return $query->result();
+    }
+
     public function delete_user($user_id) {
         $this->db->where('user_id', $user_id);
         $this->db->delete('users');

@@ -109,6 +109,11 @@ if ($this->session->flashdata('profile_deleted')) { ?>
     <p class="flash_alert text-center alert alert-dismissable alert-success"><?php echo $this->session->flashdata('profile_deleted'); ?></p>
     <?php
 }
+
+if ($this->session->flashdata('unsubscribe')) { ?>
+    <p class="flash_alert text-center alert alert-dismissable alert-success"><?php echo $this->session->flashdata('unsubscribe'); ?></p>
+    <?php
+}
 ?>
 
 

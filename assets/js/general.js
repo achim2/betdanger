@@ -95,7 +95,7 @@ $(document).ready(function () {
     //END DROPDOWN
 
 
-    //delete confirm at admin
+    //delete confirm
     $('.del_event_trig').on('click', function (e) {
 
         var delModal = $('#del_event_modal');

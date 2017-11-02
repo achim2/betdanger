@@ -35,10 +35,17 @@
                                 <p><?php echo $this->user->email; ?></p>
                             </a>
                         </div>
-                        <div id="collapseUsername" class="collapse" role="tabpanel" aria-labelledby="headingUsername" data-parent="#accordion">
-                            <div class="card-body">
-                                Group Item #2 body
-                            </div>
+                    </div>
+
+                    <!-- Newsletter sub change -->
+                    <div class="card">
+                        <div class="card-header" role="tab" id="headingUsername">
+                            <a class="collapsed" data-toggle="collapse" href="" aria-expanded="false" aria-controls="collapseUsername">
+                                <h5>
+                                    <span class="text-secondary">Newsletter:</span>
+                                </h5>
+                                <a id="newsletter_btn" class="btn btn-primary"><?php echo $this->user->newsletter == 'yes' ? 'Unsubscribe' : 'Subscribe'; ?></a>
+                            </a>
                         </div>
                     </div>
 
@@ -117,5 +124,24 @@
 
         //ajax delete profile
         general_ajax_call('form#delete_profile', '/user/delete_user_from_profile');
+
+
+        var newsletterBTN = $('#newsletter_btn');
+
+        newsletterBTN.on('click', function () {
+            $.ajax({
+                url: '/user/newsletter_sub_change',
+                success: function (data) {
+                    if (newsletterBTN.text() === 'Subscribe'){
+                        newsletterBTN.html('Unsubscribe');
+                    }else{
+                        newsletterBTN.html('Subscribe');
+                    }
+                },
+                error: function (data) {
+                }
+            })
+        });
+
     });
 </script>
