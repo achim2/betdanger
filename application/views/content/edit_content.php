@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-12">
             <section class="edit_content">
-                <h2 class="text-secondary mb-3">Esemény szerkesztése</h2>
+                <h2 class="text-secondary mb-3">Edit content</h2>
                 <?php echo validation_errors('<p class="text-center alert alert-dismissable alert-danger">') ?>
 
                 <form id="edit_content">
@@ -26,13 +26,6 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="category" class="text-secondary"><b>Category *</b></label>
-                            <select name="category" id="category" class="form-control">
-                                <option value="preview" <?php if ($this->get_content != null && $this->get_content->category == 'preview') echo 'selected'; ?>>preview</option>
-                                <option value="blog" <?php if ($this->get_content != null && $this->get_content->category == 'blog') echo 'selected'; ?>>blog post</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
                             <label for="status" class="text-secondary"><b>Status *</b></label>
                             <select name="status" id="status" class="form-control">
                                 <option value="not public" <?php if ($this->get_content != null && $this->get_content->status == 'not public') echo 'selected'; ?>>not public</option>
@@ -41,8 +34,9 @@
                         </div>
                     </div>
                     <div class="form-group mt-3">
-                        <input type="submit" class="btn btn-success" value="Hozzáadás">
-                        <a class="btn btn-secondary" href="/content">Vissza</a>
+                        <input type="submit" class="btn btn-success" value="Add">
+<!--                        <a class="btn btn-secondary" href="--><?php //echo base_url("/content/" . $this->get_content->category); ?><!--">Back</a>-->
+                        <a class="btn btn-secondary" data-goBack >Back</a>
                     </div>
                 </form>
 
@@ -54,6 +48,6 @@
 <script>
     $(document).ready(function () {
         //ajax edit content
-        general_ajax_call('form#edit_content', '/content/edit_content_process/<?php echo $this->get_content->slug; ?>');
+        general_ajax_call('form#edit_content', '/content/edit_content_process/<?php echo $this->get_content->category . '/' . $this->get_content->slug; ?>');
     })
 </script>

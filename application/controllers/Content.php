@@ -20,13 +20,37 @@ class Content extends CI_Controller {
         return $str;
     }
 
-    public function index() {
-        $this->get_content = $this->Content_model->get_my_content();
+    private function get_nice_category_title($category){
+        //send title to the page
+        switch ($category) {
+            case 'news':
+                $title = 'News';
+                break;
+            case 'previews':
+                $title = 'Previews';
+                break;
+            case 'blog_posts':
+                $title = 'Blog posts';
+                break;
+            default:
+                $title = 'Unknown category';
+                break;
+        }
+
+        return $title;
+    }
+
+    public function index($category) {
+        $this->title = $this->get_nice_category_title($category);
+
+        $this->category = $category;
+        $this->get_content = $this->Content_model->get_my_content($category);
 
         $this->load->view('/layouts/html_start');
         $this->load->view('/content/content');
         $this->load->view('/layouts/html_end');
     }
+
 
     public function file_check($str) {
         $allowed_mime_type_arr = array('application/pdf', 'image/gif', 'image/jpeg', 'image/pjpeg', 'image/png', 'image/x-png');
@@ -47,13 +71,17 @@ class Content extends CI_Controller {
         }
     }
 
-    public function add_content() {
+    public function add_content($category) {
+        $this->title = $this->get_nice_category_title($category);
+
+        $this->category = $category;
+
         $this->load->view('/layouts/html_start');
         $this->load->view('/content/add_content');
         $this->load->view('/layouts/html_end');
     }
 
-    public function add_content_process() {
+    public function add_content_process($category) {
         $jsonData = array();
 
         $this->form_validation->set_rules('title', 'Cím', 'required|min_length[4]');
@@ -83,7 +111,8 @@ class Content extends CI_Controller {
 
                 $info = array(
                     'user_id' => $this->session->userdata('user_id'),
-                    'category' => $this->input->post('category'),
+//                    'category' => $this->input->post('category'),
+                    'category' => $category,
                     'title' => $title,
                     'slug' => $this->get_slug($title),
                     'front_img' => $img,
@@ -96,25 +125,26 @@ class Content extends CI_Controller {
 
                 $jsonData['message'] = array('title' => 'Content successfully added.');
                 $jsonData['success'] = true;
-                $jsonData['redirect'] = "/content";
+                $jsonData['redirect'] = "/content/$category";
             }
         }
 
         echo json_encode($jsonData);
     }
 
-    public function edit_content($slug) {
-        $this->get_content = $this->Content_model->get_my_content($slug);
+    public function edit_content($category, $slug) {
+        $this->get_content = $this->Content_model->get_my_content($category, $slug);
 
         $this->load->view('/layouts/html_start');
         $this->load->view('/content/edit_content');
         $this->load->view('/layouts/html_end');
     }
 
-    public function edit_content_process($slug) {
+    //ha a slug megegyezik egy másik sluggal akkor mind a két contentet felülírja
+    public function edit_content_process($category, $slug) {
         $jsonData = array();
 
-        $this->get_content = $this->Content_model->get_my_content($slug);
+        $this->get_content = $this->Content_model->get_my_content($category, $slug);
 
         $this->form_validation->set_rules('title', 'Cím', 'required|min_length[4]');
         $this->form_validation->set_rules('content', 'Content', 'required');
@@ -161,7 +191,8 @@ class Content extends CI_Controller {
                 'slug' => $this->get_slug($title),
                 'front_img' => $img,
                 'body' => $this->input->post('content'),
-                'category' => $this->input->post('category'),
+//                'category' => $this->input->post('category'),
+                'category' => $category,
                 'status' => $this->input->post('status'),
                 'created_at' => date('Y-m-d H:i:s'),
             );
@@ -170,7 +201,7 @@ class Content extends CI_Controller {
 
             $jsonData['message'] = array('title' => 'Content successfully edited.');
             $jsonData['success'] = true;
-            $jsonData['redirect'] = "/content";
+            $jsonData['redirect'] = "/content/$category";
         }
 
         echo json_encode($jsonData);

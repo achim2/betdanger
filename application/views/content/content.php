@@ -22,9 +22,11 @@
     <div class="row">
         <div class="col-12">
             <section class="content">
+                <h2 class="pb-3"><?php echo $this->title; ?></h2>
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="">
-                        <a class="btn btn-success" href="/content/add_content">Esemény hozzáadása</a>
+<!--                        <a class="btn btn-success" href="--><?php //echo base_url('/content/add_content/' . $this->category); ?><!--">Esemény hozzáadása</a>-->
+                        <a class="btn btn-success" href="<?php echo base_url("/content/$this->category/add_content"); ?>">Esemény hozzáadása</a>
                     </div>
                 </div>
 
@@ -38,7 +40,6 @@
                             <thead>
                             <tr class="bg-danger">
                                 <th class="text-uppercase">Content name</th>
-                                <th class="text-uppercase text-center">category</th>
                                 <th class="text-uppercase text-center">Status</th>
                                 <th class="text-uppercase text-center">Edit</th>
                                 <th class="text-uppercase text-center">Delete</th>
@@ -51,10 +52,10 @@
                                 <tbody>
                                 <tr class="" id="<?php echo $content->content_id; ?>">
                                     <td style="width: 500px;"><?php echo $content->title; ?></td>
-                                    <td class="text-center"><?php echo $content->category; ?></td>
                                     <td class="text-center"><?php echo $content->status; ?></td>
                                     <td class="text-center">
-                                        <a class="text-center text-success" href="<?php echo base_url("/content/edit_content/$content->slug"); ?>"><span class="ti-pencil"></span></a>
+<!--                                        <a class="text-center text-success" href="--><?php //echo base_url("/content/edit_content/$content->category/$content->slug"); ?><!--"><span class="ti-pencil"></span></a>-->
+                                        <a class="text-center text-success" href="<?php echo base_url("/content/$content->category/edit_content/$content->slug"); ?>"><span class="ti-pencil"></span></a>
                                     </td>
                                     <td class="text-center">
                                         <a class="text-center text-danger del_content_trig"

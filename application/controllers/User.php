@@ -333,8 +333,9 @@ class User extends CI_Controller {
         //unset session user data
         $this->unsetUserData();
 
-//        //dlete contents which bounded to the user
-        $this->Content_model->delete_content_by_user_id($user_id);
+        //nem jól működik mert a contenthez tartozó képeket nem törli
+//        //delete contents which bounded to the user
+//        $this->Content_model->delete_content_by_user_id($user_id);
 
         //delete user profile
         $this->User_model->delete_user($user_id);

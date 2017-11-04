@@ -85,7 +85,7 @@ $(document).ready(function () {
             // console.log(allDDParent.children().last().children());
 
             allDDParent.children().last().children().click(function () {
-                allDDParent.children().removeClass('open') ;
+                allDDParent.children().removeClass('open');
             })
 
 
@@ -128,6 +128,11 @@ $(document).ready(function () {
                 });
             })
     });
+
+    $('[data-goBack]').on('click', function () {
+        console.log('clicked');
+        window.history.back();
+    })
 
 
 });
