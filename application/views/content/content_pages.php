@@ -1,8 +1,10 @@
 <div class="container">
     <div class="row">
 
+<!--        <h2>--><?php //echo $this->title; ?><!--</h2>-->
+
         <?php
-        foreach ($this->blog_content as $content) {
+        foreach ($this->get_content as $content) {
             ?>
 
             <div class="col-lg-6 col-xl-4 d-flex justify-content-center">
@@ -13,7 +15,7 @@
                         <!--it shows after hovering-->
                         <div class="project_data">
                             <img class="rarrow" src="/assets/images/rarrow.png">
-                            <p class="readit">Read me!</p>
+                            <p class="readit">Read me!<br> Right now!</p>
                         </div>
                     </div>
                     <!--text-->

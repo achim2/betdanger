@@ -52,7 +52,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 $route['content/(:any)/edit_content/(:any)'] = 'content/edit_content/$1/$2';
 $route['content/(:any)/add_content'] = 'content/add_content/$1';
-$route['content/(:any)'] = 'content/index/$1';
+$route['content/(:any)'] = 'content/content_cms/$1';
+
+$route['blog'] = 'content/content_pages/blog_posts';
+$route['(:any)'] = 'content/content_pages/$1';
 
 $route['default_controller'] = 'welcome';
 $route['404_override'] = '';

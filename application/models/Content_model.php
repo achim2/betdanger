@@ -37,24 +37,24 @@ class Content_model extends CI_Model {
         }
     }
 
-//    public function get_content_to_public($slug = FALSE, $category) {
-//        if ($slug === FALSE) {
-//            $this->db->select('content.*');
-//            $this->db->where('status', 'public');
-//            $this->db->where('category', $category);
-//            $this->db->order_by('content.created_at', 'DESC');
-//            $query = $this->db->get('content');
-//            return $query->result();
-//        }
-//
-//        $this->db->select('content.*');
-//        $this->db->where('slug', $slug);
-//        $this->db->where('status', 'public');
-//        $this->db->where('category', $category);
-//        $this->db->order_by('content.created_at', 'DESC');
-//        $query = $this->db->get('content');
-//        return $query->row();
-//    }
+    public function get_content_to_public($category, $slug = FALSE) {
+        if ($slug === FALSE) {
+            $this->db->select('content.*');
+            $this->db->where('status', 'public');
+            $this->db->where('category', $category);
+            $this->db->order_by('content.created_at', 'DESC');
+            $query = $this->db->get('content');
+            return $query->result();
+        }
+
+        $this->db->select('content.*');
+        $this->db->where('slug', $slug);
+        $this->db->where('status', 'public');
+        $this->db->where('category', $category);
+        $this->db->order_by('content.created_at', 'DESC');
+        $query = $this->db->get('content');
+        return $query->row();
+    }
 
 
     //get content id for delete the image

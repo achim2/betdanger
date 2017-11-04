@@ -6,7 +6,7 @@ class Content extends CI_Controller {
     public function __construct() {
         parent::__construct();
 
-        $this->mylib->auth('administrator');
+//        $this->mylib->auth('administrator');
         $this->load->helper('file');
     }
 
@@ -40,14 +40,24 @@ class Content extends CI_Controller {
         return $title;
     }
 
-    public function index($category) {
+    public function content_cms($category) {
         $this->title = $this->get_nice_category_title($category);
 
         $this->category = $category;
         $this->get_content = $this->Content_model->get_my_content($category);
 
         $this->load->view('/layouts/html_start');
-        $this->load->view('/content/content');
+        $this->load->view('/content/content_cms');
+        $this->load->view('/layouts/html_end');
+    }
+
+    public function content_pages($category){
+        $this->title = $this->get_nice_category_title($category);
+
+        $this->get_content = $this->Content_model->get_content_to_public($category);
+
+        $this->load->view('/layouts/html_start');
+        $this->load->view('/content/content_pages');
         $this->load->view('/layouts/html_end');
     }
 
