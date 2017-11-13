@@ -30,9 +30,10 @@ $this->load->view('/search/search_form');
                 </a>
 
                 <ul class="menu-items">
+                    <li><a <?php echo ($this->uri->segment(1) == '') ? 'class = "active"' : '' ?> href="/">home</a></li>
                     <li><a <?php echo ($this->uri->segment(1) == 'news') ? 'class = "active"' : '' ?> href="/news">news</a></li>
-                    <li><a <?php echo ($this->uri->segment(1) == 'preview') ? 'class = "active"' : '' ?> href="/previews">previews</a></li>
-<!--                    <li><a --><?php //echo ($this->uri->segment(2) == 'tipsters') ? 'class = "active"' : '' ?><!-- href="/tips/tipsters">tipsters</a></li>-->
+                    <li><a <?php echo ($this->uri->segment(1) == 'previews') ? 'class = "active"' : '' ?> href="/previews">previews</a></li>
+                    <!--                    <li><a --><?php //echo ($this->uri->segment(2) == 'tipsters') ? 'class = "active"' : '' ?><!-- href="/tips/tipsters">tipsters</a></li>-->
                     <li><a <?php echo ($this->uri->segment(1) == 'blog') ? 'class = "active"' : '' ?> href="/blog">blog</a></li>
                 </ul>
             </li>
@@ -61,13 +62,19 @@ $this->load->view('/search/search_form');
                         if ($user_type === 'moderator') {
                             echo "<a href=" . base_url('/admin') . ">admin</a>";
                         }
+
+                        if (($user_type === 'administrator') || ($user_type === 'moderator')) {
+                            echo "<a href='/content/news'>my news</a>";
+                            echo "<a href='/content/previews'>my previews</a>";
+                            echo "<a href='/content/blog'>my blog posts</a>";
+                        }
+
+                        if (($user_type === 'user') || ($user_type ==='administrator') || ($user_type === 'moderator')) {
+                            echo "<a href='/user/profile'>profile</a>";
+                            echo "<a href='/tips/my_tips'>my tips</a>";
+                            echo "<a href='/user/logout'>log out</a>";
+                        }
                         ?>
-                        <a href="<?php echo base_url('/content/news'); ?>">my news</a>
-                        <a href="/content/previews">my previews</a>
-                        <a href="/content/blog_posts">my blog posts</a>
-<!--                        <a href="/tips/my_tips">my tips</a>-->
-                        <a href="/user/profile">profile</a>
-                        <a href="/user/logout">log out</a>
                     </div>
                 </li>
 

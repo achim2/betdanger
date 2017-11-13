@@ -54,9 +54,14 @@ $route['content/(:any)/edit_content/(:any)'] = 'content/edit_content/$1/$2';
 $route['content/(:any)/add_content'] = 'content/add_content/$1';
 $route['content/(:any)'] = 'content/content_cms/$1';
 
-$route['blog'] = 'content/content_pages/blog_posts';
-$route['(:any)'] = 'content/content_pages/$1';
+$route['news/(:any)'] = 'content/content_page/news/$1';
+$route['previews/(:any)'] = 'content/content_page/previews/$1';
+$route['blog/(:any)'] = 'content/content_page/blog/$1';
 
-$route['default_controller'] = 'welcome';
+$route['news'] = 'content/content_category/news';
+$route['previews'] = 'content/content_category/previews';
+$route['blog'] = 'content/content_category/blog';
+
+$route['default_controller'] = 'content/content_welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

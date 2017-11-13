@@ -9,45 +9,143 @@ footer {
 	flex-direction: column;
 
 	section.footer-top {
-		height: 50px;
 		background-color: $FOOTER_TOP_BG;
 		color: $FOOTER_TOP_TEXT;
 
-		ul {
-			margin: 0;
-			padding: 0;
-			border: none;
-			list-style-type: none;
-			height: 50px;
-
+		div.top-wrapper {
 			display: flex;
 			align-items: center;
-			justify-content: center;
+			justify-content: space-between;
+			height: 50px;
 
-			li a {
-				transition: all .2s linear;
-				padding: 0 15px;
-				color: $FOOTER_TOP_TEXT;
-				text-decoration: none;
+			//footer nav
+			ul.footer-nav {
+				margin: 0;
+				padding: 0;
+				border: none;
+				list-style-type: none;
+				height: 50px;
 
-				&:hover{
-					color: white;
+				display: flex;
+				align-items: center;
+				justify-content: flex-start;
+
+				li a {
+					transition: all .2s linear;
+					padding: 0 15px;
+					color: $FOOTER_TOP_TEXT;
+					text-decoration: none;
+
+					&:hover {
+						color: white;
+					}
+				}
+			}
+
+			//social icons //
+			ul.social_icons {
+				margin: 0;
+				padding: 0;
+				display: flex;
+				visibility: visible;
+				opacity: 1;
+				transition: all .3s ease-in;
+
+				li {
+					list-style-type: none;
+
+					a {
+						@include setAnchorSelector {
+							font-size: 1em;
+							height: 50px;
+							text-decoration: none;
+							display: flex;
+							align-items: center;
+							padding: 0 10px;
+							width: 50px;
+							transition: width 0.4s, background-color 0.4s;
+
+							&.facebook {
+								color: $FACEBOOK_COLOR;
+							}
+
+							&.twitter {
+								color: $TWITTER_COLOR;
+							}
+
+							&.pinterest {
+								color: $PINTEREST_COLOR;
+							}
+
+							&.instagram {
+								color: $INSTAGRAM_COLOR;
+							}
+
+							////icon settings
+							span {
+								padding: 0 5px;
+							}
+
+							//text settings
+							p {
+								padding-right: 5px;
+								margin-bottom: 0;
+								display: none;
+								overflow: hidden;
+							}
+
+							//hover settings
+							@media (min-width: 992px) {
+								&:hover {
+									color: white;
+
+									&.facebook {
+										background-color: $FACEBOOK_COLOR;
+										width: 118.5px;
+									}
+
+									&.twitter {
+										background-color: $TWITTER_COLOR;
+										width: 99px;
+									}
+
+									&.pinterest {
+										background-color: $PINTEREST_COLOR;
+										width: 113px;
+									}
+
+									&.instagram {
+										background-color: $INSTAGRAM_COLOR;
+										width: 121.5px;
+									}
+
+									//text settings
+									p {
+										display: block;
+										color: white;
+									}
+								}
+							}
+						}
+					}
 				}
 			}
 		}
 	}
 
 	section.footer-bottom {
-		height: 50px;
 		background-color: $FOOTER_BOTTOM_BG;
 		color: $FOOTER_BOTTOM_TEXT;
 
-		p.brand {
-			margin-bottom: 0;
-			height: 50px;
+		div.bottom-wrapper {
 			display: flex;
 			align-items: center;
 			justify-content: center;
+			height: 50px;
+
+			p.brand {
+				margin-bottom: 0;
+			}
 		}
 
 	}

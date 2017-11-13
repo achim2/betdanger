@@ -20,28 +20,19 @@ class Content extends CI_Controller {
         return $str;
     }
 
-    private function get_nice_category_title($category){
-        //send title to the page
-        switch ($category) {
-            case 'news':
-                $title = 'News';
-                break;
-            case 'previews':
-                $title = 'Previews';
-                break;
-            case 'blog_posts':
-                $title = 'Blog posts';
-                break;
-            default:
-                $title = 'Unknown category';
-                break;
-        }
+    public function content_welcome() {
+        $this->categories = array('news', 'previews', 'blog');
+        $this->get_content = $this->Content_model->get_content_to_public();
 
-        return $title;
+        $this->load->view('/layouts/html_start');
+        $this->load->view('/content/content_welcome');
+        $this->load->view('/layouts/html_end');
     }
 
     public function content_cms($category) {
-        $this->title = $this->get_nice_category_title($category);
+        $this->mylib->auth('administrator');
+
+        $this->title = $this->mylib->get_nice_category_title($category);
 
         $this->category = $category;
         $this->get_content = $this->Content_model->get_my_content($category);
@@ -51,16 +42,24 @@ class Content extends CI_Controller {
         $this->load->view('/layouts/html_end');
     }
 
-    public function content_pages($category){
-        $this->title = $this->get_nice_category_title($category);
+    public function content_category($category) {
+        $this->title = $this->mylib->get_nice_category_title($category);
 
-        $this->get_content = $this->Content_model->get_content_to_public($category);
+        $this->get_content = $this->Content_model->get_cat_content_to_public($category);
 
         $this->load->view('/layouts/html_start');
-        $this->load->view('/content/content_pages');
+        $this->load->view('/content/content_category');
         $this->load->view('/layouts/html_end');
     }
 
+    public function content_page($category, $slug) {
+        $this->title = $this->mylib->get_nice_category_title($category);
+        $this->get_content = $this->Content_model->get_cat_content_to_public($category, $slug);
+
+        $this->load->view('/layouts/html_start');
+        $this->load->view('/content/content_page');
+        $this->load->view('/layouts/html_end');
+    }
 
     public function file_check($str) {
         $allowed_mime_type_arr = array('application/pdf', 'image/gif', 'image/jpeg', 'image/pjpeg', 'image/png', 'image/x-png');
@@ -82,7 +81,9 @@ class Content extends CI_Controller {
     }
 
     public function add_content($category) {
-        $this->title = $this->get_nice_category_title($category);
+        $this->mylib->auth('administrator');
+
+        $this->title = $this->mylib->get_nice_category_title($category);
 
         $this->category = $category;
 
@@ -92,6 +93,8 @@ class Content extends CI_Controller {
     }
 
     public function add_content_process($category) {
+        $this->mylib->auth('administrator');
+
         $jsonData = array();
 
         $this->form_validation->set_rules('title', 'Cím', 'required|min_length[4]');
@@ -143,6 +146,8 @@ class Content extends CI_Controller {
     }
 
     public function edit_content($category, $slug) {
+        $this->mylib->auth('administrator');
+
         $this->get_content = $this->Content_model->get_my_content($category, $slug);
 
         $this->load->view('/layouts/html_start');
@@ -152,6 +157,8 @@ class Content extends CI_Controller {
 
     //ha a slug megegyezik egy másik sluggal akkor mind a két contentet felülírja
     public function edit_content_process($category, $slug) {
+        $this->mylib->auth('administrator');
+
         $jsonData = array();
 
         $this->get_content = $this->Content_model->get_my_content($category, $slug);
@@ -218,11 +225,14 @@ class Content extends CI_Controller {
     }
 
     public function delete_content($content_id) {
+        $this->mylib->auth('administrator');
+
         $content = $this->Content_model->get_content_by_id($content_id);
 
         //the user can del just the own contents
         if ($content->user_id == $this->session->userdata("user_id")) {
             $this->delete_img_file($content->front_img);
+            $this->del_com_by_content($content_id);
             $this->Content_model->delete_content($content_id);
 
         } else {
@@ -239,4 +249,50 @@ class Content extends CI_Controller {
             //echo $file.'file deleted';
         }
     }
+
+    //COMMENTS PART
+    public function add_comment_process($content_id) {
+        $jsonData = array();
+
+        $this->form_validation->set_rules('comment', 'Comment', 'required|min_length[4]');
+
+        if ($this->form_validation->run() === FALSE) {
+            $jsonData['message'] = $this->form_validation->error_array();
+            $jsonData['success'] = false;
+
+        } else {
+
+            $info = array(
+                'user_id' => $this->session->userdata('user_id'),
+                'content_id' => $content_id,
+                'body' => $this->input->post('comment'),
+                'created_at' => date('Y-m-d H:i:s'),
+            );
+
+            $this->Content_model->add_comment($info);
+
+            $jsonData['comment'] = $this->Content_model->get_comments($content_id);
+
+            $jsonData['message'] = array('title' => 'Comment successfully added.');
+            $jsonData['success'] = true;
+
+        }
+
+        echo json_encode($jsonData);
+    }
+
+    public function get_comments($content_id){
+        $jsonData = array();
+        $jsonData['comment'] = $this->Content_model->get_comments($content_id);
+        echo json_encode($jsonData);
+    }
+
+    public function del_com_by_content($content_id){
+        $this->Content_model->delete_comment_by_content($content_id);
+    }
+
+    public function del_com_by_user($comment_id){
+        $this->Content_model->delete_comment_by_user($comment_id);
+    }
+
 }

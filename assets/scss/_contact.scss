@@ -1,9 +1,8 @@
 section.contact {
-	@include section-general;
-		background-color: $FOOTER_TOP_BG;
+	@include custom_section;
 
-	p{
-		color: $FOOTER_TOP_TEXT;
+	p {
+		color: $general_text_color;
 	}
 
 	form {

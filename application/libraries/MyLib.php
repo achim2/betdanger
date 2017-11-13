@@ -6,8 +6,6 @@ class MyLib {
     protected $scripts = array();
     protected $styles = array();
 
-//    public $user_db_type = 'permission missing';
-
     function __construct() {
         //now ci == $this
         $this->ci =& get_instance();
@@ -47,7 +45,7 @@ class MyLib {
         $moderator = 'moderator';
 
         //if user type from db not isset
-        if (isset($user_type) && $user_type != null && $user_type != '') {
+        if ((isset($user_type)) && ($user_type != null) && ($user_type != '')) {
             //for debug
             $string = 'Permission level: ' . $permission_level . ', user type: ' . $user_type . ', result: ';
 
@@ -78,6 +76,26 @@ class MyLib {
             redirect(base_url());
         }
 
+    }
+
+    public function get_nice_category_title($category) {
+        //send title to the page
+        switch ($category) {
+            case 'news':
+                $title = 'News';
+                break;
+            case 'previews':
+                $title = 'Previews';
+                break;
+            case 'blog':
+                $title = 'Blog posts';
+                break;
+            default:
+                $title = 'Unknown category';
+                break;
+        }
+
+        return $title;
     }
 
 

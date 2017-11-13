@@ -23,25 +23,19 @@ class Admin extends CI_Controller {
         $this->load->view('/layouts/html_end');
     }
 
+    public function content() {
+
+        $this->load->view('/layouts/html_start');
+        $this->load->view('/admin/content');
+        $this->load->view('/layouts/html_end');
+    }
+
     public function newsletters() {
-        $this->users = $this->User_model->get_user_to_newsletter();
+
+        $this->users = $this->User_model->get_users_to_admin();
 
         $this->load->view('/layouts/html_start');
         $this->load->view('/admin/newsletters');
-        $this->load->view('/layouts/html_end');
-    }
-
-    public function blog_posts() {
-
-        $this->load->view('/layouts/html_start');
-        $this->load->view('/admin/blog_posts');
-        $this->load->view('/layouts/html_end');
-    }
-
-    public function previews() {
-
-        $this->load->view('/layouts/html_start');
-        $this->load->view('/admin/previews');
         $this->load->view('/layouts/html_end');
     }
 

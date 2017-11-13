@@ -44,6 +44,5 @@ if ($this->uri->segment(1) == 'admin'){
 }else{
     echo "<body>";
     $this->load->view('/layouts/main/header');
-    echo "<main>";
 }
 ?>

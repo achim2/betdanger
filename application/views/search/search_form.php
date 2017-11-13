@@ -49,14 +49,14 @@
 //                    console.log(data.url);
                         $.each(data.result, function (i, value) {
                             console.log(value);
-                            output.show().append('<a href="' + data.url + value.slug + '" class="searched-item">' + value.title + '</a>');
+                            output.show().append('<a href="' + data.url + value.category + "/" + value.slug + '" class="searched-item">' + value.title + '</a>');
                         });
 
                     },
                     error: function (data, status, xhr) {
                         console.log('ERROR');
-//                        console.log(data);
-//                        console.log(status);
+                        console.log(data);
+                        console.log(status);
 //                        console.log(xhr);
                     }
                 })

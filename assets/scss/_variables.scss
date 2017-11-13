@@ -3,6 +3,9 @@ $GUNMENTAL: #233237;
 $RUSTY_RED: #984B43;
 $WARM_YELLOW: #EAC67A;
 
+$general_text_color: #606068;
+$layout_bg: rgba(0, 0, 0, 0.1);
+
 //footer bg color
 $FOOTER_TOP_BG: #2a2a2a;
 //footer top text_color
@@ -62,8 +65,7 @@ $INSTAGRAM_COLOR: #568dba;
 	background: linear-gradient(to $pos, $left-col , $right-col); /* Standard syntax */
 }
 
-
-@mixin section-general{
-	border-radius: 6px;
-	padding: 15px;
+@mixin custom-section{
+	background-color: white;
+	padding: 10px;
 }

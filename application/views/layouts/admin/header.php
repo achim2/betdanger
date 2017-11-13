@@ -16,10 +16,7 @@
             <a href="/admin/users">Users</a>
         </li>
         <li>
-            <a href="/admin/previews">Previews</a>
-        </li>
-        <li>
-            <a href="/admin/blog_posts">Blog posts</a>
+            <a href="/admin/content">Content</a>
         </li>
         <li>
             <a href="/admin/newsletters">Newsletter</a>

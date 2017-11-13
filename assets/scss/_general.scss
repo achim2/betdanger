@@ -9,10 +9,9 @@ html {
 }
 
 body {
-	background-color: $RUSTY_RED;
-	margin-top: 56px; //navbar = 56px
+	margin-top: 56px; //navbar-height = 56px
 	@include footer-height(100px); //footer height
-	display: block;
+	background: url("/assets/images/pattern-way-you-love-me.png");
 
 }
 
@@ -20,10 +19,25 @@ p.flash_alert {
 	border-radius: 0 !important;
 }
 
-main{
-	padding: 30px 0;
-}
-
 .modal-backdrop.show {
 	opacity: 0.85;
+}
+
+.container {
+	@media (max-width: 991px) {
+		max-width: 991px !important;
+		width: 100% !important;
+	}
+}
+
+main,
+aside{
+	margin: 15px 0;
+}
+
+.section-name{
+	background-color: $FOOTER_TOP_BG;
+	color: $RUSTY_RED;
+	padding: 5px 5px 5px 20px;
+	margin-bottom: 0;
 }

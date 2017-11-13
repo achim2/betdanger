@@ -5,12 +5,12 @@ class Search_model extends CI_Model {
         parent::__construct();
     }
 
-    public function get_search_results($search_term = 'default', $status = 'public')
+    public function get_search_results($search_term = '')
     {
         // Use the Active Record class for safer queries.
         $this->db->select('*');
-        $this->db->from('events');
-        $this->db->where('status', $status);
+        $this->db->from('content');
+        $this->db->where('status', 'public');
         $this->db->group_start();
 //        $this->db->join('post_tags_relationship AS ptr', 'ptr.tag_id = tags.tag_id');
 //        $this->db->join('posts', 'ptr.post_id = posts.post_id');
