@@ -46,7 +46,6 @@ main {
 		margin-bottom: 10px;
 
 		.section-name {
-			margin: 0 0 6px 0;
 			font-size: 1.7em;
 		}
 
@@ -55,56 +54,10 @@ main {
 			flex-wrap: wrap;
 
 			//smaller
-			a.welcome-short-article {
-				margin: 0 0 6px 6px;
-				width: 403.5px;
-				overflow: hidden;
-				text-decoration: none;
-				display: flex;
-				color: $general_text_color;
-				transition: all .2s ease;
-				background-color: $layout_bg;
-
-				&:nth-child(2n + 1) {
-					margin-left: 6px;
-				}
-
-				img {
-					width: 120px;
-					height: 100px;
-				}
-
-				div.short-article-inner {
-					padding-left: 7.5px;
-
-					p {
-						margin: 0;
-
-						&.title {
-							font-weight: 700;
-						}
-
-						&.body {
-							margin-bottom: 0;
-						}
-
-						&.bottom-info {
-							display: none;
-						}
-					}
-
-				}
-			}
-
-			//bigger
-
 			a.category-short-article,
-				//first of three short article
-			a.welcome-short-article:nth-child(1),
-			a.welcome-short-article:nth-child(2),
-			a.welcome-short-article:nth-child(3) {
-				margin: 0 0 6px 6px;
-				max-width: 267px;
+			a.welcome-short-article {
+				margin: 0 0 1% 1%;
+				max-width: 32%;
 				overflow: hidden;
 				text-decoration: none;
 				display: block;
@@ -112,8 +65,51 @@ main {
 				transition: all .2s ease;
 				background-color: $layout_bg;
 
+				//min width 992px
+				//every third child
 				&:nth-child(3n) {
-					margin-right: 6px;
+					@media (min-width: 992px) {
+						margin-right: 1%;
+					}
+				}
+
+				//first, second and third child
+				&:nth-child(-n+3) {
+					@media (min-width: 992px) {
+						margin-top: 1%;
+					}
+				}
+
+				//min-width 768
+				@media (max-width: 991px) {
+					max-width: 47.75%;
+					margin: 0 0 1.5% 1.5%;
+				}
+
+				//every second child
+				&:nth-child(2n) {
+					@media (max-width: 991px) and (min-width: 576px) {
+						margin-right: 1.5%;
+					}
+				}
+
+				//first + second child
+				&:nth-child(-n+2) {
+					@media (max-width: 991px) and (min-width: 576px) {
+						margin-top: 1.5%;
+					}
+				}
+
+				//max-width 767
+				@media (max-width: 767px) {
+					max-width: 96%;
+					margin: 0 0 2% 2%;
+				}
+
+				&:first-child {
+					@media (max-width: 767px) {
+						margin-top: 2%;
+					}
 				}
 
 				&:hover img {
@@ -128,6 +124,8 @@ main {
 
 				div.short-article-inner {
 					padding: 5px;
+					position: relative;
+					min-height: 140px;
 
 					p {
 						margin: 0;
@@ -138,10 +136,15 @@ main {
 						}
 
 						&.body {
-							margin-bottom: 5px;
+							margin-bottom: 25px;
 						}
 
 						&.bottom-info {
+							position: absolute;
+							bottom: 0;
+							left: 0;
+							right: 0;
+							padding: 0 5px 5px 5px;
 							display: flex;
 							justify-content: space-between;
 							font-size: 0.8em;

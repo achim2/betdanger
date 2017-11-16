@@ -63,7 +63,8 @@ $this->load->view('/search/search_form');
                             echo "<a href=" . base_url('/admin') . ">admin</a>";
                         }
 
-                        if (($user_type === 'administrator') || ($user_type === 'moderator')) {
+//                        if (($user_type === 'administrator') || ($user_type === 'moderator')) {
+                        if (($user_type === 'user') || ($user_type ==='administrator') || ($user_type === 'moderator')) {
                             echo "<a href='/content/news'>my news</a>";
                             echo "<a href='/content/previews'>my previews</a>";
                             echo "<a href='/content/blog'>my blog posts</a>";
@@ -71,7 +72,7 @@ $this->load->view('/search/search_form');
 
                         if (($user_type === 'user') || ($user_type ==='administrator') || ($user_type === 'moderator')) {
                             echo "<a href='/user/profile'>profile</a>";
-                            echo "<a href='/tips/my_tips'>my tips</a>";
+//                            echo "<a href='/tips/my_tips'>my tips</a>";
                             echo "<a href='/user/logout'>log out</a>";
                         }
                         ?>

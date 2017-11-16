@@ -45,6 +45,7 @@ nav.custom-navbar {
 	top: 0;
 	left: 0;
 	right: 0;
+		height: 56px;
 
 	div.navbar-container {
 		width: 100%;
@@ -101,11 +102,12 @@ nav.custom-navbar {
 
 					@media (max-width: 991px) {
 						position: fixed;
-						top: 57px;
+						top: 56px;
 						left: 0;
 						right: 0;
 						background-color: $FOOTER_BOTTOM_BG;
 						display: block;
+						border-top: 1px solid $RUSTY_RED;
 
 						visibility: hidden;
 						opacity: 0;
@@ -191,11 +193,12 @@ nav.custom-navbar {
 					overflow: hidden;
 
 					position: absolute;
-					top: 57px;
+					top: 56px;
 					right: 0;
 					min-width: 135px;
 					background-color: $FOOTER_TOP_BG;
 					border-radius: 0 0 6px 6px;
+					border-top: 1px solid $RUSTY_RED;
 
 					transition: opacity .3s linear;
 
@@ -267,12 +270,14 @@ section.search {
 		}
 	}
 
-	div.search-output {
+	.search-output {
 		//background-color: $light;
+		padding: 6px 12px;
 
 		a.searched-item {
 			@include setAnchorSelector {
 				display: block;
+
 			}
 		}
 	}

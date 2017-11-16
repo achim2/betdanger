@@ -30,7 +30,7 @@ class Content extends CI_Controller {
     }
 
     public function content_cms($category) {
-        $this->mylib->auth('administrator');
+//        $this->mylib->auth('administrator');
 
         $this->title = $this->mylib->get_nice_category_title($category);
 
@@ -81,7 +81,7 @@ class Content extends CI_Controller {
     }
 
     public function add_content($category) {
-        $this->mylib->auth('administrator');
+//        $this->mylib->auth('administrator');
 
         $this->title = $this->mylib->get_nice_category_title($category);
 
@@ -93,7 +93,7 @@ class Content extends CI_Controller {
     }
 
     public function add_content_process($category) {
-        $this->mylib->auth('administrator');
+//        $this->mylib->auth('administrator');
 
         $jsonData = array();
 
@@ -146,7 +146,7 @@ class Content extends CI_Controller {
     }
 
     public function edit_content($category, $slug) {
-        $this->mylib->auth('administrator');
+//        $this->mylib->auth('administrator');
 
         $this->get_content = $this->Content_model->get_my_content($category, $slug);
 
@@ -155,9 +155,9 @@ class Content extends CI_Controller {
         $this->load->view('/layouts/html_end');
     }
 
-    //ha a slug megegyezik egy másik sluggal akkor mind a két contentet felülírja
+    // javítani //ha a slug megegyezik egy másik sluggal akkor mind a két contentet felülírja
     public function edit_content_process($category, $slug) {
-        $this->mylib->auth('administrator');
+//        $this->mylib->auth('administrator');
 
         $jsonData = array();
 
@@ -225,7 +225,7 @@ class Content extends CI_Controller {
     }
 
     public function delete_content($content_id) {
-        $this->mylib->auth('administrator');
+//        $this->mylib->auth('administrator');
 
         $content = $this->Content_model->get_content_by_id($content_id);
 

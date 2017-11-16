@@ -34,25 +34,33 @@
 
         <div class="col-xl-3">
             <aside>
-                <div class="categories">
-                    <h4 class="section-name">daily bets</h4>
-                    <ul>
-                        <li><a href="#">Maecenas</a></li>
-                        <li><a href="#">Pellentesque</a></li>
-                    </ul>
-                </div>
+                <div class="row">
 
-                <div class="categories">
-                    <h4 class="section-name">useful tools</h4>
-                    <ul>
-                        <li><a href="#">Maecenas</a></li>
-                        <li><a href="#">Pellentesque</a></li>
-                        <li><a href="#">Donec</a></li>
-                        <li><a href="#">Etiam</a></li>
-                        <li><a href="#">Integer</a></li>
-                        <li><a href="#">Lorem</a></li>
-                        <li><a href="#">Proin</a></li>
-                    </ul>
+                    <div class="col-sm-6 col-xl-12">
+                        <div class="categories">
+                            <h4 class="section-name">daily bets</h4>
+                            <ul>
+                                <li><a href="#">Maecenas</a></li>
+                                <li><a href="#">Pellentesque</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-xl-12">
+                        <div class="categories">
+                            <h4 class="section-name">useful tools</h4>
+                            <ul>
+                                <li><a href="#">Maecenas</a></li>
+                                <li><a href="#">Pellentesque</a></li>
+                                <li><a href="#">Donec</a></li>
+                                <li><a href="#">Etiam</a></li>
+                                <li><a href="#">Integer</a></li>
+                                <li><a href="#">Lorem</a></li>
+                                <li><a href="#">Proin</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
                 </div>
 
             </aside>

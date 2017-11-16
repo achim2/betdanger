@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-10">
+        <div class="col-md-10">
 
             <main>
 
@@ -61,9 +61,10 @@
                                         <span class="text-warning">Change password</span>
                                         <span class="ti-angle-up"></span>
                                     </h5>
-                                    <div class="d-flex ">
-                                        <p class="mr-1">Your password is not safe? Change below your password or send a message within our </p>
-                                        <a class="text-primary" href="/contact">contact form.</a>
+                                    <div class="">
+                                        <p class="mr-1">Your password is not safe? Change below your password or send a message within our
+                                            <a class="text-primary" href="/contact">contact form.</a>
+                                        </p>
                                     </div>
                                 </a>
                             </div>

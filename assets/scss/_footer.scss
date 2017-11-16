@@ -7,9 +7,10 @@ footer {
 	overflow: hidden;
 	display: flex;
 	flex-direction: column;
+	background-color: $FOOTER_TOP_BG;
 
 	section.footer-top {
-		background-color: $FOOTER_TOP_BG;
+		//background-color: $FOOTER_TOP_BG;
 		color: $FOOTER_TOP_TEXT;
 
 		div.top-wrapper {
@@ -17,6 +18,12 @@ footer {
 			align-items: center;
 			justify-content: space-between;
 			height: 50px;
+
+			@media (max-width: 767px) {
+				height: 200px;
+				flex-direction: column;
+				padding: 25px 0 0 0;
+			}
 
 			//footer nav
 			ul.footer-nav {
@@ -30,11 +37,19 @@ footer {
 				align-items: center;
 				justify-content: flex-start;
 
+				@media (max-width: 767px) {
+					flex-direction: column;
+				}
+
 				li a {
 					transition: all .2s linear;
 					padding: 0 15px;
 					color: $FOOTER_TOP_TEXT;
 					text-decoration: none;
+					
+					@media (max-width: 767px) {
+						display: block;
+					}
 
 					&:hover {
 						color: white;
