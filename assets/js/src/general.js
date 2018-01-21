@@ -2,7 +2,6 @@ $(document).ready(function () {
 
     //Bootstrap modal from another modal
     //make a trigger
-
     trigger = $('a[data-modal-close]');
     trigger.click(function (e) {
         e.preventDefault();

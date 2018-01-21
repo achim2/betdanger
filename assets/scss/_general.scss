@@ -11,7 +11,8 @@ html {
 body {
 	margin-top: 56px; //navbar-height = 56px
 	@include footer-height(100px); //footer height
-	background: url("/assets/images/pattern-way-you-love-me.png");
+	background: #5e5e5e;
+	//background: url("/assets/images/pattern-way-you-love-me.png");
 	//background: url("/assets/images/pattern-bring-that-back.png");
 
 	@media (max-width: 767px) {
