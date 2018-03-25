@@ -1,28 +1,41 @@
+<!--admin header-->
+
 <nav class="admin-nav">
 
-    <a class="admin-brand" href="/admin/users">bD-Admin</a>
+    <a class="brand-name" href="/admin/users">bD-Admin</a>
 
     <ul class="user-info">
         <li>
-            <a>Logged in: <?php echo $this->session->userdata('username'); ?></a>
+            <a class="username">Logged in: <?php echo $this->session->userdata('username'); ?></a>
         </li>
         <li>
             <a href="<?php echo base_url('/user/logout'); ?>">Log Out</a>
         </li>
     </ul>
 
-    <ul class="panel-dd">
+    <ul class="nav-links">
         <li>
             <a href="/admin/users">Users</a>
         </li>
         <li>
-            <a href="/admin/content">Content</a>
+            <a>Cms</a>
+            <ul class="nav-sub-links">
+                <li>
+                    <a href="/admin/cms/categories">Category</a>
+                </li>
+                <li>
+                    <a href="/admin/cms/content">Content</a>
+                </li>
+            </ul>
         </li>
         <li>
             <a href="/admin/newsletters">Newsletter</a>
         </li>
+    </ul>
+
+    <ul class="back-page">
         <li>
-            <a href="/">back to main page</a>
+            <a href="/">Main page</a>
         </li>
     </ul>
 </nav>

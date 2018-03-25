@@ -30,6 +30,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     ?>
 
 </head>
-<body>
-<?php $this->load->view('/layouts/main/header'); ?>
-<main>
+<body class="<?php echo ($this->uri->segment(1)) ? 'page-' . $this->uri->segment(1) : ''; ?>
+<?php echo ($this->uri->segment(2)) ? ' page-' . $this->uri->segment(1) . '-' . $this->uri->segment(2) : ''; ?>"
+>

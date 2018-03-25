@@ -77,4 +77,14 @@ class MyLib {
         }
 
     }
+
+    public function get_slug($str) {
+        $str = convert_accented_characters($str);
+        $str = word_limiter($str, '4', '');
+        $str = strtolower($str);
+        $cleaning = array(',', '.', '\'', '"', ' ', '!', '_', '#', '<', '>', '/');
+        $str = str_replace($cleaning, '-', $str);
+
+        return $str;
+    }
 }

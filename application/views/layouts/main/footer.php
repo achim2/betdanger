@@ -1,3 +1,5 @@
+</main>
+
 <footer>
     <section class="footer-top py-4 py-lg-5">
         <div class="container">

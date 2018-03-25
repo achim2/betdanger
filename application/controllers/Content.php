@@ -10,26 +10,28 @@ class Content extends CI_Controller {
         $this->load->helper('file');
     }
 
-    private function get_slug($str) {
-        $str = convert_accented_characters($str);
-        $str = word_limiter($str, '4', '');
-        $str = strtolower($str);
-        $cleaning = array(',', '.', '\'', '"', ' ', '!', '_', '#', '<', '>', '/');
-        $str = str_replace($cleaning, '-', $str);
+//    private function get_slug($str) {
+//        $str = convert_accented_characters($str);
+//        $str = word_limiter($str, '4', '');
+//        $str = strtolower($str);
+//        $cleaning = array(',', '.', '\'', '"', ' ', '!', '_', '#', '<', '>', '/');
+//        $str = str_replace($cleaning, '-', $str);
+//
+//        return $str;
+//    }
 
-        return $str;
-    }
-
-    public function content_welcome() {
+    public function welcome() {
         $this->categories = array('news', 'previews', 'blog');
         $this->get_content = $this->Content_model->get_content_to_public();
 
         $this->load->view('/layouts/html_start');
-        $this->load->view('/content/content_welcome');
+        $this->load->view('/layouts/main/header');
+        $this->load->view('/content/welcome');
+        $this->load->view('/layouts/main/footer');
         $this->load->view('/layouts/html_end');
     }
 
-    public function content_cms($category) {
+    public function cms($category) {
 //        $this->mylib->auth('administrator');
 
         $this->category = $category;
@@ -57,87 +59,87 @@ class Content extends CI_Controller {
         $this->load->view('/layouts/html_end');
     }
 
-    public function file_check($str) {
-        $allowed_mime_type_arr = array('application/pdf', 'image/gif', 'image/jpeg', 'image/pjpeg', 'image/png', 'image/x-png');
-        $mime = get_mime_by_extension($_FILES['image_file']['name']);
+//    public function file_check($str) {
+//        $allowed_mime_type_arr = array('application/pdf', 'image/gif', 'image/jpeg', 'image/pjpeg', 'image/png', 'image/x-png');
+//        $mime = get_mime_by_extension($_FILES['image_file']['name']);
+//
+//        if (isset($_FILES['image_file']['name']) && $_FILES['image_file']['name'] != "") {
+//
+//            if (in_array($mime, $allowed_mime_type_arr)) {
+//                return true;
+//            } else {
+//                $this->form_validation->set_message('file_check', 'Please select only pdf/gif/jpg/png file.');
+//                return false;
+//            }
+//
+//        } else {
+//            $this->form_validation->set_message('file_check', 'Please choose a file to upload.');
+//            return false;
+//        }
+//    }
 
-        if (isset($_FILES['image_file']['name']) && $_FILES['image_file']['name'] != "") {
+//    public function add_content($category) {
+////        $this->mylib->auth('administrator');
+//
+//        $this->category = $category;
+//
+//        $this->load->view('/layouts/html_start');
+//        $this->load->view('/content/add_content');
+//        $this->load->view('/layouts/html_end');
+//    }
 
-            if (in_array($mime, $allowed_mime_type_arr)) {
-                return true;
-            } else {
-                $this->form_validation->set_message('file_check', 'Please select only pdf/gif/jpg/png file.');
-                return false;
-            }
-
-        } else {
-            $this->form_validation->set_message('file_check', 'Please choose a file to upload.');
-            return false;
-        }
-    }
-
-    public function add_content($category) {
-//        $this->mylib->auth('administrator');
-
-        $this->category = $category;
-
-        $this->load->view('/layouts/html_start');
-        $this->load->view('/content/add_content');
-        $this->load->view('/layouts/html_end');
-    }
-
-    public function add_content_process($category) {
-//        $this->mylib->auth('administrator');
-
-        $jsonData = array();
-
-        $this->form_validation->set_rules('title', 'Cím', 'required|min_length[4]');
-        $this->form_validation->set_rules('content', 'Content', 'required');
-        $this->form_validation->set_rules('image_file', '', 'callback_file_check');
-
-        if ($this->form_validation->run() === FALSE) {
-            $jsonData['message'] = $this->form_validation->error_array();
-            $jsonData['success'] = false;
-
-        } else {
-
-            $config['upload_path'] = './assets/images/uploaded/';
-            $config['allowed_types'] = 'jpg|jpeg|png|gif';
-            $this->load->library('upload', $config);
-
-            if (!$this->upload->do_upload('image_file')) {
-                $jsonData['message']['image_file'] = $this->upload->display_errors();
-                $jsonData['success'] = false;
-
-            } else {
-                $img = $this->upload->data();
-                //get file name from the upload array
-                $img = $img['file_name'];
-
-                $title = $this->input->post('title');
-
-                $info = array(
-                    'user_id' => $this->session->userdata('user_id'),
-//                    'category' => $this->input->post('category'),
-                    'category' => $category,
-                    'title' => $title,
-                    'slug' => $this->get_slug($title),
-                    'front_img' => $img,
-                    'body' => $this->input->post('content'),
-                    'status' => $this->input->post('status'),
-                    'created_at' => date('Y-m-d H:i:s'),
-                );
-
-                $this->Content_model->add_content($info);
-
-                $jsonData['message'] = array('title' => 'Content successfully added.');
-                $jsonData['success'] = true;
-                $jsonData['redirect'] = "/content/$category";
-            }
-        }
-
-        echo json_encode($jsonData);
-    }
+//    public function add_content_process($category) {
+////        $this->mylib->auth('administrator');
+//
+//        $jsonData = array();
+//
+//        $this->form_validation->set_rules('title', 'Cím', 'required|min_length[4]');
+//        $this->form_validation->set_rules('content', 'Content', 'required');
+//        $this->form_validation->set_rules('image_file', '', 'callback_file_check');
+//
+//        if ($this->form_validation->run() === FALSE) {
+//            $jsonData['message'] = $this->form_validation->error_array();
+//            $jsonData['success'] = false;
+//
+//        } else {
+//
+//            $config['upload_path'] = './assets/images/uploaded/';
+//            $config['allowed_types'] = 'jpg|jpeg|png|gif';
+//            $this->load->library('upload', $config);
+//
+//            if (!$this->upload->do_upload('image_file')) {
+//                $jsonData['message']['image_file'] = $this->upload->display_errors();
+//                $jsonData['success'] = false;
+//
+//            } else {
+//                $img = $this->upload->data();
+//                //get file name from the upload array
+//                $img = $img['file_name'];
+//
+//                $title = $this->input->post('title');
+//
+//                $info = array(
+//                    'user_id' => $this->session->userdata('user_id'),
+////                    'category' => $this->input->post('category'),
+//                    'category' => $category,
+//                    'title' => $title,
+//                    'slug' => $this->get_slug($title),
+//                    'front_img' => $img,
+//                    'body' => $this->input->post('content'),
+//                    'status' => $this->input->post('status'),
+//                    'created_at' => date('Y-m-d H:i:s'),
+//                );
+//
+//                $this->Content_model->add_content($info);
+//
+//                $jsonData['message'] = array('title' => 'Content successfully added.');
+//                $jsonData['success'] = true;
+//                $jsonData['redirect'] = "/content/$category";
+//            }
+//        }
+//
+//        echo json_encode($jsonData);
+//    }
 
     public function edit_content($category, $slug) {
 //        $this->mylib->auth('administrator');

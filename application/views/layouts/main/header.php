@@ -98,6 +98,7 @@ $this->load->view('/search/search_form');
     </div>
 </nav>
 
+<main>
 <?php
 
 //SESSION MESSAGES ////////////////////////////

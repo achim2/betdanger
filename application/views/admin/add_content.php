@@ -2,37 +2,49 @@
     <div class="row">
         <div class="col-10 mx-auto">
             <main>
-                <h2 class="section-name">Add content to the <?php echo $this->title; ?></h2>
-                <section class="my-content">
+                <h2 class="section-name">Add content</h2>
+                <section>
                     <?php echo validation_errors('<p class="text-center alert alert-dismissable alert-danger">') ?>
                     <form id="add_content">
                         <div class="form-wrapper">
 
                             <div class="form-group">
                                 <label for="title" class="text-secondary"><b>Title *</b></label>
-                                <input type="text" class="form-control" id="title" name="title" value="<?php if (isset($_POST['title'])) echo $_POST['title']; ?>"/>
+                                <input type="text"
+                                       class="form-control"
+                                       id="title"
+                                       name="title"
+                                       value="<?php if (isset($_POST['title'])) echo $_POST['title']; ?>"
+                                />
                             </div>
                             <div class="form-group">
                                 <label for="content" class="text-secondary"><b>Content *</b></label>
-                                <textarea type="text" class="form-control" id="content" name="content" rows="4"><?php if (isset($_POST['content'])) echo $_POST['content']; ?></textarea>
+                                <textarea type="text"
+                                          class="form-control"
+                                          id="content"
+                                          name="content"
+                                          rows="4"
+                                ><?php if (isset($_POST['content'])) echo $_POST['content']; ?></textarea>
                             </div>
                             <div class="form-group">
-                                <label for="image_file" class="text-secondary"><b>Front img *</b></label>
+                                <label for="image_file" class="text-secondary"><b>Image *</b></label>
                                 <input type="file" class="form-control-file" id="image_file" name="image_file"/>
                             </div>
 
-                            <!--                        <div class="form-group">-->
-                            <!--                            <label for="category" class="text-secondary"><b>Category *</b></label>-->
-                            <!--                            <select name="category" id="category" class="form-control">-->
-                            <!--                                <option value="news">news</option>-->
-                            <!--                                <option value="previews">preview</option>-->
-                            <!--                                <option value="blog_posts">blog post</option>-->
-                            <!--                            </select>-->
-                            <!--                        </div>-->
+                            <div class="form-group">
+                                <label for="category" class="text-secondary"><b>Category *</b></label>
+                                <select name="category" id="category" class="form-control">
+                                    <option selected disabled>Select category</option>
+                                    <?php foreach ($this->categories as $category): ?>
+                                        <option value="<?php echo $category->id; ?>"><?php echo $category->name; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
 
                             <div class="form-group">
                                 <label for="status" class="text-secondary"><b>Status *</b></label>
                                 <select name="status" id="status" class="form-control">
+                                    <option selected disabled>Select status</option>
                                     <option value="not public">not public</option>
                                     <option value="public">public</option>
                                 </select>
@@ -52,6 +64,6 @@
 <script>
     $(document).ready(function () {
         //ajax add content
-        general_ajax_call('form#add_content', '/content/add_content_process/<?php echo $this->category; ?>');
+        general_ajax_call('form#add_content', '/admin/add_content_process');
     })
 </script>

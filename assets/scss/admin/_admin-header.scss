@@ -1,0 +1,47 @@
+.admin-nav {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 200px;
+  padding: 20px 0;
+  background-color: $footer-top-bg;
+  color: $white;
+
+  .brand-name {
+    display: block;
+    padding: 0 20px 10px;
+    border-bottom: 1px solid $rusty-red;
+    color: $rusty-red;
+    font-size: 28px;
+    text-decoration: none;
+  }
+
+  ul {
+    margin: 0;
+    padding: 10px 20px;
+    border-bottom: 1px solid $rusty-red;
+    list-style-type: none;
+
+    &.nav-links {
+    }
+
+    &.nav-sub-links {
+      padding-top: 0;
+      border-bottom: none;
+      list-style-type: initial;
+    }
+
+    li {
+
+      a {
+        color: $white;
+
+        &.username {
+          color: $warm-yellow;
+        }
+      }
+    }
+  }
+
+}

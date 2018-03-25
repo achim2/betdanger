@@ -2,13 +2,17 @@
 @import '../../node_modules/bootstrap/scss/bootstrap.scss';
 
 //themify-icons
-@import 'themify-icons/custom';
+@import 'themify-icons/themify-custom';
 
 //local variables
 @import 'variables';
 
 //common
 @import 'common';
+
+//admin
+@import "admin/admin-common";
+@import "admin/admin-header";
 
 //
 @import 'footer';

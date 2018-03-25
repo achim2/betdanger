@@ -5,35 +5,39 @@ class Content_model extends CI_Model {
         parent::__construct();
     }
 
+    public function add_category($info) {
+        $this->db->insert('content-category', $info);
+    }
+
+    public function get_categories($slug = false) {
+        if ($slug === false) {
+            $this->db->select('content-category.*');
+            $query = $this->db->get('content-category');
+            return $query->result();
+        }
+
+        $this->db->select('content-category.*');
+        $this->db->where('slug', $slug);
+        $query = $this->db->get('content-category');
+        return $query->row();
+    }
+
     public function add_content($info) {
         $this->db->insert('content', $info);
     }
 
-    //public content, bounded to the user
-    public function get_my_content($category, $slug = FALSE) {
-        $user_id = $this->session->userdata("user_id");
-
-        if (isset($user_id) && $user_id != null) {
-
-            if ($slug === FALSE) {
-                $this->db->select('content.*');
-                $this->db->order_by('content.created_at', 'DESC');
-                $this->db->where('user_id', $user_id);
-                $this->db->where('category', $category);
-                $query = $this->db->get('content');
-                return $query->result();
-            }
-
+    public function get_content($slug = FALSE) {
+        if ($slug === FALSE) {
             $this->db->select('content.*');
-            $this->db->where('slug', $slug);
-            $this->db->where('user_id', $user_id);
-            $this->db->where('category', $category);
+            $this->db->order_by('content.created_at', 'DESC');
             $query = $this->db->get('content');
-            return $query->row();
-
-        } else {
-            return null;
+            return $query->result();
         }
+
+        $this->db->select('content.*');
+        $this->db->where('slug', $slug);
+        $query = $this->db->get('content');
+        return $query->row();
     }
 
     public function get_cat_content_to_public($category, $slug = FALSE) {
@@ -138,13 +142,12 @@ class Content_model extends CI_Model {
         $this->db->where('content_id', $content_id);
         $this->db->delete('comments');
     }
+
     //delete comment by COMMENT ID
     public function delete_comment_by_user($comm_id) {
         $this->db->where('comment_id', $comm_id);
         $this->db->delete('comments');
     }
-
-
 
 
 }
