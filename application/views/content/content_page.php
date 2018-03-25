@@ -3,9 +3,9 @@
         <div class="col-md-7 offset-md-1">
             <main>
                 <article>
-                    <h4 class="title"><?php echo $this->get_content->title; ?></h4>
+                    <h4 class="title"><?php echo "Content Page"; ?></h4>
                     <p class="info">
-                        <span><?php echo $this->title . " | " . $this->get_content->created_at; ?></span>
+                        <span><?php echo $this->get_content->created_at; ?></span>
                         <span>written: <?php echo $this->get_content->username; ?></span>
                     </p>
                     <img class="front-img img-fluid" src="/assets/images/uploaded/<?php echo $this->get_content->front_img; ?>" alt="<?php echo $this->get_content->title; ?>">

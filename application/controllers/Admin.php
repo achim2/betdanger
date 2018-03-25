@@ -6,7 +6,7 @@ class Admin extends CI_Controller {
     public function __construct() {
         parent::__construct();
 
-        $this->mylib->auth('moderator');
+//        $this->mylib->auth('moderator');
     }
 
     public function index() {

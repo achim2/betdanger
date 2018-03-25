@@ -1,12 +1,15 @@
-@import "../../node_modules/bootstrap/scss/bootstrap.scss";
-//@import "../../node_modules/themify-icons/themify-icons/themify-icons";
-@import "../themify-icons-plugin/assets/themify-icons.min.css";
+//bootstrap
+@import '../../node_modules/bootstrap/scss/bootstrap.scss';
 
-@import "variables";
-@import "admin";
-@import "general";
-@import "header";
-@import "footer";
-@import "contact";
-@import "profile";
-@import "content";
+//themify-icons
+@import 'themify-icons/custom';
+
+//local variables
+@import 'variables';
+
+//common
+@import 'common';
+
+//
+@import 'footer';
+@import 'header';

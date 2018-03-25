@@ -1,29 +1,53 @@
-var gulp = require('gulp');
-var browserSync = require('browser-sync').create();
-var requireDir = require('require-dir');
-var fs = require('fs');
+var gulp = require('gulp'),
+    plumber = require('gulp-plumber'),
+    sass = require('gulp-sass'),
+    notify = require('gulp-notify'),
+    sourcemaps = require('gulp-sourcemaps'),
+    autoprefixer  = require('gulp-autoprefixer'),
+    gulpif = require('gulp-if'),
+    argv = require('yargs').argv;
 
-requireDir('./gulp-tasks');
+var dist = 'assets/';
+var distCss = dist + 'css/';
 
-gulp.task('bs', ['watch'], function() {
-  if (fs.existsSync('gulp-config.json')) {
-    var config = require('./gulp-config.json');
+var paths = {
+    scss : [
+        dist + 'scss/**/*.scss'
+    ]
+};
 
-    browserSync.init({
-      proxy: config.browsersync.proxy
-    });
-  } else {
-    console.log('Create a gulp-config.json file from gulp-config.json.sample');
-  }
+
+gulp.task('sass', function() {
+
+    var outputStyle = (argv.dev) ? 'expanded' : 'compressed';
+
+    return gulp.src(paths.scss)
+        .pipe(plumber())
+        .pipe(gulpif(argv.dev, sourcemaps.init()))
+        .pipe(sass({
+            outputStyle: outputStyle
+        })).on('error', notify.onError(function (error) {
+            return error.message;
+        }))
+        .pipe(autoprefixer({
+            browsers: [
+                'Chrome >= 45',
+                'Firefox >= 45',
+                'Edge >= 12',
+                'Explorer >= 9',
+                'iOS >= 8',
+                'Safari >= 8',
+                'Android 2.3',
+                'Android >= 4',
+                'Opera >= 12'
+            ]
+        }))
+        .pipe(gulpif(argv.dev, sourcemaps.write('./')))
+        .pipe(gulp.dest(distCss))
 });
 
-gulp.task('watch', function () {
-  gulp.watch('assets/scss/**/*.scss', ['sass']);
-  gulp.watch('assets/js/**/*.js', ['scripts']);
+gulp.task('watch', function() {
+    gulp.watch(paths.scss, ['sass']);
 });
 
-gulp.task('default', ['sass', 'scripts', 'watch']);
-
-
-
-
+gulp.task('default', ['sass', 'watch']);

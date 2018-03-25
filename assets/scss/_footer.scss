@@ -1,167 +1,176 @@
-// FOOTER //////////////////////////////////////////////////////////////////////////////////////////////// FOOTER
 footer {
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	width: 100%;
-	overflow: hidden;
-	display: flex;
-	flex-direction: column;
-	background-color: $FOOTER_TOP_BG;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: $footer-top-bg;
+  overflow: hidden;
 
-	section.footer-top {
-		//background-color: $FOOTER_TOP_BG;
-		color: $FOOTER_TOP_TEXT;
+  h2 {
+    color: $footer-top-text;
+  }
 
-		div.top-wrapper {
-			display: flex;
-			align-items: center;
-			justify-content: space-between;
-			height: 50px;
+  p {
+    margin-bottom: 0;
+  }
 
-			@media (max-width: 767px) {
-				height: 200px;
-				flex-direction: column;
-				padding: 25px 0 0 0;
-			}
+  .footer-top {
+    width: 100%;
+    height: auto;
+    color: $footer-bottom-text;
+  }
 
-			//footer nav
-			ul.footer-nav {
-				margin: 0;
-				padding: 0;
-				border: none;
-				list-style-type: none;
-				height: 50px;
+  .footer-bottom {
+    display: flex;
+    width: 100%;
+    background-color: $footer-bottom-bg;
 
-				display: flex;
-				align-items: center;
-				justify-content: flex-start;
+    .footer-bottom__wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
 
-				@media (max-width: 767px) {
-					flex-direction: column;
-				}
+  .footer-nav {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    list-style-type: none;
 
-				li a {
-					transition: all .2s linear;
-					padding: 0 15px;
-					color: $FOOTER_TOP_TEXT;
-					text-decoration: none;
-					
-					@media (max-width: 767px) {
-						display: block;
-					}
+    li {
+      a,
+      a:hover,
+      a:focus,
+      a:active {
+        transition: $general-transition;
+        color: $footer-top-text;
+        text-decoration: none;
 
-					&:hover {
-						color: white;
-					}
-				}
-			}
+        &:hover {
+          color: $white;
+        }
+      }
+    }
+  }
 
-			//social icons //
-			ul.social_icons {
-				margin: 0;
-				padding: 0;
-				display: flex;
-				visibility: visible;
-				opacity: 1;
-				transition: all .3s ease-in;
+  //.contact-us {
+  //  @include placeholder {
+  //    }
+  //
+  //  input:not([type=submit]),
+  //  textarea,
+  //  textarea:focus {
+  //  }
+  //
+  //  textarea {
+  //    resize: none;
+  //  }
+  //}
 
-				li {
-					list-style-type: none;
+  //social icons
+  .social_icons {
+    display: flex;
+    justify-content: flex-end;
+    margin: 0;
+    padding: 0;
+    transition: .3s ease-in;
+    opacity: 1;
+    visibility: visible;
 
-					a {
-						@include setAnchorSelector {
-							font-size: 1em;
-							height: 50px;
-							text-decoration: none;
-							display: flex;
-							align-items: center;
-							padding: 0 10px;
-							width: 50px;
-							transition: width 0.4s, background-color 0.4s;
+    li {
+      list-style-type: none;
 
-							&.facebook {
-								color: $FACEBOOK_COLOR;
-							}
+      a,
+      a:hover,
+      a:focus,
+      a:active {
+        display: flex;
+        align-items: center;
+        width: 50px;
+        height: 50px;
+        padding: 0 10px;
+        transition: width .4s, background-color .4s;
+        font-size: 1em;
+        text-decoration: none;
 
-							&.twitter {
-								color: $TWITTER_COLOR;
-							}
+        &.facebook {
+          color: $facebook-color;
+        }
 
-							&.pinterest {
-								color: $PINTEREST_COLOR;
-							}
+        &.twitter {
+          color: $twitter-color;
+        }
 
-							&.instagram {
-								color: $INSTAGRAM_COLOR;
-							}
+        &.pinterest {
+          color: $pinteres-color;
+        }
 
-							////icon settings
-							span {
-								padding: 0 5px;
-							}
+        &.instagram {
+          color: $instagram-color;
+        }
 
-							//text settings
-							p {
-								padding-right: 5px;
-								margin-bottom: 0;
-								display: none;
-								overflow: hidden;
-							}
+        ////icon settings
+        span {
+          padding: 0 5px;
+        }
 
-							//hover settings
-							@media (min-width: 992px) {
-								&:hover {
-									color: white;
+        //text settings
+        p {
+          display: none;
+          margin-bottom: 0;
+          padding-right: 5px;
+          overflow: hidden;
+        }
 
-									&.facebook {
-										background-color: $FACEBOOK_COLOR;
-										width: 118.5px;
-									}
+        //hover settings
+        @include media-breakpoint-up(lg) {
+          &:hover {
+            color: $white;
 
-									&.twitter {
-										background-color: $TWITTER_COLOR;
-										width: 99px;
-									}
+            &.facebook {
+              width: 118.5px;
+              background-color: $facebook-color;
+            }
 
-									&.pinterest {
-										background-color: $PINTEREST_COLOR;
-										width: 113px;
-									}
+            &.twitter {
+              width: 99px;
+              background-color: $twitter-color;
+            }
 
-									&.instagram {
-										background-color: $INSTAGRAM_COLOR;
-										width: 121.5px;
-									}
+            &.pinterest {
+              width: 113px;
+              background-color: $pinteres-color;
+            }
 
-									//text settings
-									p {
-										display: block;
-										color: white;
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	}
+            &.instagram {
+              width: 121.5px;
+              background-color: $instagram-color;
+            }
 
-	section.footer-bottom {
-		background-color: $FOOTER_BOTTOM_BG;
-		color: $FOOTER_BOTTOM_TEXT;
+            //text settings
+            p {
+              display: block;
+              color: $white;
+            }
+          }
+        }
+      }
+    }
+  }
 
-		div.bottom-wrapper {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			height: 50px;
+  .footer-brand {
+    color: $rusty-red;
+    font-size: 18px;
+  }
+}
 
-			p.brand {
-				margin-bottom: 0;
-			}
-		}
-
-	}
+@include media-breakpoint-up(md) {
+  footer {
+    .footer-bottom {
+      .footer-bottom__wrapper {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+    }
+  }
 }

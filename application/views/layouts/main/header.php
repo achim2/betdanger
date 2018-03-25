@@ -12,95 +12,89 @@ if ($logged_in == false) {
 $this->load->view('/search/search_form');
 ?>
 
+<nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container">
+        <a class="navbar-brand" href="<?php echo base_url(); ?>">betDANGER!</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-<nav class="custom-navbar">
-    <div class="navbar-container">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto navbar-left">
 
-        <a href="/" class="navbar-brand">
-            <span class="d-none d-sm-block">betDANGER!</span>
-            <span class="d-sm-none">bD!</span>
-        </a>
+                <!-- menu items -->
+                <li class="nav-item">
+                    <a class="nav-link <?php echo ($this->uri->segment(1) == '') ? 'active' : '' ?>" href="<?php echo base_url(); ?>">home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link <?php echo ($this->uri->segment(1) == 'news') ? 'active' : '' ?>" href="/news">news</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link <?php echo ($this->uri->segment(1) == 'previews') ? 'active' : '' ?>" href="/previews">previews</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link <?php echo ($this->uri->segment(1) == 'blog') ? 'active' : '' ?>" href="/blog">blog</a>
+                </li>
 
-        <ul class="nav-items">
+            </ul>
 
-            <!-- nav menu toggler-->
-            <li class="menu-toggler">
-                <a class="menu-trigger" data-set-dropdown=".menu-items">
-                    <span class="ti-menu"></span>
-                </a>
+            <ul class="navbar-nav ml-auto navbar-right">
+                <!-- dropdown menu -->
+                <?php if ($logged_in) : ?>
 
-                <ul class="menu-items">
-                    <li><a <?php echo ($this->uri->segment(1) == '') ? 'class = "active"' : '' ?> href="/">home</a></li>
-                    <li><a <?php echo ($this->uri->segment(1) == 'news') ? 'class = "active"' : '' ?> href="/news">news</a></li>
-                    <li><a <?php echo ($this->uri->segment(1) == 'previews') ? 'class = "active"' : '' ?> href="/previews">previews</a></li>
-                    <!--                    <li><a --><?php //echo ($this->uri->segment(2) == 'tipsters') ? 'class = "active"' : '' ?><!-- href="/tips/tipsters">tipsters</a></li>-->
-                    <li><a <?php echo ($this->uri->segment(1) == 'blog') ? 'class = "active"' : '' ?> href="/blog">blog</a></li>
-                </ul>
-            </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Profile
+                            <div class="d-none"><?php echo $this->session->userdata('username'); ?></div>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 
-            <!-- nav search part-->
-            <li class="search-part">
-                <a class="search-trigger" data-toggle="modal" data-target="#search_modal">
-                    <span class="ti-search"></span>
-                </a>
-            </li>
+                            <?php
+                            $user_type = $this->session->userdata('user_type');
 
-            <?php
-            if ($logged_in) {
-                ?>
-                <!-- user logged in-->
-                <li class="user-part">
-                    <a class="username" data-set-dropdown=".user-part-dropdown">
-                        <span class="ti-angle-up"></span>
-                        <span class="uname"><?php echo $this->session->userdata('username'); ?></span>
-                    </a>
+                            if ($user_type === 'moderator') {
+                                echo "<a class=\"dropdown-item\" href=" . base_url('/admin') . ">admin</a>";
+                            }
 
-                    <div class="user-part-dropdown">
-                        <?php
-                        $user_type = $this->session->userdata('user_type');
+                            //                        if (($user_type === 'administrator') || ($user_type === 'moderator')) {
+                            if (($user_type === 'user') || ($user_type === 'administrator') || ($user_type === 'moderator')) {
+                                echo "<a class=\"dropdown-item\" href='/content/news'>my news</a>";
+                                echo "<a class=\"dropdown-item\" href='/content/previews'>my previews</a>";
+                                echo "<a class=\"dropdown-item\" href='/content/blog'>my blog posts</a>";
+                            }
 
-                        if ($user_type === 'moderator') {
-                            echo "<a href=" . base_url('/admin') . ">admin</a>";
-                        }
-
-//                        if (($user_type === 'administrator') || ($user_type === 'moderator')) {
-                        if (($user_type === 'user') || ($user_type ==='administrator') || ($user_type === 'moderator')) {
-                            echo "<a href='/content/news'>my news</a>";
-                            echo "<a href='/content/previews'>my previews</a>";
-                            echo "<a href='/content/blog'>my blog posts</a>";
-                        }
-
-                        if (($user_type === 'user') || ($user_type ==='administrator') || ($user_type === 'moderator')) {
-                            echo "<a href='/user/profile'>profile</a>";
+                            if (($user_type === 'user') || ($user_type === 'administrator') || ($user_type === 'moderator')) {
+                                echo "<a class=\"dropdown-item\" href='/user/profile'>profile</a>";
 //                            echo "<a href='/tips/my_tips'>my tips</a>";
-                            echo "<a href='/user/logout'>log out</a>";
-                        }
-                        ?>
-                    </div>
-                </li>
+                                echo "<a class=\"dropdown-item\" href='/user/logout'>log out</a>";
+                            }
+                            ?>
+                        </div>
+                    </li>
 
-                <?php
-            } else {
-                ?>
+                <?php else: ?>
 
-                <!-- user not logged in-->
-                <li class="user-part">
-                    <a class="user-trigger" data-set-dropdown=".user-part-dropdown">
-                        <span class="ti-user"></span>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="icon-user"></span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" data-toggle="modal" data-target="#login">login</a>
+                            <a class="dropdown-item" data-toggle="modal" data-target="#sign-up">sign up</a>
+                        </div>
+                    </li>
+
+                <?php endif; ?>
+
+                <!-- nav search part-->
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="modal" data-target="#search_modal">
+                        <span class="icon-search"></span>
                     </a>
-
-                    <div class="user-part-dropdown">
-                        <a data-toggle="modal" data-target="#login">login</a>
-                        <a data-toggle="modal" data-target="#sign-up">sign up</a>
-                    </div>
                 </li>
 
-                <?php
-            }
-            ?>
-
-        </ul>
-
+            </ul>
+        </div>
     </div>
 </nav>
 

@@ -10,13 +10,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>betDANGER!</title>
 
-    <meta name="robots" content="noindex" />
+    <meta name="robots" content="noindex"/>
 
     <!-- Global stylesheets -->
     <link rel="stylesheet" href="/assets/css/style.css">
 
     <!-- Global JS files -->
-    <script src="/assets/js/dest/bundle.js"></script>
+    <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/src/general.js"></script>
+    <script src="/assets/js/src/ajax_calls.js"></script>
 
     <?php
     //add styles and scripts at Controller
@@ -27,13 +30,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     ?>
 
 </head>
-
-<?php
-if ($this->uri->segment(1) == 'admin'){
-    echo "<body class='admin'>";
-    $this->load->view('/layouts/admin/header');
-}else{
-    echo "<body>";
-    $this->load->view('/layouts/main/header');
-}
-?>
+<body>
+<?php $this->load->view('/layouts/main/header'); ?>
+<main>

@@ -10,7 +10,7 @@
             <div class="modal-body">
                 <form id="login">
                     <div class="form-group">
-                        <input type="text" name="email" class="form-control" placeholder="Email">
+                        <input type="text" name="email" class="form-control" placeholder="Email" value="ahimjuhasz@gmail.com">
                     </div>
                     <div class="form-group">
                         <input type="password" name="password" class="form-control" placeholder="Password">

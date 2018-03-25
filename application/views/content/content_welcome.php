@@ -1,85 +1,32 @@
 <div class="container">
-    <div class="row">
-        <div class="col-xl-9">
-            <main>
-
-                <?php
-                foreach ($this->categories as $categories) {
+    <h2 class="mb-3"><?php echo "Content Welcome"; ?></h2>
+    <?php foreach ($this->categories as $categories) : ?>
+        <div class="row">
+            <?php
+            foreach ($this->get_content as $content) :
+                if ($categories == $content->category):
                     ?>
 
-                    <div class="categories">
-                        <h2 class="section-name"><?php
-                            if ($categories == 'news') {
-                                echo "News";
-                            } elseif ($categories == 'previews') {
-                                echo "Previews";
-                            } else {
-                                echo "Blog posts";
-                            }
-                            ?></h2>
-                        <div class="cat-inner">
-                            <?php
-                            foreach ($this->get_content as $content) {
-                                if ($categories == $content->category) {
-                                    ?>
+                    <div class="col-sm-6 col-md-4 col-lg-3 mb-3">
+                        <div class="card">
+                            <img class="card-img-top"
+                                 src="/assets/images/uploaded/<?php echo $content->front_img; ?>"
+                                 alt="Card image cap">
 
-                                    <a class="welcome-short-article" href="<?php echo base_url("/$content->category/$content->slug"); ?>">
-                                        <img class="img-fluid" src="/assets/images/uploaded/<?php echo $content->front_img; ?>" alt="mockup">
-
-                                        <div class="short-article-inner">
-                                            <p class="title"><?php echo $content->title; ?></p>
-                                            <p class="body"><?php echo character_limiter($content->body, 75); ?></p>
-                                            <p class="bottom-info">
-                                                <span><?php echo $content->created_at; ?></span>
-                                                <span><?php echo $content->username; ?></span>
-                                            </p>
-                                        </div>
-                                    </a>
-
-                                    <?php
-                                }
-                            } ?>
+                            <div class="card-body">
+                                <h5 class="card-title"><?php echo $content->title; ?></h5>
+                                <p class="card-text"><?php echo character_limiter($content->body, 75); ?></p>
+                                <a href="<?php echo base_url("/$content->category/$content->slug"); ?>"
+                                   class="btn btn-primary">Read me!</a>
+                            </div>
                         </div>
                     </div>
 
-                    <?php
-                }
-                ?>
 
-            </main>
+                <?php endif; ?>
+            <?php endforeach; ?>
         </div>
-        <div class="col-xl-3">
-            <aside>
-                <div class="row">
 
-                    <div class="col-sm-6 col-xl-12">
-                        <div class="categories">
-                            <h4 class="section-name">daily bets</h4>
-                            <ul>
-                                <li><a href="#">Maecenas</a></li>
-                                <li><a href="#">Pellentesque</a></li>
-                            </ul>
-                        </div>
-                    </div>
+    <?php endforeach; ?>
 
-                    <div class="col-sm-6 col-xl-12">
-                        <div class="categories">
-                            <h4 class="section-name">useful tools</h4>
-                            <ul>
-                                <li><a href="#">Maecenas</a></li>
-                                <li><a href="#">Pellentesque</a></li>
-                                <li><a href="#">Donec</a></li>
-                                <li><a href="#">Etiam</a></li>
-                                <li><a href="#">Integer</a></li>
-                                <li><a href="#">Lorem</a></li>
-                                <li><a href="#">Proin</a></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                </div>
-
-            </aside>
-        </div>
-    </div>
 </div>

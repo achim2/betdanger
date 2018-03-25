@@ -32,8 +32,6 @@ class Content extends CI_Controller {
     public function content_cms($category) {
 //        $this->mylib->auth('administrator');
 
-        $this->title = $this->mylib->get_nice_category_title($category);
-
         $this->category = $category;
         $this->get_content = $this->Content_model->get_my_content($category);
 
@@ -43,7 +41,6 @@ class Content extends CI_Controller {
     }
 
     public function content_category($category) {
-        $this->title = $this->mylib->get_nice_category_title($category);
 
         $this->get_content = $this->Content_model->get_cat_content_to_public($category);
 
@@ -53,7 +50,6 @@ class Content extends CI_Controller {
     }
 
     public function content_page($category, $slug) {
-        $this->title = $this->mylib->get_nice_category_title($category);
         $this->get_content = $this->Content_model->get_cat_content_to_public($category, $slug);
 
         $this->load->view('/layouts/html_start');
@@ -82,8 +78,6 @@ class Content extends CI_Controller {
 
     public function add_content($category) {
 //        $this->mylib->auth('administrator');
-
-        $this->title = $this->mylib->get_nice_category_title($category);
 
         $this->category = $category;
 

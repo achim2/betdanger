@@ -1,13 +1,8 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 
+</main>
 
-if ($this->uri->segment(1) == 'admin') {
-    echo "</body>";
-} else {
-    $this->load->view('/layouts/main/footer');
-    echo "</body>";
-}
-?>
+<?php $this->load->view('/layouts/main/footer'); ?>
 
+</body>
 </html>

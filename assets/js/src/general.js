@@ -29,71 +29,6 @@ $(document).ready(function () {
         $flash_alert.slideUp(1000)
     }, 5000);
 
-
-    // SET DROPDOWN
-    //custom dropdown ( DD == dropdown )
-
-    var nav = $('nav');
-    var allDDTrigger = $('[data-set-dropdown]');
-    // console.log(allDDTrigger);
-
-    allDDTrigger.on('click', function () {
-
-        var clickedTrigger = $(this);
-        // console.log(clickedTrigger);
-        var clickedDDName = $(this).attr('data-set-dropdown');
-        // console.log(clickedDDName);
-        var clickedDD = nav.find(clickedDDName);
-        // console.log(clickedDD);
-
-        allDDTrigger.each(function () {
-            var allDDName = $(this).attr('data-set-dropdown');
-            var allDD = nav.find(allDDName);
-            // console.log(allDD);
-            allDD.not(clickedDD).removeClass('open');
-            allDDTrigger.not(clickedTrigger).removeClass('open');
-        });
-
-        if (clickedDD.hasClass('open')) {
-            clickedDD.removeClass('open');
-            clickedTrigger.removeClass('open');
-
-        } else {
-            clickedDD.addClass('open');
-            clickedTrigger.addClass('open');
-        }
-
-    });
-
-
-    $(window).on('click', function (event) {
-
-        allDDTrigger.each(function () {
-
-            var allDDName = $(this).attr('data-set-dropdown');
-            var allDD = nav.find(allDDName);
-            var allDDParent = allDD.parent();
-            // console.log(allDDParent);
-
-            if (!$(event.target).closest(allDDParent).length) {
-                if (allDDParent.data('clicked', true)) {
-                    allDDParent.children().removeClass('open');
-                }
-            }
-
-            // console.log(allDDParent.children().last().children());
-
-            allDDParent.children().last().children().click(function () {
-                allDDParent.children().removeClass('open');
-            })
-
-
-        });
-    });
-
-    //END DROPDOWN
-
-
     //delete confirm
     $('.del_content_trig').on('click', function (e) {
 
@@ -132,6 +67,5 @@ $(document).ready(function () {
         console.log('clicked');
         window.history.back();
     })
-
 
 });

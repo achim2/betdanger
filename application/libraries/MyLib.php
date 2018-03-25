@@ -77,26 +77,4 @@ class MyLib {
         }
 
     }
-
-    public function get_nice_category_title($category) {
-        //send title to the page
-        switch ($category) {
-            case 'news':
-                $title = 'News';
-                break;
-            case 'previews':
-                $title = 'Previews';
-                break;
-            case 'blog':
-                $title = 'Blog posts';
-                break;
-            default:
-                $title = 'Unknown category';
-                break;
-        }
-
-        return $title;
-    }
-
-
 }
