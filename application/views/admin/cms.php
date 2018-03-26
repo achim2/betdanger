@@ -47,7 +47,7 @@
                                             <td style="width: 500px;"><?php echo $category->name; ?></td>
                                             <td class="text-center">
                                                 <a class="text-center text-success"
-                                                   href="<?php // echo base_url("/content/$content->category/edit_content/$content->slug"); ?>"
+                                                   href="<?php  echo base_url("/admin/edit_category/$category->id"); ?>"
                                                 >
                                                     <span class="icon-pencil"></span>
                                                 </a>
@@ -93,7 +93,7 @@
                                             <td class="text-center"><?php echo $content->status; ?></td>
                                             <td class="text-center">
                                                 <a class="text-center text-success"
-                                                   href="<?php // echo base_url("/content"); ?>"
+                                                   href="<?php echo base_url("/admin/edit_content/$content->id"); ?>"
                                                 >
                                                     <span class="icon-pencil"></span>
                                                 </a>

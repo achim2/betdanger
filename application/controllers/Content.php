@@ -236,15 +236,14 @@ class Content extends CI_Controller {
         }
     }
 
-    public function delete_img_file($img_name) {
-        $files = glob($_SERVER['DOCUMENT_ROOT'] . './assets/images/uploaded/' . $img_name); // get all file names
-
-        foreach ($files as $file) { // iterate files
-            if (is_file($file))
-                unlink($file); // delete file
-            //echo $file.'file deleted';
-        }
-    }
+//    public function delete_img_file($img_name) {
+//        $files = glob($_SERVER['DOCUMENT_ROOT'] . './assets/images/uploaded/' . $img_name); // get all file names
+//
+//        foreach ($files as $file) { // iterate files
+//            if (is_file($file))
+//                unlink($file); // delete file
+//        }
+//    }
 
     //COMMENTS PART
     public function add_comment_process($content_id) {

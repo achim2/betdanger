@@ -9,15 +9,20 @@ class Content_model extends CI_Model {
         $this->db->insert('content-category', $info);
     }
 
-    public function get_categories($slug = false) {
-        if ($slug === false) {
+    public function update_category($id, $info) {
+        $this->db->where('id', $id);
+        $this->db->update('content-category', $info);
+    }
+
+    public function get_categories($id = false) {
+        if ($id == false) {
             $this->db->select('content-category.*');
             $query = $this->db->get('content-category');
             return $query->result();
         }
 
         $this->db->select('content-category.*');
-        $this->db->where('slug', $slug);
+        $this->db->where('id', $id);
         $query = $this->db->get('content-category');
         return $query->row();
     }
@@ -26,8 +31,13 @@ class Content_model extends CI_Model {
         $this->db->insert('content', $info);
     }
 
-    public function get_content($slug = FALSE) {
-        if ($slug === FALSE) {
+    public function update_content($id, $info) {
+        $this->db->where('id', $id);
+        $this->db->update('content', $info);
+    }
+
+    public function get_content($id = false) {
+        if ($id == false) {
             $this->db->select('content.*');
             $this->db->order_by('content.created_at', 'DESC');
             $query = $this->db->get('content');
@@ -35,13 +45,13 @@ class Content_model extends CI_Model {
         }
 
         $this->db->select('content.*');
-        $this->db->where('slug', $slug);
+        $this->db->where('id', $id);
         $query = $this->db->get('content');
         return $query->row();
     }
 
-    public function get_cat_content_to_public($category, $slug = FALSE) {
-        if ($slug === FALSE) {
+    public function get_cat_content_to_public($category, $slug = false) {
+        if ($slug == false) {
             $this->db->select('content.*, users.username');
             $this->db->where('status', 'public');
             $this->db->where('category', $category);
@@ -61,8 +71,8 @@ class Content_model extends CI_Model {
         return $query->row();
     }
 
-    public function get_content_to_public($slug = FALSE) {
-        if ($slug === FALSE) {
+    public function get_content_to_public($slug = false) {
+        if ($slug == false) {
             $this->db->select('content.*, users.username');
             $this->db->where('status', 'public');
             $this->db->order_by('content.created_at', 'DESC');
@@ -82,7 +92,7 @@ class Content_model extends CI_Model {
 
 
     public function get_content_to_search($slug) {
-        if ($slug === FALSE) {
+        if ($slug == false) {
             $this->db->select('content.*');
             $this->db->where('status', 'public');
             $this->db->order_by('content.created_at', 'DESC');
@@ -107,10 +117,10 @@ class Content_model extends CI_Model {
         return $query->row();
     }
 
-    public function update_content($id, $info) {
-        $this->db->where('content_id', $id);
-        $this->db->update('content', $info);
-    }
+//    public function update_content($id, $info) {
+//        $this->db->where('content_id', $id);
+//        $this->db->update('content', $info);
+//    }
 
     public function delete_content($id) {
         $this->db->where('content_id', $id);
