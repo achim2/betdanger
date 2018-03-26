@@ -29,42 +29,41 @@ $(document).ready(function () {
         $flash_alert.slideUp(1000)
     }, 5000);
 
+    var deleteTrigger = $('.delete_content_trigger');
+
     //delete confirm
-    $('.del_content_trig').on('click', function (e) {
+    deleteTrigger.on('click', function (e) {
 
-        var delModal = $('#del_content_modal');
+        var deleteModal = $('#delete-content-modal');
+        var category = deleteModal.attr("data-category");
         var id = $(this).attr("id");
-        var eventTitle = $(this).attr("name");
-        var tr = $(this);
+        var eventName = $(this).attr("name");
+        var thisTrigger = $(this);
 
-        $("b#content_title").empty().append(eventTitle);
+        $("#modal-msg-name").empty().append(eventName);
 
-        delModal
+        deleteModal
             .modal({backdrop: 'static', keyboard: true})
             .one('click', '#delete', function (e) {
                 e.preventDefault();
                 // window.location.href = DELURL;
 
                 $.ajax({
-                    url: '/content/delete_content/' + id,
+                    url: '/admin/delete_' + category + '/' + id,
                     success: function (data) {
-                        // console.log("siker");
-                        delModal.modal('hide');
-                        tr.parent().parent().hide(750);
+                        deleteModal.modal('hide');
+                        thisTrigger.parent().parent().hide(750);
 
                     },
                     error: function (data) {
-                        // console.log("ERROR");
                         // console.log(data);
                     }
-
 
                 });
             })
     });
 
-    $('[data-goBack]').on('click', function () {
-        console.log('clicked');
+    $('.js-go-back').on('click', function () {
         window.history.back();
     })
 

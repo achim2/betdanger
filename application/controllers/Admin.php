@@ -186,7 +186,6 @@ class Admin extends CI_Controller {
     }
 
     //id or slug ??
-    //nem törli a képet cserénél
     // javítani //ha a slug megegyezik egy másik sluggal akkor mind a két contentet felülírja
     public function edit_content_process($id) {
         $jsonData = array();
@@ -274,8 +273,19 @@ class Admin extends CI_Controller {
         }
     }
 
+    public function delete_category($id) {
+        $this->Content_model->delete_category($id);
+    }
+
+    public function delete_content($id) {
+        $content = $this->Content_model->get_content_by_id($id);
+
+        $this->delete_img_file($content->image_name);
+        $this->Content_model->delete_content($id);
+    }
+
     public function delete_img_file($img_name) {
-        $files = glob($_SERVER['DOCUMENT_ROOT'] . './assets/images/uploaded/' . $img_name); // get all file names
+        $files = glob($_SERVER['DOCUMENT_ROOT'] . '/assets/images/uploaded/' . $img_name); // get all file names
 
         foreach ($files as $file) { // iterate files
             if (is_file($file))

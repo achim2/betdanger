@@ -20,7 +20,7 @@
                     </div>
                     <div class="form-group m-0">
                         <input type="submit" class="btn btn-success" value="Add">
-                        <a class="btn btn-secondary" data-goBack>Back</a>
+                        <a class="btn btn-secondary js-go-back">Back</a>
                     </div>
                 </form>
 
@@ -48,7 +48,7 @@
                     </div>
                     <div class="form-group m-0">
                         <input type="submit" class="btn btn-success" value="Add">
-                        <a class="btn btn-secondary" data-goBack>Back</a>
+                        <a class="btn btn-secondary js-go-back">Back</a>
                     </div>
                 </form>
 
