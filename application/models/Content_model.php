@@ -6,24 +6,29 @@ class Content_model extends CI_Model {
     }
 
     public function add_category($info) {
-        $this->db->insert('content-category', $info);
+        $this->db->insert('content_category', $info);
     }
 
     public function update_category($id, $info) {
         $this->db->where('id', $id);
-        $this->db->update('content-category', $info);
+        $this->db->update('content_category', $info);
+    }
+
+    public function re_categorise_content($id, $info) {
+        $this->db->where('id', $id);
+        $this->db->update('content', $info);
     }
 
     public function get_categories($id = false) {
         if ($id == false) {
-            $this->db->select('content-category.*');
-            $query = $this->db->get('content-category');
+            $this->db->select('content_category.*');
+            $query = $this->db->get('content_category');
             return $query->result();
         }
 
-        $this->db->select('content-category.*');
+        $this->db->select('content_category.*');
         $this->db->where('id', $id);
-        $query = $this->db->get('content-category');
+        $query = $this->db->get('content_category');
         return $query->row();
     }
 
@@ -38,57 +43,42 @@ class Content_model extends CI_Model {
 
     public function get_content($id = false) {
         if ($id == false) {
-            $this->db->select('content.*');
+            $this->db->select('content.*, content_category.name as category_name');
             $this->db->order_by('content.created_at', 'DESC');
+            $this->db->join('content_category', 'content_category.id = content.category_id');
             $query = $this->db->get('content');
             return $query->result();
         }
 
-        $this->db->select('content.*');
-        $this->db->where('id', $id);
+        $this->db->select('content.*, content_category.name as category_name');
+        $this->db->join('content_category', 'content_category.id = content.category_id');
+        $this->db->where('content.id', $id);
         $query = $this->db->get('content');
         return $query->row();
     }
 
-//    public function get_cat_content_to_public($category, $slug = false) {
-//        if ($slug == false) {
-//            $this->db->select('content.*, users.username');
-//            $this->db->where('status', 'public');
-//            $this->db->where('category', $category);
-//            $this->db->order_by('content.created_at', 'DESC');
-//            $this->db->join('users', 'users.user_id = content.user_id');
-//            $query = $this->db->get('content');
-//            return $query->result();
-//        }
-//
-//        $this->db->select('content.*, users.username');
-//        $this->db->where('slug', $slug);
-//        $this->db->where('status', 'public');
-//        $this->db->where('category', $category);
-//        $this->db->join('users', 'users.user_id = content.user_id');
-//        $this->db->order_by('content.created_at', 'DESC');
-//        $query = $this->db->get('content');
-//        return $query->row();
-//    }
-//
-//    public function get_content_to_public($slug = false) {
-//        if ($slug == false) {
-//            $this->db->select('content.*, users.username');
-//            $this->db->where('status', 'public');
-//            $this->db->order_by('content.created_at', 'DESC');
-//            $this->db->join('users', 'users.user_id = content.user_id');
-//            $query = $this->db->get('content');
-//            return $query->result();
-//        }
-//
-//        $this->db->select('content.*, users.username');
-//        $this->db->where('slug', $slug);
-//        $this->db->where('status', 'public');
-//        $this->db->join('users', 'users.user_id = content.user_id');
-//        $this->db->order_by('content.created_at', 'DESC');
-//        $query = $this->db->get('content');
-//        return $query->row();
-//    }
+    public function get_content_to_public($slug = false, $status = "public", $category_id = 1) {
+        if ($slug == false) {
+            $this->db->select('content.*, users.username, content_category.name as category_name');
+            $this->db->where('status', $status);
+            $this->db->not_like('category_id', $category_id);
+            $this->db->order_by('content.created_at', 'DESC');
+            $this->db->join('users', 'users.user_id = content.user_id');
+            $this->db->join('content_category', 'content_category.id = content.category_id');
+            $query = $this->db->get('content');
+            return $query->result();
+        }
+
+        $this->db->select('content.*, users.username, ccontent_category.name as category_name');
+        $this->db->where('slug', $slug);
+        $this->db->where('status', $status);
+        $this->db->not_like('category_id', $category_id);
+        $this->db->join('users', 'users.user_id = content.user_id');
+        $this->db->join('content_category', 'content_category.id = content.category_id');
+        $this->db->order_by('content.created_at', 'DESC');
+        $query = $this->db->get('content');
+        return $query->row();
+    }
 
 
 //    public function get_content_to_search($slug) {
@@ -111,7 +101,7 @@ class Content_model extends CI_Model {
 
     public function delete_category($id) {
         $this->db->where('id', $id);
-        $this->db->delete('content-category');
+        $this->db->delete('content_category');
     }
 
     //get content id for delete the image

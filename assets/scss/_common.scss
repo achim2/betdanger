@@ -8,6 +8,11 @@ main {
 }
 
 .flash_alert {
+  top: -20px;
   border: none;
   border-radius: 0;
+}
+
+.icon {
+  cursor: pointer;
 }

@@ -76,7 +76,7 @@ $this->load->view('/search/search_form');
 
                     <li class="nav-item dropdown">
                         <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="icon-user"></span>
+                            <span class="icon icon-user"></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" data-toggle="modal" data-target="#login">login</a>
@@ -89,7 +89,7 @@ $this->load->view('/search/search_form');
                 <!-- nav search part-->
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="modal" data-target="#search_modal">
-                        <span class="icon-search"></span>
+                        <span class="icon icon-search"></span>
                     </a>
                 </li>
 

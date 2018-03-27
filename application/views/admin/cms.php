@@ -36,20 +36,19 @@
             <main>
 
                 <h2 class="section-name">Content cms <?php // echo $this->title; ?></h2>
-                <section class="my-content">
-                    <div class="d-flex align-items-center">
-                        <a class="btn btn-success mr-3" href="<?php echo base_url("/admin/add_category"); ?>">Add category</a>
-                        <a class="btn btn-success" href="<?php echo base_url("/admin/add_content"); ?>">Add content</a>
-                    </div>
+                <section class="cms-table">
 
                     <?php if ($uri == 'categories') : ?>
                         <?php var_dump($this->categories); ?>
+                        <div class="d-flex align-items-center">
+                            <a class="btn btn-success mr-3" href="<?php echo base_url("/admin/add_category"); ?>">Add category</a>
+                        </div>
 
                         <?php if ($this->categories != null) : ?>
                             <div class="table-wrapper pt-2">
-                                <table class="table table-inverse">
+                                <table class="table table-inverse bg-dark">
                                     <thead>
-                                    <tr class="bg-danger">
+                                    <tr class="bg-danger text-dark">
                                         <th class="text-uppercase">Category name</th>
                                         <th class="text-uppercase text-center">Edit</th>
                                         <th class="text-uppercase text-center">Delete</th>
@@ -57,23 +56,25 @@
                                     </thead>
                                     <?php foreach ($this->categories as $category) : ?>
                                         <tbody>
-                                        <tr class="" id="<?php echo $category->id; ?>">
+                                        <tr class="text-white" id="<?php echo $category->id; ?>">
                                             <td class="ml-auto"><?php echo $category->name; ?></td>
-                                            <td class="text-center">
-                                                <a class="text-center text-success"
-                                                   href="<?php echo base_url("/admin/edit_category/$category->id"); ?>"
-                                                >
-                                                    <span class="icon-pencil"></span>
-                                                </a>
-                                            </td>
-                                            <td class="text-center">
-                                                <a class="text-center text-danger delete_content_trigger"
-                                                   id="<?php echo $category->id; ?>"
-                                                   name="<?php echo $category->name; ?>"
-                                                >
-                                                    <span class="icon-close"></span>
-                                                </a>
-                                            </td>
+                                            <?php if ($category->id != 1) : ?>
+                                                <td class="text-center">
+                                                    <a class="text-center text-success"
+                                                       href="<?php echo base_url("/admin/edit_category/$category->id"); ?>"
+                                                    >
+                                                        <span class="icon icon-pencil"></span>
+                                                    </a>
+                                                </td>
+                                                <td class="text-center">
+                                                    <a class="text-center text-danger delete_content_trigger"
+                                                       id="<?php echo $category->id; ?>"
+                                                       name="<?php echo $category->name; ?>"
+                                                    >
+                                                        <span class="icon icon-close"></span>
+                                                    </a>
+                                                </td>
+                                            <?php endif; ?>
                                         </tr>
                                         </tbody>
 
@@ -86,15 +87,19 @@
 
                     <?php elseif ($uri == 'content') : ?>
                         <?php var_dump($this->get_content); ?>
+                        <div class="d-flex align-items-center">
+                            <a class="btn btn-success" href="<?php echo base_url("/admin/add_content"); ?>">Add content</a>
+                        </div>
 
                         <?php if ($this->get_content != null) : ?>
 
                             <div class="table-wrapper pt-2">
-                                <table class="table table-inverse">
+                                <table class="table table-inverse bg-dark">
                                     <thead>
-                                    <tr class="bg-danger">
+                                    <tr class="bg-danger text-dark">
                                         <th class="text-uppercase">Content name</th>
                                         <th class="text-uppercase text-center">Status</th>
+                                        <th class="text-uppercase text-center">category</th>
                                         <th class="text-uppercase text-center">Edit</th>
                                         <th class="text-uppercase text-center">Delete</th>
                                         <th class="text-uppercase text-center">Created at</th>
@@ -102,21 +107,22 @@
                                     </thead>
                                     <?php foreach ($this->get_content as $content) : ?>
                                         <tbody>
-                                        <tr class="" id="<?php echo $content->id; ?>">
+                                        <tr class="text-white" id="<?php echo $content->id; ?>">
                                             <td class="ml-auto"><?php echo $content->title; ?></td>
-                                            <td class="text-center"><?php echo $content->status; ?></td>
+                                            <td class="text-center <?php echo ($content->status == 'public') ? 'text-success' : 'text-danger'; ?>"><?php echo $content->status; ?></td>
+                                            <td class="text-center <?php if ($content->category_name == 'Uncategorised') echo 'text-danger' ?>"><?php echo $content->category_name; ?></td>
                                             <td class="text-center">
                                                 <a class="text-center text-success"
                                                    href="<?php echo base_url("/admin/edit_content/$content->id"); ?>"
                                                 >
-                                                    <span class="icon-pencil"></span>
+                                                    <span class="icon icon-pencil"></span>
                                                 </a>
                                             </td>
                                             <td class="text-center">
                                                 <a class="text-center text-danger delete_content_trigger"
                                                    id="<?php echo $content->id; ?>"
                                                    name="<?php echo $content->title; ?>"
-                                                ><span class="icon-close"></span>
+                                                ><span class="icon icon-close"></span>
                                                 </a>
                                             </td>
                                             <td class="text-center"><?php echo $content->created_at; ?></td>

@@ -38,9 +38,10 @@
                             <div class="form-group">
                                 <label for="category" class="text-secondary"><b>Category *</b></label>
                                 <select name="category" id="category" class="form-control">
-                                    <option selected disabled>Select category</option>
                                     <?php foreach ($this->categories as $category): ?>
-                                        <option value="<?php echo $category->id; ?>"><?php echo $category->name; ?></option>
+                                        <option <?php if ($category->id == 1) 'selected'; ?>
+                                                value="<?php echo $category->id; ?>"
+                                        ><?php echo $category->name; ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
@@ -48,8 +49,7 @@
                             <div class="form-group">
                                 <label for="status" class="text-secondary"><b>Status *</b></label>
                                 <select name="status" id="status" class="form-control">
-                                    <option selected disabled>Select status</option>
-                                    <option value="not public">not public</option>
+                                    <option selected value="not public">not public</option>
                                     <option value="public">public</option>
                                 </select>
                             </div>

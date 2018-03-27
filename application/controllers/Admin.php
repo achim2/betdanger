@@ -274,7 +274,18 @@ class Admin extends CI_Controller {
     }
 
     public function delete_category($id) {
+        $this->re_categorise($id);
         $this->Content_model->delete_category($id);
+    }
+
+    public function re_categorise($cat_id) {
+        $get_contents = $this->Content_model->get_content();
+
+        foreach ($get_contents as $content) {
+            if ($content->category_id == $cat_id) {
+                $this->Content_model->re_categorise_content($content->id, array('category_id' => 1)); //uncategorised
+            }
+        }
     }
 
     public function delete_content($id) {
