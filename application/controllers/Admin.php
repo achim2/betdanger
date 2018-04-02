@@ -260,8 +260,10 @@ class Admin extends CI_Controller {
 
         if (!empty($tags)) {
             $tags = explode(',', $tags);
+
             foreach ($tags as $tag) {
-                $tag_id = $this->Content_model->get_tag_id_or_insert($tag);
+                $clear_tag = str_replace(' ', '', $tag);
+                $tag_id = $this->Content_model->get_tag_id_or_insert($clear_tag);
 
                 $data = array(
                     'content_id' => $content_id,

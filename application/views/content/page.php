@@ -3,27 +3,34 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-lg-8">
-            <article class="p-2 bg-white">
-                <h4 class="mb-3"><?php echo $this->get_content->title; ?></h4>
-                <div class="d-flex flex-column flex-lg-row justify-content-between">
-                    <span><?php echo $this->mylib->custom_dateTime($this->get_content->created_at); ?></span>
-                    <span>written: <?php echo $this->get_content->username; ?></span>
+            <article class="p-3 bg-white">
+                <h4 class=""><?php echo $this->content->title; ?></h4>
+                <div class="mb-2">
+                    <?php if (is_array($this->content->tag_names) && !empty($this->content->tag_names)): ?>
+                        <?php foreach ($this->content->tag_names as $name): ?>
+                            <a class="tag-name" href="<?php echo base_url("/tag/$name") ?>">#<?php echo $name; ?> </a>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                 </div>
-                <div class="mb-2">category: <?php echo ucfirst($this->get_content->category_name); ?></div>
+                <div class="d-flex flex-column flex-lg-row justify-content-between">
+                    <span><?php echo $this->mylib->custom_dateTime($this->content->created_at); ?></span>
+                    <span>written: <?php echo $this->content->username; ?></span>
+                </div>
+                <div class="mb-2">category: <?php echo ucfirst($this->content->category_name); ?></div>
                 <img class="img-fluid mb-3"
-                     src="/assets/images/uploaded/<?php echo $this->get_content->image_name; ?>"
-                     alt="<?php echo $this->get_content->image_name; ?>"
+                     src="/assets/images/uploaded/<?php echo $this->content->image_name; ?>"
+                     alt="<?php echo $this->content->image_name; ?>"
                 >
-                <p class="mx-2"><?php echo $this->get_content->body; ?></p>
+                <p class="mx-2"><?php echo $this->content->body; ?></p>
             </article>
 
 <!--            --><?php //if () : ?>
-                <section class="my-2 p-2 bg-white">
+                <section class="my-2 p-3 bg-white">
                     <h4 class="section-name">Comments</h4>
                 </section>
 <!--            --><?php //endif ?>
 
-            <section class="mt-2 p-2 bg-white">
+            <section class="mt-2 p-3 bg-white">
                 <h4 class="section-name">Write comment</h4>
                 <?php if (($logged_in != null) && ($logged_in != '')) : ?>
 

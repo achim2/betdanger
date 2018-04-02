@@ -1,13 +1,10 @@
-<?php $result = count($this->get_results); ?>
-
 <div class="title-wrapper">
-    <h2>Searched for: <?php echo $this->uri->segment(2); ?></h2>
-    <h6>Search result<?php echo ($result > 1) ? 's (' . $result . ')' : ' (' . $result . ')'; ?></h6>
+    <h2>#<?php echo $this->uri->segment(2); ?></h2>
 </div>
 
 <div class="container">
     <div class="row">
-        <?php foreach ($this->get_results as $content) : ?>
+        <?php foreach ($this->contents as $content) : ?>
             <?php if ($content): ?>
 
                 <div class="col-sm-6 col-lg-3">

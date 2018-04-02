@@ -47,7 +47,10 @@
                         console.log(data);
 
                         if (data.result.length !== 0) {
-                            output.show().append('<a href="' + data.url + 'search_result/' + txt + '" class="show-results">Search results: (' + data.result.length + ')</a>');
+                            output.show().append('<a ' +
+                                'href="' + data.url + 'search_result/' + txt + '" ' +
+                                'class="show-results"' +
+                                '>Search results: (' + data.result.length + ')</a>');
                         } else {
                             output.show().append('<a class="show-results">Search results: No result! </a>');
                         }

@@ -69,6 +69,9 @@
   }
 
   .btn-card {
+    @extend .btn;
+    @extend .btn-primary;
+
     position: absolute;
     right: 10px;
     bottom: 10px;
