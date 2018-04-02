@@ -21,11 +21,14 @@
             <a>Cms</a>
             <ul class="nav-sub-links">
                 <li>
-                    <a href="/admin/cms/categories">Category</a>
+                    <a href="/admin/cms/categories">Categories</a>
                 </li>
                 <li>
-                    <a href="/admin/cms/content">Content</a>
+                    <a href="/admin/cms/content">Contents</a>
                 </li>
+<!--                <li>-->
+<!--                    <a href="/admin/cms/content">Tags</a>-->
+<!--                </li>-->
             </ul>
         </li>
         <li>

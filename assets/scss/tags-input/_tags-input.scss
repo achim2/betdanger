@@ -1,0 +1,6 @@
+//tags-input
+@import "../../../node_modules/jquery-tags-input/dist/jquery.tagsinput.min.css";
+
+div.tagsinput {
+  @extend .form-control;
+}

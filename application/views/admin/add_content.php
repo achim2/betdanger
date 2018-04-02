@@ -18,7 +18,7 @@
                                        class="form-control"
                                        id="title"
                                        name="title"
-                                       value="<?php if (isset($_POST['title'])) echo $_POST['title']; ?>"
+                                       value="<?php echo "proba test lol" // if (isset($_POST['title'])) echo $_POST['title']; ?>"
                                 />
                             </div>
                             <div class="form-group">
@@ -28,11 +28,16 @@
                                           id="content"
                                           name="content"
                                           rows="4"
-                                ><?php if (isset($_POST['content'])) echo $_POST['content']; ?></textarea>
+                                ><?php echo "proba test lol" // if (isset($_POST['content'])) echo $_POST['content']; ?></textarea>
                             </div>
                             <div class="form-group">
                                 <label for="image_file" class="text-secondary"><b>Image *</b></label>
                                 <input type="file" class="form-control-file" id="image_file" name="image_file"/>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="tags" class="text-secondary"><b>Tags *</b></label>
+                                <input name="tags" id="tags" class="form-control tags" value=""/>
                             </div>
 
                             <div class="form-group">
@@ -104,6 +109,17 @@
                                     <label for="image_file" class="text-secondary"><b>Add new img, if you want</b></label>
                                     <input type="file" class="form-control-file" id="image_file" name="image_file"/>
                                 </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="tags" class="text-secondary"><b>Tags</b></label>
+                                <input name="tags" id="tags" class="form-control tags" value="<?php
+                                foreach ($this->get_tags as $tags) :
+                                    if ($tags->content_id == $this->content->id) :
+                                        echo $tags->name . ',';
+                                    endif;
+                                endforeach;
+                                ?>"/>
                             </div>
 
                             <div class="form-group">

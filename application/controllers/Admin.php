@@ -128,7 +128,7 @@ class Admin extends CI_Controller {
         $this->form_validation->set_rules('content', 'Content', 'required');
         $this->form_validation->set_rules('category', 'Category', 'required');
         $this->form_validation->set_rules('status', 'Status', 'required');
-        $this->form_validation->set_rules('image_file', 'File', 'callback_file_check');
+//        $this->form_validation->set_rules('image_file', 'File', 'callback_file_check');
 
         if ($this->form_validation->run() === false) {
             $jsonData['message'] = $this->form_validation->error_array();
@@ -163,7 +163,8 @@ class Admin extends CI_Controller {
                     'created_at' => date('Y-m-d H:i:s'),
                 );
 
-                $this->Content_model->add_content($info);
+                $content_id = $this->Content_model->add_content($info);
+                $this->handle_tags($this->input->post('tags'), $content_id);
 
                 $jsonData['message'] = array('title' => 'Content successfully added.');
                 $jsonData['success'] = true;
@@ -177,6 +178,7 @@ class Admin extends CI_Controller {
     public function edit_content($slug) {
         $this->categories = $this->Content_model->get_categories();
         $this->content = $this->Content_model->get_content($slug);
+        $this->get_tags = $this->Content_model->get_tags();
 
         $this->load->view('/layouts/html_start');
         $this->load->view('/layouts/admin/header');
@@ -243,6 +245,7 @@ class Admin extends CI_Controller {
             );
 
             $this->Content_model->update_content($id, $info);
+            $this->handle_tags($this->input->post('tags'), $id);
 
             $jsonData['message'] = array('title' => 'Content successfully updated.');
             $jsonData['success'] = true;
@@ -250,6 +253,24 @@ class Admin extends CI_Controller {
         }
 
         echo json_encode($jsonData);
+    }
+
+    public function handle_tags($tags, $content_id) {
+        $this->Content_model->delete_ctr($content_id);
+
+        if (!empty($tags)) {
+            $tags = explode(',', $tags);
+            foreach ($tags as $tag) {
+                $tag_id = $this->Content_model->get_tag_id_or_insert($tag);
+
+                $data = array(
+                    'content_id' => $content_id,
+                    'tag_id' => $tag_id
+                );
+
+                $this->Content_model->insert_ctr($data);
+            }
+        }
     }
 
     public function file_check() {
@@ -292,6 +313,7 @@ class Admin extends CI_Controller {
 
         $this->delete_img_file($content->image_name);
         $this->Content_model->delete_content($id);
+        $this->Content_model->delete_ctr($id);
     }
 
     public function delete_img_file($img_name) {

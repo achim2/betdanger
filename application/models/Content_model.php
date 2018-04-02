@@ -41,6 +41,7 @@ class Content_model extends CI_Model {
 
     public function add_content($info) {
         $this->db->insert('content', $info);
+        return $this->db->insert_id();
     }
 
     public function update_content($id, $info) {
@@ -99,25 +100,6 @@ class Content_model extends CI_Model {
         return $query->result();
     }
 
-
-//    public function get_content_to_search($slug) {
-//        if ($slug == false) {
-//            $this->db->select('content.*');
-//            $this->db->where('status', 'public');
-//            $this->db->order_by('content.created_at', 'DESC');
-//            $query = $this->db->get('content');
-//            return $query->result();
-//        }
-//
-//        $this->db->select('content.*');
-//        $this->db->where('slug', $slug);
-//        $this->db->where('status', 'public');
-//        $this->db->order_by('content.created_at', 'DESC');
-//        $query = $this->db->get('content');
-//        return $query->row();
-//    }
-
-
     public function delete_category($id) {
         $this->db->where('id', $id);
         $this->db->delete('content_category');
@@ -135,6 +117,36 @@ class Content_model extends CI_Model {
         $this->db->where('id', $id);
         $this->db->delete('content');
     }
+
+    public function get_tags() {
+        $this->db->select('tags.name, ctr.*');
+        $this->db->join('content_tag_relationship AS ctr', 'tags.id = ctr.tag_id');
+        $query = $this->db->get('tags');
+        return $query->result();
+    }
+
+    public function get_tag_id_or_insert($tag) {
+        $this->db->where('name', $tag);
+        $query = $this->db->get('tags');
+
+        if ($query->num_rows() > 0) {
+            $data = $query->row();
+            return $data->id;
+        } else {
+            $this->db->insert('tags', array('name' => $tag,));
+            return $this->db->insert_id();
+        }
+    }
+
+    public function insert_ctr($data) {
+        $this->db->insert('content_tag_relationship', $data);
+    }
+
+    public function delete_ctr($content_id) {
+        $this->db->where('content_id', $content_id);
+        $this->db->delete('content_tag_relationship');
+    }
+
 
     //COMMENTS
 
