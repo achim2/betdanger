@@ -12,17 +12,17 @@ class Search extends CI_Controller {
         $search_term = $this->input->post('search');
         $jsonData['result'] = $this->Search_model->get_search_results($search_term);
 
-        $jsonData['url'] = base_url('search/search_result/');
+        $jsonData['url'] = base_url();
         echo json_encode($jsonData);
     }
 
-    public function search_result($category, $slug){
-        $this->title = $this->mylib->get_nice_category_title($category);
-        $this->get_content = $this->Content_model->get_cat_content_to_public($category, $slug);
+    public function search_result($search_term) {
+        $this->get_results = $this->Search_model->get_search_results($search_term);
 
         $this->load->view('/layouts/html_start');
-        $this->load->view('/content/content_page');
+        $this->load->view('/layouts/main/header');
+        $this->load->view('/content/search_result');
+        $this->load->view('/layouts/main/footer');
         $this->load->view('/layouts/html_end');
-
     }
 }

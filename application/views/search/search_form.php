@@ -4,14 +4,14 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Search</h5>
-                <span class="ti-close" data-dismiss="modal"></span>
+                <span class="icon icon-close" data-dismiss="modal"></span>
 
             </div>
             <div class="modal-body">
                 <section class="search">
-                    <p class="s-info">find your event</p>
                     <div class="form-wrapper">
-                        <form class="search-form form-inline">
+                        <p>Find your ...</p>
+                        <form class="search-form">
                             <input class="form-control mr-sm-2" type="text" name="search" id="execute_search" placeholder="Type & Enter">
                             <button type="submit" class="d-none"></button>
                         </form>
@@ -26,6 +26,7 @@
 <script>
     $(document).ready(function () {
         var output = $('.search-output');
+        output.hide().empty();
 
         $('#execute_search').keyup(function () {
             var txt = $(this).val();
@@ -33,9 +34,8 @@
 
             output.hide().empty();
 
-            if (txt.length < 3) {
+            if (txt.length < 1) {
                 output.empty().hide();
-
             } else {
 
                 $.ajax({
@@ -44,20 +44,22 @@
                     type: 'post',
                     dataType: 'json',
                     success: function (data, status, xhr) {
-//                    console.log('SUCCESS');
-//                    console.log(data);
-//                    console.log(data.url);
+                        console.log(data);
+
+                        if (data.result.length !== 0) {
+                            output.show().append('<a href="' + data.url + 'search_result/' + txt + '" class="show-results">Search results: (' + data.result.length + ')</a>');
+                        } else {
+                            output.show().append('<a class="show-results">Search results: No result! </a>');
+                        }
+
                         $.each(data.result, function (i, value) {
-                            console.log(value);
-                            output.show().append('<a href="' + data.url + value.category + "/" + value.slug + '" class="searched-item">' + value.title + '</a>');
+                            // console.log(value);
+                            output.show().append('<a href="' + data.url + 'page/' + value.slug + '" class="searched-item">' + value.title + '</a>');
                         });
 
                     },
                     error: function (data, status, xhr) {
-                        console.log('ERROR');
-                        console.log(data);
-                        console.log(status);
-//                        console.log(xhr);
+                        // console.log('error');
                     }
                 })
             }
