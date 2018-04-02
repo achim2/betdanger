@@ -1,0 +1,86 @@
+.card {
+  position: relative;
+  height: calc(100% - 30px);
+  margin-bottom: 68px;
+  transition: $general-transition;
+  z-index: 98;
+
+  @include media-breakpoint-up(lg) {
+    margin-bottom: 30px;
+  }
+
+  &:hover {
+    @include media-breakpoint-up(lg) {
+      height: calc(100% + 18px);
+      z-index: 99;
+
+      &::before {
+        top: -10px;
+        right: -10px;
+        bottom: -10px;
+        left: -10px;
+      }
+
+      .card-img-wrapper {
+        border-radius: $general-border-radius;
+      }
+
+      .card-img-top {
+        transform: scale(1.025);
+      }
+
+      .btn-card {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+  }
+
+  &::before {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transition: $general-transition;
+    border-radius: $general-border-radius;
+    background-color: $white;
+    content: '';
+    z-index: -1;
+  }
+
+  .card-img-wrapper {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card-img-top {
+    transition: $general-transition;
+  }
+
+  .card-body {
+    position: relative;
+    padding: 20px 10px 10px;
+
+    @include media-breakpoint-up(lg) {
+      padding-bottom: 0;
+    }
+  }
+
+  .btn-card {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    left: 10px;
+    transition: $general-transition;
+
+    @include media-breakpoint-up(lg) {
+      right: 0;
+      bottom: 0;
+      left: 0;
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+}

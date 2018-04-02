@@ -35,7 +35,6 @@ class Admin extends CI_Controller {
     }
 
     public function cms() {
-        $this->category = null;
         $this->get_content = $this->Content_model->get_content();
         $this->categories = $this->Content_model->get_categories();
 

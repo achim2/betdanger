@@ -19,17 +19,24 @@ class Content_model extends CI_Model {
         $this->db->update('content', $info);
     }
 
-    public function get_categories($id = false) {
-        if ($id == false) {
+    public function get_categories($id = false, $name = false) {
+        if ($id != false) {
             $this->db->select('content_category.*');
+            $this->db->where('id', $id);
             $query = $this->db->get('content_category');
-            return $query->result();
+            return $query->row();
+        }
+
+        if ($name != false) {
+            $this->db->select('content_category.*');
+            $this->db->where('name', $name);
+            $query = $this->db->get('content_category');
+            return $query->row();
         }
 
         $this->db->select('content_category.*');
-        $this->db->where('id', $id);
         $query = $this->db->get('content_category');
-        return $query->row();
+        return $query->result();
     }
 
     public function add_content($info) {
@@ -57,27 +64,39 @@ class Content_model extends CI_Model {
         return $query->row();
     }
 
-    public function get_content_to_public($slug = false, $status = "public", $category_id = 1) {
-        if ($slug == false) {
+    public function get_content_to_public($slug = false, $category_id = false) {
+        if ($slug != false) {
             $this->db->select('content.*, users.username, content_category.name as category_name');
-            $this->db->where('status', $status);
-            $this->db->not_like('category_id', $category_id);
-            $this->db->order_by('content.created_at', 'DESC');
+            $this->db->where('slug', $slug);
+            $this->db->where('status', 'public');
+            $this->db->not_like('category_id', 1);
             $this->db->join('users', 'users.user_id = content.user_id');
             $this->db->join('content_category', 'content_category.id = content.category_id');
+            $this->db->order_by('content.created_at', 'DESC');
+            $query = $this->db->get('content');
+            return $query->row();
+        }
+
+        if ($category_id != false) {
+            $this->db->select('content.*, users.username, content_category.name as category_name');
+            $this->db->where('category_id', $category_id);
+            $this->db->where('status', 'public');
+            $this->db->not_like('category_id', 1);
+            $this->db->join('users', 'users.user_id = content.user_id');
+            $this->db->join('content_category', 'content_category.id = content.category_id');
+            $this->db->order_by('content.created_at', 'DESC');
             $query = $this->db->get('content');
             return $query->result();
         }
 
-        $this->db->select('content.*, users.username, ccontent_category.name as category_name');
-        $this->db->where('slug', $slug);
-        $this->db->where('status', $status);
-        $this->db->not_like('category_id', $category_id);
+        $this->db->select('content.*, users.username, content_category.name as category_name');
+        $this->db->where('status', 'public');
+        $this->db->not_like('category_id', 1);
+        $this->db->order_by('content.created_at', 'DESC');
         $this->db->join('users', 'users.user_id = content.user_id');
         $this->db->join('content_category', 'content_category.id = content.category_id');
-        $this->db->order_by('content.created_at', 'DESC');
         $query = $this->db->get('content');
-        return $query->row();
+        return $query->result();
     }
 
 

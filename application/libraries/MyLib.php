@@ -78,7 +78,7 @@ class MyLib {
 
     }
 
-    public function get_slug($str) {
+    function get_slug($str) {
         $str = convert_accented_characters($str);
         $str = word_limiter($str, '4', '');
         $str = strtolower($str);
@@ -86,5 +86,10 @@ class MyLib {
         $str = str_replace($cleaning, '-', $str);
 
         return $str;
+    }
+
+    function custom_dateTime($time) {
+        $date = new DateTime($time);
+        return $date->format("Y.m.d. H:i");
     }
 }

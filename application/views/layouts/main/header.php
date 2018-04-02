@@ -1,5 +1,7 @@
 <?php
 $logged_in = $this->session->userdata('logged_in');
+$categories = $this->Content_model->get_categories();
+
 ?>
 
 <?php
@@ -26,16 +28,15 @@ $this->load->view('/search/search_form');
                 <li class="nav-item">
                     <a class="nav-link <?php echo ($this->uri->segment(1) == '') ? 'active' : '' ?>" href="<?php echo base_url(); ?>">home</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link <?php echo ($this->uri->segment(1) == 'news') ? 'active' : '' ?>" href="/news">news</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link <?php echo ($this->uri->segment(1) == 'previews') ? 'active' : '' ?>" href="/previews">previews</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link <?php echo ($this->uri->segment(1) == 'blog') ? 'active' : '' ?>" href="/blog">blog</a>
-                </li>
-
+                <?php foreach ($categories as $category) : ?>
+                    <?php if ($category->id != 1): ?>
+                        <li class="nav-item">
+                            <a class="nav-link <?php echo ($this->uri->segment(3) == $category->name) ? 'active' : '' ?>"
+                               href="<?php echo base_url("/category/" . $category->name); ?>"
+                            ><?php echo $category->name; ?></a>
+                        </li>
+                    <?php endif; ?>
+                <?php endforeach; ?>
             </ul>
 
             <ul class="navbar-nav ml-auto navbar-right">
@@ -56,11 +57,8 @@ $this->load->view('/search/search_form');
                                 echo "<a class=\"dropdown-item\" href=" . base_url('/admin') . ">admin</a>";
                             }
 
-                            //                        if (($user_type === 'administrator') || ($user_type === 'moderator')) {
                             if (($user_type === 'user') || ($user_type === 'administrator') || ($user_type === 'moderator')) {
-                                echo "<a class=\"dropdown-item\" href='/content/news'>my news</a>";
-                                echo "<a class=\"dropdown-item\" href='/content/previews'>my previews</a>";
-                                echo "<a class=\"dropdown-item\" href='/content/blog'>my blog posts</a>";
+//                                echo "<a class=\"dropdown-item\" href='/content/blog'>my blog posts</a>";
                             }
 
                             if (($user_type === 'user') || ($user_type === 'administrator') || ($user_type === 'moderator')) {
@@ -99,38 +97,38 @@ $this->load->view('/search/search_form');
 </nav>
 
 <main>
-<?php
-
-//SESSION MESSAGES ////////////////////////////
-if ($this->session->flashdata('registered')) { ?>
-    <p class="flash_alert text-center alert alert-dismissable alert-success"><?php echo $this->session->flashdata('registered'); ?></p>
     <?php
-}
 
-if ($this->session->flashdata('verification_notice')) { ?>
-    <p class="flash_alert text-center alert alert-dismissable alert-success"><?php echo $this->session->flashdata('verification_notice'); ?></p>
-    <?php
-}
+    //SESSION MESSAGES ////////////////////////////
+    if ($this->session->flashdata('registered')) { ?>
+        <p class="flash_alert text-center alert alert-dismissable alert-success"><?php echo $this->session->flashdata('registered'); ?></p>
+        <?php
+    }
 
-if ($this->session->flashdata('login_success')) { ?>
-    <p class="flash_alert text-center alert alert-dismissable alert-success"><?php echo $this->session->flashdata('login_success'); ?></p>
-    <?php
-}
+    if ($this->session->flashdata('verification_notice')) { ?>
+        <p class="flash_alert text-center alert alert-dismissable alert-success"><?php echo $this->session->flashdata('verification_notice'); ?></p>
+        <?php
+    }
 
-if ($this->session->flashdata('log_out')) { ?>
-    <p class="flash_alert text-center alert alert-dismissable alert-success"><?php echo $this->session->flashdata('log_out'); ?></p>
-    <?php
-}
+    if ($this->session->flashdata('login_success')) { ?>
+        <p class="flash_alert text-center alert alert-dismissable alert-success"><?php echo $this->session->flashdata('login_success'); ?></p>
+        <?php
+    }
 
-if ($this->session->flashdata('profile_deleted')) { ?>
-    <p class="flash_alert text-center alert alert-dismissable alert-success"><?php echo $this->session->flashdata('profile_deleted'); ?></p>
-    <?php
-}
+    if ($this->session->flashdata('log_out')) { ?>
+        <p class="flash_alert text-center alert alert-dismissable alert-success"><?php echo $this->session->flashdata('log_out'); ?></p>
+        <?php
+    }
 
-if ($this->session->flashdata('unsubscribe')) { ?>
-    <p class="flash_alert text-center alert alert-dismissable alert-success"><?php echo $this->session->flashdata('unsubscribe'); ?></p>
-    <?php
-}
-?>
+    if ($this->session->flashdata('profile_deleted')) { ?>
+        <p class="flash_alert text-center alert alert-dismissable alert-success"><?php echo $this->session->flashdata('profile_deleted'); ?></p>
+        <?php
+    }
+
+    if ($this->session->flashdata('unsubscribe')) { ?>
+        <p class="flash_alert text-center alert alert-dismissable alert-success"><?php echo $this->session->flashdata('unsubscribe'); ?></p>
+        <?php
+    }
+    ?>
 
 

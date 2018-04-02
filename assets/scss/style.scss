@@ -11,9 +11,12 @@
 @import 'common';
 
 //admin
-@import "admin/admin-common";
-@import "admin/admin-header";
+@import 'admin/admin-common';
+@import 'admin/admin-header';
 
-//
+//layouts
 @import 'footer';
 @import 'header';
+
+//
+@import 'template_parts/card';

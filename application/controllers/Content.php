@@ -7,12 +7,11 @@ class Content extends CI_Controller {
         parent::__construct();
 
 //        $this->mylib->auth('administrator');
-        $this->load->helper('file');
     }
 
     public function welcome() {
+        $this->get_category = $this->Content_model->get_categories();
         $this->get_content = $this->Content_model->get_content_to_public();
-        var_dump($this->get_content);
 
         $this->load->view('/layouts/html_start');
         $this->load->view('/layouts/main/header');
@@ -21,20 +20,24 @@ class Content extends CI_Controller {
         $this->load->view('/layouts/html_end');
     }
 
-    public function content_category($category) {
-
-        $this->get_content = $this->Content_model->get_cat_content_to_public($category);
+    public function category($category) {
+        $this->get_category = $this->Content_model->get_categories(false, $category);
+        $this->get_content = $this->Content_model->get_content_to_public(false, $this->get_category->id);
 
         $this->load->view('/layouts/html_start');
-        $this->load->view('/content/content_category');
+        $this->load->view('/layouts/main/header');
+        $this->load->view('/content/category');
+        $this->load->view('/layouts/main/footer');
         $this->load->view('/layouts/html_end');
     }
 
-    public function content_page($category, $slug) {
-        $this->get_content = $this->Content_model->get_cat_content_to_public($category, $slug);
+    public function page($slug) {
+        $this->get_content = $this->Content_model->get_content_to_public($slug);
 
         $this->load->view('/layouts/html_start');
-        $this->load->view('/content/content_page');
+        $this->load->view('/layouts/main/header');
+        $this->load->view('/content/page');
+        $this->load->view('/layouts/main/footer');
         $this->load->view('/layouts/html_end');
     }
 

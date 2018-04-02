@@ -69,7 +69,7 @@
 
                 <?php elseif ($uri == 'edit_content') : ?>
 
-                    <h2 class="section-name">Edit "<?php echo $this->content->title; ?>"</h2>
+                    <h2 class="section-name">Edit content: "<?php echo $this->content->title; ?>"</h2>
                 <?php echo validation_errors('<p class="text-center alert alert-dismissable alert-danger">') ?>
 
                     <form id="edit_content">

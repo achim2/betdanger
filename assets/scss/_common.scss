@@ -16,3 +16,20 @@ main {
 .icon {
   cursor: pointer;
 }
+
+h2 {
+  margin-bottom: 20px;
+  color: rgba(255, 255, 255, .8);
+
+  a,
+  a:hover,
+  a:focus,
+  a:active {
+    color: inherit;
+    text-decoration: none;
+
+    &:hover {
+      color: $white;
+    }
+  }
+}

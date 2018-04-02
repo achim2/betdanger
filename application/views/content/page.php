@@ -1,83 +1,49 @@
+<?php $logged_in = $this->session->userdata('logged_in'); ?>
+
 <div class="container">
-    <div class="row">
-        <div class="col-md-7 offset-md-1">
-            <main>
-                <article>
-                    <h4 class="title"><?php echo "Content Page"; ?></h4>
-                    <p class="info">
-                        <span><?php echo $this->get_content->created_at; ?></span>
-                        <span>written: <?php echo $this->get_content->username; ?></span>
-                    </p>
-                    <img class="front-img img-fluid" src="/assets/images/uploaded/<?php echo $this->get_content->front_img; ?>" alt="<?php echo $this->get_content->title; ?>">
-                    <p><?php echo $this->get_content->body; ?></p>
-                </article>
-
-                <h4 class="section-name">Comments</h4>
-                <section class="list-comments">
-                </section>
-
-                <h4 class="section-name">Add comment</h4>
-                <section class="write-comment">
-                    <?php
-                    $logged_in = $this->session->userdata('logged_in');
-
-                    if (($logged_in != null) && ($logged_in != '')) {
-
-                        ?>
-
-                        <form id="add_comment">
-                            <div class="form-group">
-                                <label for="comment" hidden></label>
-                                <textarea id="comment" class="form-control" name="comment" rows="1"></textarea>
-                            </div>
-                            <div class="form-group m-0">
-                                <input type="submit" class="btn btn-dark" value="Add">
-                            </div>
-                        </form>
-
-                        <?php
-                    } else {
-                        echo "To write comment, log in";
-                    }
-                    ?>
-                </section>
-
-            </main>
-        </div>
-
-        <div class="col-xl-3">
-            <aside>
-                <div class="row">
-
-                    <div class="col-sm-6 col-xl-12">
-                        <div class="categories">
-                            <h4 class="section-name">daily bets</h4>
-                            <ul>
-                                <li><a href="#">Maecenas</a></li>
-                                <li><a href="#">Pellentesque</a></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-6 col-xl-12">
-                        <div class="categories">
-                            <h4 class="section-name">useful tools</h4>
-                            <ul>
-                                <li><a href="#">Maecenas</a></li>
-                                <li><a href="#">Pellentesque</a></li>
-                                <li><a href="#">Donec</a></li>
-                                <li><a href="#">Etiam</a></li>
-                                <li><a href="#">Integer</a></li>
-                                <li><a href="#">Lorem</a></li>
-                                <li><a href="#">Proin</a></li>
-                            </ul>
-                        </div>
-                    </div>
-
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <article class="p-2 bg-white">
+                <h4 class="mb-3"><?php echo $this->get_content->title; ?></h4>
+                <div class="d-flex flex-column flex-lg-row justify-content-between">
+                    <span><?php echo $this->mylib->custom_dateTime($this->get_content->created_at); ?></span>
+                    <span>written: <?php echo $this->get_content->username; ?></span>
                 </div>
+                <div class="mb-2">category: <?php echo ucfirst($this->get_content->category_name); ?></div>
+                <img class="img-fluid mb-3"
+                     src="/assets/images/uploaded/<?php echo $this->get_content->image_name; ?>"
+                     alt="<?php echo $this->get_content->image_name; ?>"
+                >
+                <p class="mx-2"><?php echo $this->get_content->body; ?></p>
+            </article>
 
-            </aside>
+<!--            --><?php //if () : ?>
+                <section class="my-2 p-2 bg-white">
+                    <h4 class="section-name">Comments</h4>
+                </section>
+<!--            --><?php //endif ?>
+
+            <section class="mt-2 p-2 bg-white">
+                <h4 class="section-name">Write comment</h4>
+                <?php if (($logged_in != null) && ($logged_in != '')) : ?>
+
+                    <form id="add_comment">
+                        <div class="form-group">
+                            <label for="comment" hidden></label>
+                            <textarea id="comment" class="form-control" name="comment" rows="1"></textarea>
+                        </div>
+                        <div class="form-group m-0">
+                            <input type="submit" class="btn btn-dark" value="Add">
+                        </div>
+                    </form>
+
+                <?php else : ?>
+                    <p>To write comment, log in</p>
+                <?php endif; ?>
+            </section>
+
         </div>
+
     </div>
 </div>
 
@@ -93,7 +59,7 @@
                     "<span>" + value.username + "</span>" +
                     "<span>" +
                     "<span class='mr-2'>" + value.created_at + "</span>" +
-//                    "<span class='ti-close del-com'></span>" +
+                    //                    "<span class='ti-close del-com'></span>" +
                     "</span>" +
                     "</p>" +
                     "<p>" + value.body + "</p>" +

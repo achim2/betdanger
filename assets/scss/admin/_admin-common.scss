@@ -2,7 +2,14 @@
   margin-left: 200px;
   padding: 50px 0;
 
-}
+  .table {
+    border: 2px solid $white;
 
-.cms-table {
+  }
+
+  thead {
+    th {
+      border-bottom: none;
+    }
+  }
 }
