@@ -81,7 +81,7 @@ class Admin extends CI_Controller {
 
         $this->load->view('/layouts/html_start');
         $this->load->view('/layouts/admin/header');
-        $this->load->view('/admin/add_category');
+        $this->load->view('/admin/edit_category');
         $this->load->view('/layouts/html_end');
     }
 
@@ -182,7 +182,7 @@ class Admin extends CI_Controller {
 
         $this->load->view('/layouts/html_start');
         $this->load->view('/layouts/admin/header');
-        $this->load->view('/admin/add_content');
+        $this->load->view('/admin/edit_content');
         $this->load->view('/layouts/html_end');
     }
 
