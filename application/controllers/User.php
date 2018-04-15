@@ -193,7 +193,9 @@ class User extends CI_Controller {
 //        var_dump($this->user);
 
         $this->load->view('/layouts/html_start');
+        $this->load->view('/layouts/main/header');
         $this->load->view('/user/profile');
+        $this->load->view('/layouts/main/footer');
         $this->load->view('/layouts/html_end');
     }
 

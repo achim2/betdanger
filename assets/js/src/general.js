@@ -68,8 +68,16 @@ $(document).ready(function () {
     });
 
     $('#tags').tagsInput({
-        'height':'100px',
-        'width':'300px',
-        'defaultText':'add a tag'
+        'height': '100px',
+        'width': '300px',
+        'defaultText': 'add a tag'
+    });
+
+    $('.accordion a.btn').on('click', function () {
+        if ($(this).hasClass('collapsed')) {
+            $(this).text('collapse');
+        } else {
+            $(this).text('expand');
+        }
     });
 });

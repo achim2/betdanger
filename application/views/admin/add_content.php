@@ -18,7 +18,7 @@
                                        class="form-control"
                                        id="title"
                                        name="title"
-                                       value="<?php echo "proba test lol" // if (isset($_POST['title'])) echo $_POST['title']; ?>"
+                                       value="<?php if (isset($_POST['title'])) echo $_POST['title']; ?>"
                                 />
                             </div>
                             <div class="form-group">
@@ -28,7 +28,7 @@
                                           id="content"
                                           name="content"
                                           rows="4"
-                                ><?php echo "proba test lol" // if (isset($_POST['content'])) echo $_POST['content']; ?></textarea>
+                                ><?php if (isset($_POST['content'])) echo $_POST['content']; ?></textarea>
                             </div>
                             <div class="form-group">
                                 <label for="image_file" class="text-secondary"><b>Image *</b></label>

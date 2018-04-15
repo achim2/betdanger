@@ -108,7 +108,15 @@
                                 <?php foreach ($this->get_content as $content) : ?>
                                     <tbody>
                                     <tr class="text-white" id="<?php echo $content->id; ?>">
-                                        <td class="ml-auto"><?php echo $content->title; ?></td>
+                                        <td class="ml-auto">
+                                            <a
+                                                <?php if ($content->status == 'public' && $content->category_name != 'uncategorised'): ?>
+                                                    href="<?php echo base_url("/page/$content->slug"); ?>"
+                                                <?php endif; ?>
+                                                    class="text-white"
+                                                    target="_blank"
+                                            ><?php echo $content->title; ?></a>
+                                        </td>
                                         <td class="text-center <?php echo ($content->status == 'public') ? 'text-success' : 'text-danger'; ?>"><?php echo $content->status; ?></td>
                                         <td class="text-center <?php if ($content->category_name == 'Uncategorised') echo 'text-danger' ?>"><?php echo $content->category_name; ?></td>
                                         <td class="text-center">

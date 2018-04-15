@@ -128,7 +128,7 @@ class Admin extends CI_Controller {
         $this->form_validation->set_rules('content', 'Content', 'required');
         $this->form_validation->set_rules('category', 'Category', 'required');
         $this->form_validation->set_rules('status', 'Status', 'required');
-//        $this->form_validation->set_rules('image_file', 'File', 'callback_file_check');
+        $this->form_validation->set_rules('image_file', 'File', 'callback_file_check');
 
         if ($this->form_validation->run() === false) {
             $jsonData['message'] = $this->form_validation->error_array();
@@ -150,7 +150,7 @@ class Admin extends CI_Controller {
                 $img = $img['file_name'];
 
                 $title = $this->input->post('title');
-                $slug = $this->mylib->get_slug($title);
+                $slug = $this->check_slug($title);
 
                 $info = array(
                     'user_id' => $this->session->userdata('user_id'),
@@ -186,12 +186,10 @@ class Admin extends CI_Controller {
         $this->load->view('/layouts/html_end');
     }
 
-    //id or slug ??
-    // javítani //ha a slug megegyezik egy másik sluggal akkor mind a két contentet felülírja
     public function edit_content_process($id) {
         $jsonData = array();
 
-        $this->get_content = $this->Content_model->get_content($id);
+        $content = $this->Content_model->get_content($id);
 
         $this->form_validation->set_rules('title', 'Cím', 'required|min_length[4]');
         $this->form_validation->set_rules('content', 'Content', 'required');
@@ -209,7 +207,7 @@ class Admin extends CI_Controller {
 
         } else {
             //get the img name (if the user wants to delete or the don't want to change we need to update the new img name)
-            $img = $this->get_content->image_name;
+            $img = $content->image_name;
 
             //if the user wants to change the picture
             if (isset($_FILES['image_file']['name']) && $_FILES['image_file']['name'] != '') {
@@ -232,7 +230,7 @@ class Admin extends CI_Controller {
             }
 
             $title = $this->input->post('title');
-            $slug = $this->mylib->get_slug($title);
+            $slug = $this->check_slug($title);
 
             $info = array(
                 'title' => $title,
@@ -253,6 +251,35 @@ class Admin extends CI_Controller {
         }
 
         echo json_encode($jsonData);
+    }
+
+    public function check_slug($slug) {
+        $slug = $this->mylib->get_clear_slug($slug);
+        $contents = $this->Content_model->get_content();
+        $content_slugs = array();
+
+        foreach ($contents as $content) {
+            array_push($content_slugs, $content->slug);
+        }
+
+        $x = 2;
+        while (in_array($slug, $content_slugs)) {
+            $slug_last_character = intval(substr($slug, -1));
+
+            if (is_numeric($slug_last_character) && $slug_last_character != 0) {
+                $slug = substr($slug, 0, -2) . '-' . $x;
+
+                if (in_array($slug, $content_slugs)) {
+                    $x++;
+                }
+
+            } else {
+                $slug = $slug . '-' . $x;
+                $x++;
+            }
+        }
+
+        return $slug;
     }
 
     public function handle_tags($tags, $content_id) {

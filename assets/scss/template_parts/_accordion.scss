@@ -1,0 +1,12 @@
+.accordion {
+  margin-bottom: 10px;
+  padding: 20px;
+  background-color: $footer-top-bg;
+  color: $white;
+
+  h5 {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+  }
+}

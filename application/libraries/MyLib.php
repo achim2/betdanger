@@ -78,12 +78,9 @@ class MyLib {
 
     }
 
-    function get_slug($str) {
-        $str = convert_accented_characters($str);
-        $str = word_limiter($str, '4', '');
-        $str = strtolower($str);
-        $cleaning = array(',', '.', '\'', '"', ' ', '!', '_', '#', '<', '>', '/');
-        $str = str_replace($cleaning, '-', $str);
+    function get_clear_slug($str) {
+        $str = word_limiter($str, '3', '');
+        $str = trim(preg_replace('/[^a-z0-9-]+/', '-', strtolower($str)), '-');
 
         return $str;
     }
