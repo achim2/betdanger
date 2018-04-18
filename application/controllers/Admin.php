@@ -302,6 +302,27 @@ class Admin extends CI_Controller {
         }
     }
 
+    private function clear_tags() {
+        $ctr = $this->Content_model->get_tags();
+        $tags = $this->Content_model->get_tags_from_tag_table();
+        $tag_ids = array();
+        $ctr_tag_ids = array();
+
+        foreach ($tags as $item) {
+            array_push($tag_ids, $item->id);
+        }
+
+        foreach ($ctr as $item) {
+            array_push($ctr_tag_ids, $item->tag_id);
+        }
+
+        $diff = array_diff($tag_ids, $ctr_tag_ids);
+
+        foreach ($diff as $item) {
+            $this->Content_model->delete_tag($item);
+        }
+    }
+
     public function file_check() {
         $allowed_mime_type_arr = array('application/pdf', 'image/gif', 'image/jpeg', 'image/pjpeg', 'image/png', 'image/x-png');
         $mime = get_mime_by_extension($_FILES['image_file']['name']);
@@ -343,6 +364,8 @@ class Admin extends CI_Controller {
         $this->delete_img_file($content->image_name);
         $this->Content_model->delete_content($id);
         $this->Content_model->delete_ctr($id);
+        $this->clear_tags();
+        $this->Content_model->delete_comment_by_content_id($id);
     }
 
     public function delete_img_file($img_name) {

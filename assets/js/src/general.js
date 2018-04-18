@@ -32,8 +32,7 @@ $(document).ready(function () {
     var deleteTrigger = $('.delete_content_trigger');
 
     //delete confirm
-    deleteTrigger.on('click', function (e) {
-
+    deleteTrigger.on('click', function () {
         var deleteModal = $('#delete-content-modal');
         var category = deleteModal.attr("data-category");
         var id = $(this).attr("id");

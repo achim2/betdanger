@@ -1,5 +1,6 @@
 <?php
-$logged_in = $this->session->userdata('logged_in');
+$user = $this->session->userdata();
+$logged_in = (isset($user['logged_in'])) ? $user['logged_in'] : false;
 $categories = $this->Content_model->get_categories();
 
 ?>
@@ -51,7 +52,11 @@ $this->load->view('/search/search_form');
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 
                             <?php
-                            $user_type = $this->session->userdata('user_type');
+                            $user_type = $user['user_type'];
+
+                            if (($user_type === 'user') || ($user_type === 'administrator') || ($user_type === 'moderator')) {
+                                echo '<a class="dropdown-item bg-danger text-dark">' . $user['username'] . '</a>';
+                            }
 
                             if ($user_type === 'moderator') {
                                 echo "<a class=\"dropdown-item\" href=" . base_url('/admin') . ">admin</a>";

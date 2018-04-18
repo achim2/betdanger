@@ -36,6 +36,7 @@
         <div class="col-10 mx-auto">
             <section class="cms-table">
 
+                <!-- CATEGORIES -->
                 <h2 class="section-name">(CMS) <?php echo ($uri == 'categories') ? 'Category' : ucfirst($uri); ?></h2>
                 <?php if ($uri == 'categories') : ?>
                     <div class="d-flex align-items-center">
@@ -86,6 +87,7 @@
                         <p>Sry, there is no category yet!</p>
                     <?php endif; ?>
 
+                <!-- CONTENT -->
                 <?php elseif ($uri == 'content') : ?>
                     <div class="d-flex align-items-center">
                         <a class="btn btn-success" href="<?php echo base_url("/admin/add_content"); ?>">Add content</a>

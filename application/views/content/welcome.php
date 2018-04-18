@@ -1,7 +1,3 @@
-<div class="title-wrapper">
-    <h2>Welcome at betdanger.com</h2>
-</div>
-
 <?php foreach ($this->get_category as $category) : ?>
     <?php if ($category->id != 1): ?>
 
