@@ -97,7 +97,7 @@
             e.preventDefault();
 
             $.ajax({
-                url: "/content/add_comment_process/<?php echo $this->content->id; ?>",
+                url: "/comment/add_comment_process/<?php echo $this->content->id; ?>",
                 data: $(this).serialize(),
                 type: 'post',
                 dataType: "json",
@@ -121,7 +121,7 @@
         //get comments
         function get_comments() {
             $.ajax({
-                url: "/content/get_comments/<?php echo $this->content->id; ?>",
+                url: "/comment/get_comments/<?php echo $this->content->id; ?>",
                 type: 'post',
                 dataType: "json",
                 success: function (data, status, xhr) {
@@ -148,6 +148,7 @@
         get_comments();
 
         //edit comment
+        // ------------------------------
 
         //change comment status
         $(document).on("click", '.js-comment-status', function () {
@@ -166,7 +167,7 @@
             }
 
             $.ajax({
-                url: "/content/change_commit_status/" + comID + "/" + status,
+                url: "/comment/change_commit_status/" + comID + "/" + status,
                 success: function (data) {
                     get_comments();
                 },
@@ -189,7 +190,7 @@
                     e.preventDefault();
 
                     $.ajax({
-                        url: "/content/del_comment/" + comID,
+                        url: "/comment/del_comment/" + comID,
                         success: function (data, status) {
                             comDOM.slideUp('fast');
                             myModal.modal('hide');
