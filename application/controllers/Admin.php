@@ -365,7 +365,7 @@ class Admin extends CI_Controller {
         $this->Content_model->delete_content($id);
         $this->Content_model->delete_ctr($id);
         $this->clear_tags();
-        $this->Content_model->delete_comment_by_content_id($id);
+        $this->Comment_model->delete_comment_by_content_id($id);
     }
 
     public function delete_img_file($img_name) {

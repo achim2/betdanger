@@ -2,7 +2,7 @@ $(document).ready(function () {
 
 });
 
-function general_ajax_call(form_id, ajaxurl) {
+function general_ajax_call(form_id, ajaxurl, getFunction) {
 
     var form = $(form_id);
     //make clear id for the custom_alert div
@@ -26,7 +26,6 @@ function general_ajax_call(form_id, ajaxurl) {
 
                 function alert_messages() {
                     $.each(data.message, function (index, value) {
-                        // console.log(index);
                         form
                             .find(alert)
                             .prepend("<span>" + value + "</span><br/>");
@@ -36,6 +35,10 @@ function general_ajax_call(form_id, ajaxurl) {
                 //if $jsonData['success'] = true
                 if (data.success === true) {
 
+                    if(getFunction){
+                        getFunction();
+                    }
+
                     //redirect if success message don't need
                     if (data.redirect) {
                         window.location.href = data.redirect;
@@ -43,7 +46,6 @@ function general_ajax_call(form_id, ajaxurl) {
                     } else {
                         //show success messages if redirect not necessary
                         alert_messages();
-                        console.log('data-success');
                         alert.slideDown(500).addClass('alert-success');
 
                         $(':input', form)
@@ -60,7 +62,6 @@ function general_ajax_call(form_id, ajaxurl) {
                 } else {
                     //error messages
                     alert_messages();
-                    console.log('data-error');
                     alert.slideDown(500).addClass('alert-danger');
                 }
             }

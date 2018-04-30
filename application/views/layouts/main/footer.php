@@ -50,6 +50,13 @@
                         </div>
                     </form>
 
+                    <script>
+                        $(document).ready(function () {
+                            //add comments
+                            general_ajax_call('form#contact_email', 'email/send_contact_email');
+                        });
+                    </script>
+
                 </div>
             </div>
         </div>

@@ -16,7 +16,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <link rel="stylesheet" href="/assets/css/style.css">
 
     <!-- Global JS files -->
-    <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+<!--    <script src="/node_modules/jquery/dist/jquery.min.js"></script>-->
+    <script src="/node_modules/jquery/dist/jquery.js"></script>
     <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/assets/js/src/general.js"></script>
     <script src="/assets/js/src/ajax_form_validation.js"></script>

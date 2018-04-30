@@ -1,6 +1,4 @@
 <?php $logged_in = $this->session->userdata('logged_in'); ?>
-<?php var_dump($this->session->userdata()); ?>
-
 <div id="delete-comment-modal"
      class="modal fade"
      tabindex="-1"
@@ -91,32 +89,8 @@
     $(document).ready(function () {
         var output = $('section.list-comments');
 
-        //add comment
-        var addComment = $('#add_comment');
-        addComment.submit(function (e) {
-            e.preventDefault();
-
-            $.ajax({
-                url: "/comment/add_comment_process/<?php echo $this->content->id; ?>",
-                data: $(this).serialize(),
-                type: 'post',
-                dataType: "json",
-                success: function (data, status, xhr) {
-
-                    if (data.success === true) {
-                        console.log(data);
-                        output.empty();
-                        $("#add_comment_textarea").val("");
-                        get_comments();
-
-                    } else {
-                        alert(data.message.comment);
-                    }
-                },
-                error: function (status) {
-                }
-            })
-        });
+        //add comments
+        general_ajax_call('form#add_comment', '/comment/add_comment_process/<?php echo $this->content->id; ?>', get_comments);
 
         //get comments
         function get_comments() {
@@ -129,8 +103,6 @@
 
                     if (data.comment.length !== 0) {
                         output.append(data.comment);
-                        // console.log(data.comment);
-
                         $("#add_comment_textarea").val("");
 
                     } else {
@@ -147,13 +119,47 @@
 
         get_comments();
 
+        //not ready
         //edit comment
-        // ------------------------------
+        $(document).on("click", '.js-edit-comment', function () {
+            var thisComment = $(this).parents('div.comment');
+            var comID = thisComment.attr('id');
+            var textP = thisComment.find('.comment__text');
+            var form = thisComment.find('.comment__form');
+
+            textP.slideUp();
+            form.slideDown();
+
+            var inputSubmit = '.js-submit-comment';
+
+            $(document).on("click", inputSubmit, function (e) {
+                e.preventDefault();
+
+                var inputEditComment = form.find("input[name='edit_comment']").val();
+
+                $.ajax({
+                    url: "/comment/edit_comment_process/" + comID,
+                    data: {'edit_comment': inputEditComment},
+                    type: 'post',
+                    dataType: "json",
+                    cache: true,
+                    success: function (data) {
+                        if (data.success === true) {
+                            get_comments();
+
+                        } else {
+                            alert(data.message.edit_comment);
+                        }
+                    },
+                    error: function () {
+                    }
+                })
+            });
+        });
 
         //change comment status
         $(document).on("click", '.js-comment-status', function () {
-            var comDOM = $(this).parents('div.comment');
-            var comID = comDOM.attr('id');
+            var comID = $(this).parents('div.comment').attr('id');
             var status = '';
 
             if ($(this).hasClass('js-disable-comment')) {
@@ -163,7 +169,7 @@
                 status = 'enable';
 
             } else {
-                console.log('false');
+                status = null;
             }
 
             $.ajax({
@@ -172,7 +178,6 @@
                     get_comments();
                 },
                 error: function () {
-                    console.log('error');
                 }
             })
         });
@@ -181,8 +186,6 @@
         $(document).on("click", ".js-delete-comment", function () {
             var comDOM = $(this).parents('div.comment');
             var comID = comDOM.attr('id');
-            console.log(comDOM);
-            console.log(comID);
 
             var myModal = $('#delete-comment-modal');
             myModal.modal({backdrop: 'static', keyboard: true})
@@ -192,14 +195,15 @@
                     $.ajax({
                         url: "/comment/del_comment/" + comID,
                         success: function (data, status) {
-                            comDOM.slideUp('fast');
                             myModal.modal('hide');
+                            get_comments();
+
                         },
                         error: function () {
                         }
                     })
                 })
-        })
+        });
 
     });
 </script>

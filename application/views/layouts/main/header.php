@@ -18,13 +18,9 @@ $this->load->view('/search/search_form');
 <nav class="navbar navbar-expand-lg sticky-top">
     <div class="container">
         <a class="navbar-brand" href="<?php echo base_url(); ?>">betDANGER!<sup>&copy;</sup></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto navbar-left">
-
                 <!-- menu items -->
                 <li class="nav-item">
                     <a class="nav-link <?php echo ($this->uri->segment(1) == '') ? 'active' : '' ?>" href="<?php echo base_url(); ?>">home</a>
@@ -39,65 +35,67 @@ $this->load->view('/search/search_form');
                     <?php endif; ?>
                 <?php endforeach; ?>
             </ul>
+        </div>
 
-            <ul class="navbar-nav ml-auto navbar-right">
-                <!-- dropdown menu -->
-                <?php if ($logged_in) : ?>
-
-                    <li class="nav-item dropdown">
-                        <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Profile
-                            <div class="d-none"><?php echo $this->session->userdata('username'); ?></div>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-
-                            <?php
-                            $user_type = $user['user_type'];
-
-                            if (($user_type === 'user') || ($user_type === 'administrator') || ($user_type === 'moderator')) {
-                                echo '<a class="dropdown-item bg-danger text-dark">' . $user['username'] . '</a>';
-                            }
-
-                            if ($user_type === 'moderator') {
-                                echo "<a class=\"dropdown-item\" href=" . base_url('/admin') . ">admin</a>";
-                            }
-
-                            if (($user_type === 'user') || ($user_type === 'administrator') || ($user_type === 'moderator')) {
-//                                echo "<a class=\"dropdown-item\" href='/content/blog'>my blog posts</a>";
-                            }
-
-                            if (($user_type === 'user') || ($user_type === 'administrator') || ($user_type === 'moderator')) {
-                                echo "<a class=\"dropdown-item\" href='/user/profile'>profile</a>";
-//                            echo "<a href='/tips/my_tips'>my tips</a>";
-                                echo "<a class=\"dropdown-item\" href='/user/logout'>log out</a>";
-                            }
-                            ?>
-                        </div>
-                    </li>
-
-                <?php else: ?>
-
-                    <li class="nav-item dropdown">
-                        <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="icon icon-user"></span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" data-toggle="modal" data-target="#login">login</a>
-                            <a class="dropdown-item" data-toggle="modal" data-target="#sign-up">sign up</a>
-                        </div>
-                    </li>
-
-                <?php endif; ?>
-
-                <!-- nav search part-->
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="modal" data-target="#search_modal">
-                        <span class="icon icon-search"></span>
+        <ul class="navbar-nav ml-auto navbar-right">
+            <!-- reg & login || profile-->
+            <?php if ($logged_in) : ?>
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="d-none d-lg-block">Profile</span>
+                        <div class="d-none"><?php echo $this->session->userdata('username'); ?></div>
+                        <span class="icon icon-user d-lg-none"></span>
                     </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+
+                        <?php
+                        $user_type = $user['user_type'];
+
+                        if (($user_type === 'user') || ($user_type === 'administrator') || ($user_type === 'moderator')) {
+                            echo '<a class="dropdown-item dropdown-user">' . $user['username'] . '</a>';
+                        }
+
+                        if ($user_type === 'moderator') {
+                            echo "<a class=\"dropdown-item\" href=" . base_url('/admin') . ">admin</a>";
+                        }
+
+                        if (($user_type === 'user') || ($user_type === 'administrator') || ($user_type === 'moderator')) {
+                            echo "<a class=\"dropdown-item\" href='/user/profile'>profile</a>";
+                            echo "<a class=\"dropdown-item\" href='/user/logout'>log out</a>";
+                        }
+                        ?>
+                    </div>
                 </li>
 
-            </ul>
-        </div>
+            <?php else: ?>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="icon icon-user"></span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" data-toggle="modal" data-target="#login">login</a>
+                        <a class="dropdown-item" data-toggle="modal" data-target="#sign-up">sign up</a>
+                    </div>
+                </li>
+
+            <?php endif; ?>
+
+            <!-- nav search part-->
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="modal" data-target="#search_modal">
+                    <span class="icon icon-search"></span>
+                </a>
+            </li>
+
+            <!-- navbar toggler-->
+            <li class="nav-item d-lg-none">
+                <a class="nav-link" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="icon icon-align-justify"></span>
+                </a>
+            </li>
+
+        </ul>
     </div>
 </nav>
 

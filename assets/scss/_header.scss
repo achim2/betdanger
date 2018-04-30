@@ -2,17 +2,32 @@
   background-color: $footer-bottom-bg;
   color: $white;
 
+  .container {
+    position: relative;
+    align-items: flex-start;
+  }
+
   .navbar-brand {
     color: $rusty-red;
   }
 
   .navbar-nav {
-
     &.navbar-right {
-      .nav-item {
+      height: 40px;
 
+      @include media-breakpoint-down(md) {
+        position: absolute;
+        right: 0;
+        flex-direction: row;
+      }
+
+      .nav-item {
         &:not(:first-child) {
           margin-left: 10px;
+
+          @include media-breakpoint-down(md) {
+            margin-left: 20px;
+          }
         }
       }
     }
@@ -44,13 +59,31 @@
     }
   }
 
+  .navbar-collapse {
+    @include media-breakpoint-down(md) {
+      border-top: 1px solid $rusty-red;
+    }
+  }
+
   .dropdown-menu {
     padding: 0;
     border: none;
+    background-color: #ccc;
     overflow: hidden;
+
+    @include media-breakpoint-down(md) {
+      position: absolute;
+      right: 0;
+      left: auto;
+    }
 
     .dropdown-item {
       cursor: pointer;
+
+      &.dropdown-user {
+        border-bottom: 1px solid $rusty-red;
+        color: $rusty-red;
+      }
 
       &:hover,
       &:active,
@@ -59,5 +92,4 @@
       }
     }
   }
-
 }
