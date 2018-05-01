@@ -15,11 +15,11 @@
                     <div class="form-group">
                         <input type="password" name="password" class="form-control" placeholder="Password">
                     </div>
-                    <div class="form-group clearfix">
-                        <input type="submit" class="btn btn-dark float-left" value="Submit">
-                        <div class="data-modal-btns text-right">
-                            <a data-modal-close="#login" data-modal-open="#lost-pass">lost your pass?</a><br/>
-                            <a data-modal-close="#login" data-modal-open="#sign-up">not registered?</a>
+                    <div class="form-group d-flex justify-content-between align-items-center">
+                        <input type="submit" class="btn btn-dark" value="Submit">
+                        <div class="data-modal-btns">
+                            <a href="#" data-modal-close="#login" data-modal-open="#lost-pass">lost your pass?</a><br/>
+                            <a href="#" data-modal-close="#login" data-modal-open="#sign-up">not registered?</a>
                         </div>
                     </div>
                 </form>

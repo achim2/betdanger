@@ -9,13 +9,26 @@
             <div class="modal-body">
                 <form id="lost_pass">
                     <div class="form-group">
-                        <input type="text" name="email" class="form-control" placeholder="Email">
+                        <input type="text" name="email" class="form-control" placeholder="Email" value="ahimjuhasz@gmail.com">
                     </div>
-                    <div class="form-group">
-                        <input type="submit" class="btn btn-info" value="Submit">
+                    <div class="form-group d-flex justify-content-between align-items-center">
+                        <input type="submit" class="btn btn-dark" value="Submit">
+                        <div class="data-modal-btns">
+                            <a href="#" data-modal-close="#lost-pass" data-modal-open="#login">login</a><br>
+                            <a href="#" data-modal-close="#lost-pass" data-modal-open="#sign-up">not registered?</a>
+                        </div>
                     </div>
+
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+
+<script>
+    $(document).ready(function () {
+        //ajax contact lost pass
+        general_ajax_call('form#lost_pass', '/email/lost_password');
+    });
+</script>

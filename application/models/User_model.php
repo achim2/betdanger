@@ -10,7 +10,7 @@ class User_model extends CI_Model {
         return $insert;
     }
 
-    public function verify_user_at_db($random_string){
+    public function verify_user_at_db($random_string) {
         $this->db->where('verify', $random_string);
         $data = $this->db->get('users');
 
@@ -42,20 +42,20 @@ class User_model extends CI_Model {
         }
     }
 
-    public function get_users_to_admin(){
+    public function get_users_to_admin() {
         $this->db->select('users.*');
         $query = $this->db->get('users');
         return $query->result();
     }
 
-    public function get_verified_users(){
+    public function get_verified_users() {
         $this->db->select('users.*');
         $this->db->where('verify', 'verified');
         $query = $this->db->get('users');
         return $query->result();
     }
 
-    public function get_user_to_newsletter(){
+    public function get_user_to_newsletter() {
         $this->db->select('users.*');
         $this->db->where('newsletter', 'yes');
         $this->db->where('verify', 'verified');

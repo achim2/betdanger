@@ -132,6 +132,10 @@ $this->load->view('/search/search_form');
         <p class="flash_alert text-center alert alert-dismissable alert-success"><?php echo $this->session->flashdata('unsubscribe'); ?></p>
         <?php
     }
+    if ($this->session->flashdata('pass_changed')) { ?>
+        <p class="flash_alert text-center alert alert-dismissable alert-success"><?php echo $this->session->flashdata('pass_changed'); ?></p>
+        <?php
+    }
     ?>
 
 

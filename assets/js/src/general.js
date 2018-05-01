@@ -2,17 +2,14 @@ $(document).ready(function () {
 
     //Bootstrap modal from another modal
     //make a trigger
-    trigger = $('a[data-modal-close]');
+    var trigger = $('a[data-modal-close]');
     trigger.click(function (e) {
         e.preventDefault();
 
         //close the current modal
-        modalClose = $(this).attr('data-modal-close');
-        // console.log(modalClose);
-
+        var modalClose = $(this).attr('data-modal-close');
         //open the next modal
-        modalOpen = $(this).attr('data-modal-open');
-        // console.log(modalOpen);
+        var modalOpen = $(this).attr('data-modal-open');
 
         $(modalClose + '.modal')
             .modal('hide')
@@ -24,9 +21,9 @@ $(document).ready(function () {
     });
 
     //Dismiss the login message after 5 sec
-    $flash_alert = $('p.flash_alert');
+    var flash_alert = $('p.flash_alert');
     setTimeout(function () {
-        $flash_alert.slideUp(1000)
+        flash_alert.slideUp(1000)
     }, 5000);
 
     var deleteTrigger = $('.delete_content_trigger');
@@ -72,7 +69,11 @@ $(document).ready(function () {
         'defaultText': 'add a tag'
     });
 
-    $('.accordion a.btn').on('click', function () {
+    //profile page btn text
+    var btnCollapsed = $('.accordion a.collapsed');
+    btnCollapsed.on('click', function () {
+        btnCollapsed.text('expand');
+
         if ($(this).hasClass('collapsed')) {
             $(this).text('collapse');
         } else {

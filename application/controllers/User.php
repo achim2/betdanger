@@ -17,13 +17,7 @@ class User extends CI_Controller {
         //if post exist
         if ($this->input->method() == 'post') {
 
-            $this->form_validation->set_rules('username', 'Username', 'trim|required|min_length[4]|is_unique[users.username]|xss_clean',
-                array(
-//                    'is_unique' => 'Ez a %s már létezik.',
-//                    'min_length' => 'A %snek legalább 4 karaktert tartalmaznia kell.',
-//                    'required' => 'A %s mező kitöltése kötelező.',
-                )
-            );
+            $this->form_validation->set_rules('username', 'Username', 'trim|required|min_length[4]|is_unique[users.username]|xss_clean');
             $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|is_unique[users.email]|xss_clean');
             $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[4]|max_length[50]|xss_clean');
             $this->form_validation->set_rules('password2', 'Password again', 'trim|required|matches[password]|xss_clean');
@@ -72,10 +66,8 @@ class User extends CI_Controller {
 
         $user_join_date_plus_1 = new DateTime($user->join_date);
         $user_join_date_plus_1->add(new DateInterval('P1D'));
-//        $user_join_date_plus_1->format('Y-m-d H:i:s');
 
         $currentTime = new DateTime();
-//        $currentTime->format('Y-m-d H:i:s');
 
         //if exist user and sign up email not expired (24 hours)
         if ($user && ($user_join_date_plus_1 > $currentTime)) {
@@ -105,17 +97,15 @@ class User extends CI_Controller {
 
         //if post exist
         if ($this->input->method() == 'post') {
-
             $this->form_validation->set_rules('email', 'Email', 'trim|valid_email|required|min_length[4]|xss_clean');
             $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[4]|max_length[50]|xss_clean');
 
             // if form validation == FALSE
-            if ($this->form_validation->run() == FALSE) {
+            if ($this->form_validation->run() == false) {
                 $jsonData['message'] = $this->form_validation->error_array();
                 $jsonData['succes'] = false;
 
             } else {
-
                 //if form validation TRUE
                 //get email and password from input
                 $email_input = $this->input->post('email');
@@ -129,7 +119,6 @@ class User extends CI_Controller {
 
                     // if password verification oke
                     if (password_verify($password_input, $user->password)) {
-
                         //Create array of user data
                         $user_data = array(
                             'user_id' => $user->user_id,
@@ -147,15 +136,13 @@ class User extends CI_Controller {
 
                     } else {
                         // if password verification not oke
-//                        $jsonData['message'] = array('info' => 'Password not verified.');
-                        $jsonData['message'] = array('info' => 'Login datas not verified.');
+                        $jsonData['message'] = array('info' => 'Login data not exist or not verified.');
                         $jsonData['success'] = false;
                     }
 
                 } else {
                     //if user not exist or not verified
-//                    $jsonData['message'] = array('info' => 'Email not exist or not verified.');
-                    $jsonData['message'] = array('info' => 'Login datas not exist or not verified.');
+                    $jsonData['message'] = array('info' => 'Login data not exist or not verified.');
                     $jsonData['success'] = false;
                 }
             }
@@ -190,7 +177,6 @@ class User extends CI_Controller {
 
         $logged_user = $this->session->userdata('email');
         $this->user = $this->User_model->get_user($logged_user);
-//        var_dump($this->user);
 
         $this->load->view('/layouts/html_start');
         $this->load->view('/layouts/main/header');
@@ -199,38 +185,76 @@ class User extends CI_Controller {
         $this->load->view('/layouts/html_end');
     }
 
+    public function new_pass($encoded_email) {
+        $user_data = array();
+        $users = $this->User_model->get_verified_users();
+
+        foreach ($users as $user) {
+            if ($encoded_email == sha1($user->email)) {
+                $user_data = $user;
+            }
+        }
+
+        if (isset($user_data) && !empty($user_data)) {
+            $this->id = $user_data->user_id;
+
+        } else {
+            redirect(base_url());
+        }
+
+        $this->load->view('/layouts/html_start');
+        $this->load->view('/layouts/main/header');
+        $this->load->view('/user/new_pass');
+        $this->load->view('/layouts/main/footer');
+        $this->load->view('/layouts/html_end');
+    }
+
+    public function new_pass_process($id) {
+        $jsonData = array();
+
+        if ($this->input->method() == 'post') {
+            $this->form_validation->set_rules('new_pass', 'Add new password', 'trim|required|min_length[4]|max_length[50]|xss_clean');
+            $this->form_validation->set_rules('new_pass_re', 'Add new password again', 'trim|required|matches[new_pass]|xss_clean');
+
+            if ($this->form_validation->run() === false) {
+                $jsonData['message'] = $this->form_validation->error_array();
+                $jsonData['success'] = false;
+
+            } else {
+                $password = password_hash($this->input->post('new_pass'), PASSWORD_DEFAULT);
+
+                $this->User_model->update_user($id, array('password' => $password));
+
+                $this->session->set_flashdata('pass_changed', 'Password successfully changed. You can <a href="#" data-toggle="modal" data-target="#login">login</a> now');
+
+                $jsonData['success'] = true;
+                $jsonData['redirect'] = base_url();
+            }
+
+        } else {
+            $jsonData['message'] = array('info' => 'This process was not successful!');
+            $jsonData['success'] = false;
+        }
+
+        echo json_encode($jsonData);
+    }
+
     public function update_pass() {
         $jsonData = array();
 
         if ($this->input->method() == 'post') {
 
-            $this->form_validation->set_rules('cur_pass', 'Cur Pass', 'trim|required|xss_clean',
-                array(
-                    'required' => 'A %s mező kitöltése kötelező.'
-                )
-            );
-            $this->form_validation->set_rules('new_pass', 'New Pass', 'trim|required|min_length[4]|max_length[50]|xss_clean',
-                array(
-                    'required' => 'A %s mező kitöltése kötelező.',
-                    'min_length' => 'A %snak legalább 4 karaktert tartalmaznia kell.',
-                )
-            );
-            $this->form_validation->set_rules('new_pass2', 'New Pass', 'trim|required|matches[new_pass]|xss_clean',
-                array(
-                    'required' => 'A %s mező kitöltése kötelező.',
-                    'matches' => 'A két jelszó nem egyezik meg',
-                )
-            );
+            $this->form_validation->set_rules('cur_pass', 'Cur Pass', 'trim|required|xss_clean');
+            $this->form_validation->set_rules('new_pass', 'New Pass', 'trim|required|min_length[4]|max_length[50]|xss_clean');
+            $this->form_validation->set_rules('new_pass2', 'New Pass', 'trim|required|matches[new_pass]|xss_clean');
 
-            if ($this->form_validation->run() === FALSE) {
-
+            if ($this->form_validation->run() === false) {
                 $jsonData['message'] = $this->form_validation->error_array();
                 $jsonData['success'] = false;
-            } else {
 
+            } else {
                 $session_id = $this->session->userdata('user_id');
                 $user = $this->User_model->get_user($session_id);
-//                var_dump($user);
                 $cur_pass = $this->input->post('cur_pass');
 
                 //verify the current password
@@ -244,12 +268,11 @@ class User extends CI_Controller {
 
                     $this->User_model->update_user($user_id, $new_pass_info);
 
-                    $jsonData['message'] = array('cur_pass' => 'A jelszó csere sikeres volt!');
+                    $jsonData['message'] = array('cur_pass' => 'Password changed successfully!');
                     $jsonData['success'] = true;
-//                    $jsonData['redirect'] = '';
 
                 } else {
-                    $jsonData['message'] = array('cur_pass' => 'A jelenlegi jelszó nem megfelelő');
+                    $jsonData['message'] = array('cur_pass' => 'The current password is not ok!');
                     $jsonData['success'] = false;
                 }
             }
@@ -258,6 +281,7 @@ class User extends CI_Controller {
         echo json_encode($jsonData);
     }
 
+    //szerintem ez így nem jó a foreach miatt
     public function unsubscribe_from_email($encoded_username) {
         $users = $this->User_model->get_verified_users();
 
@@ -268,8 +292,9 @@ class User extends CI_Controller {
                 redirect(base_url());
 
             } else {
-                $this->session->set_flashdata('unsubscribe', 'Unsubscribe was not successfull. pls contact with the administrator');
-                redirect(base_url());            }
+                $this->session->set_flashdata('unsubscribe', 'Unsubscribe was not successful. pls contact with the administrator');
+                redirect(base_url());
+            }
         }
     }
 
@@ -293,27 +318,19 @@ class User extends CI_Controller {
 
         if ($this->input->method() == 'post') {
 
-            $this->form_validation->set_rules('cur_pass', 'Cur Pass', 'trim|required|xss_clean',
-                array(
-                    'required' => 'A %s mező kitöltése kötelező.'
-                )
-            );
+            $this->form_validation->set_rules('current_pass', 'Cur Pass', 'trim|required|xss_clean');
 
-            if ($this->form_validation->run() === FALSE) {
-
+            if ($this->form_validation->run() === false) {
                 $jsonData['message'] = $this->form_validation->error_array();
                 $jsonData['success'] = false;
 
             } else {
-
                 $session_id = $this->session->userdata('user_id');
                 $user = $this->User_model->get_user($session_id);
-//                var_dump($user);
-                $cur_pass = $this->input->post('cur_pass');
+                $cur_pass = $this->input->post('current_pass');
 
                 //verify the current password
                 if (password_verify($cur_pass, $user->password)) {
-
                     //delete user function
                     $this->delete_user($user->user_id);
                     $this->session->set_flashdata('profile_deleted', 'Profile deleted');
@@ -321,7 +338,7 @@ class User extends CI_Controller {
                     $jsonData['redirect'] = base_url();
 
                 } else {
-                    $jsonData['message'] = array('cur_pass' => 'A jelszavak nem egyeznek');
+                    $jsonData['message'] = array('current_pass' => 'The passwords are not equal!');
                     $jsonData['success'] = false;
                 }
             }
@@ -330,17 +347,10 @@ class User extends CI_Controller {
         echo json_encode($jsonData);
     }
 
-    // javítani //a képet nem törli ha profilból lesz törölve a profile és a content
     public function delete_user($user_id) {
         //unset session user data
         $this->unsetUserData();
-
-        //nem jól működik mert a contenthez tartozó képeket nem törli
-//        //delete contents which bounded to the user
-//        $this->Content_model->delete_content_by_user_id($user_id);
-
         //delete user profile
         $this->User_model->delete_user($user_id);
-
     }
 }

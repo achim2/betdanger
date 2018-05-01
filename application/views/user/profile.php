@@ -106,8 +106,8 @@
                                 <div class="accordion-body">
                                     <form id="delete_profile">
                                         <div class="form-group">
-                                            <label for="cur_pass" class="text-danger">Current password</label>
-                                            <input type="password" id="cur_pass" class="form-control" name="cur_pass" placeholder="current password">
+                                            <label for="current_pass" class="text-danger">Current password</label>
+                                            <input type="password" id="current_pass" class="form-control" name="current_pass" placeholder="current password">
                                         </div>
                                         <input type="submit" name="submit" class="btn btn-outline-danger" value="Remove">
                                     </form>
@@ -133,7 +133,6 @@
         //ajax delete profile
         general_ajax_call('form#delete_profile', '/user/delete_user_from_profile');
 
-
         var newsletterBTN = $('#newsletter_btn');
 
         newsletterBTN.on('click', function () {
@@ -141,9 +140,9 @@
                 url: '/user/newsletter_sub_change',
                 success: function (data) {
                     if (newsletterBTN.text() === 'Subscribe') {
-                        newsletterBTN.html('Unsubscribe');
+                        newsletterBTN.text('Unsubscribe');
                     } else {
-                        newsletterBTN.html('Subscribe');
+                        newsletterBTN.text('Subscribe');
                     }
                 },
                 error: function (data) {
