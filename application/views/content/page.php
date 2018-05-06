@@ -1,3 +1,5 @@
+<?php $options = $this->options; ?>
+
 <?php $logged_in = $this->session->userdata('logged_in'); ?>
 <div id="delete-comment-modal"
      class="modal fade"
@@ -28,13 +30,16 @@
             <div class="col-lg-10 col-xl-8">
 
                 <h2 class="text-white"><?php echo $this->content->title; ?></h2>
-                <div class="my-2 text-center">
-                    <?php if (is_array($this->content->tag_names) && !empty($this->content->tag_names)): ?>
-                        <?php foreach ($this->content->tag_names as $name): ?>
-                            <a class="tag-name text-white" href="<?php echo base_url("/tag/$name") ?>">#<?php echo $name; ?> </a>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
-                </div>
+
+                <?php if ($options['tags'] == 1): ?>
+                    <div class="my-2 text-center">
+                        <?php if (is_array($this->content->tag_names) && !empty($this->content->tag_names)): ?>
+                            <?php foreach ($this->content->tag_names as $name): ?>
+                                <a class="tag-name" href="<?php echo base_url("/tag/$name") ?>">#<?php echo $name; ?> </a>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </div>
+                <?php endif; ?>
 
             </div>
         </div>
@@ -47,13 +52,21 @@
             <article class="p-3 bg-white">
                 <div class="d-flex flex-column flex-lg-row justify-content-between">
                     <span>created at: <?php echo $this->mylib->custom_dateTime($this->content->created_at); ?></span>
-                    <span>written: <?php echo $this->content->username; ?></span>
+
+                    <?php if ($options['author'] == 1): ?>
+                        <span>written: <?php echo $this->content->author; ?></span>
+                    <?php endif; ?>
+
                 </div>
                 <div class="mb-2">category: <?php echo ucfirst($this->content->category_name); ?></div>
-                <img class="img-fluid mb-3"
-                     src="/assets/images/uploaded/<?php echo $this->content->image_name; ?>"
-                     alt="<?php echo $this->content->image_name; ?>"
-                >
+
+                <?php if ($options['image'] == 1): ?>
+                    <img class="img-fluid mb-3"
+                         src="/assets/images/uploaded/<?php echo $this->content->image_name; ?>"
+                         alt="<?php echo $this->content->image_name; ?>"
+                    >
+                <?php endif; ?>
+
                 <p class="mx-2"><?php echo $this->content->body; ?></p>
             </article>
 

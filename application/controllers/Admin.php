@@ -15,8 +15,6 @@ class Admin extends CI_Controller {
     }
 
     public function users() {
-        $this->title = "Users";
-
         $this->users = $this->User_model->get_users_to_admin();
 
         $this->load->view('/layouts/html_start');
@@ -26,7 +24,7 @@ class Admin extends CI_Controller {
     }
 
     public function newsletters() {
-        $this->users = $this->User_model->get_users_to_admin();
+        $this->users = $this->User_model->get_user_to_newsletter();
 
         $this->load->view('/layouts/html_start');
         $this->load->view('/layouts/admin/header');
@@ -37,6 +35,7 @@ class Admin extends CI_Controller {
     public function cms() {
         $this->get_content = $this->Content_model->get_content();
         $this->categories = $this->Content_model->get_categories();
+        $this->settings = $this->Content_model->get_settings();
 
         $this->load->view('/layouts/html_start');
         $this->load->view('/layouts/admin/header');
@@ -375,5 +374,41 @@ class Admin extends CI_Controller {
             if (is_file($file))
                 unlink($file); // delete file
         }
+    }
+
+    public function option_toggle($id) {
+        $jsonData = array();
+        $option = $this->input->post('toggle-' . $id);
+
+        if ($option == 'on') {
+            $option = 1;
+        } else {
+            $option = 0;
+        }
+
+        $jsonData['option'] = $option;
+
+        $info = array('option' => $option);
+        $this->Content_model->update_settings($id, $info);
+
+        echo json_encode($jsonData);
+    }
+
+    public function status_toggle($id) {
+        $jsonData = array();
+        $option = $this->input->post('toggle-' . $id);
+
+        if ($option == 'on') {
+            $option = 'public';
+        } else {
+            $option = 'not public';
+        }
+
+        $jsonData['option'] = $option;
+
+        $info = array('status' => $option);
+        $this->Content_model->update_content($id, $info);
+
+        echo json_encode($jsonData);
     }
 }

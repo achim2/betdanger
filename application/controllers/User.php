@@ -140,6 +140,11 @@ class User extends CI_Controller {
                         $jsonData['success'] = false;
                     }
 
+                } else if ($user && ($user->verify == 'tilted')) {
+                    //if user exist & tilted
+                    $jsonData['message'] = array('info' => 'We are sorry, but you are tilted now. Please contact us.');
+                    $jsonData['success'] = false;
+
                 } else {
                     //if user not exist or not verified
                     $jsonData['message'] = array('info' => 'Login data not exist or not verified.');
@@ -281,20 +286,24 @@ class User extends CI_Controller {
         echo json_encode($jsonData);
     }
 
-    //szerintem ez így nem jó a foreach miatt
     public function unsubscribe_from_email($encoded_username) {
         $users = $this->User_model->get_verified_users();
+        $user_data = array();
 
         foreach ($users as $user) {
             if ($encoded_username == md5($user->username)) {
-                $this->newsletter_sub_change($user->user_id);
-                $this->session->set_flashdata('unsubscribe', 'Successfully unsubscribe from the newsletter.');
-                redirect(base_url());
-
-            } else {
-                $this->session->set_flashdata('unsubscribe', 'Unsubscribe was not successful. pls contact with the administrator');
-                redirect(base_url());
+                array_push($user_data, $user);
             }
+        }
+
+        if (is_array($user_data) && !empty($user_data) && sizeof($user_data) == 1) {
+            $this->User_model->update_user($user_data[0]->user_id, array('newsletter' => 'no'));
+            $this->session->set_flashdata('unsubscribe', 'Successfully unsubscribe from the newsletter.');
+            redirect(base_url());
+
+        } else {
+            $this->session->set_flashdata('unsubscribe', 'Unsubscribe was not successful. pls contact with the administrator');
+            redirect(base_url());
         }
     }
 
@@ -352,5 +361,23 @@ class User extends CI_Controller {
         $this->unsetUserData();
         //delete user profile
         $this->User_model->delete_user($user_id);
+    }
+
+    public function tilt_toggle($id) {
+        $jsonData = array();
+        $option = $this->input->post('toggle-' . $id);
+
+        if ($option == 'on') {
+            $option = 'verified';
+        } else {
+            $option = 'tilted';
+        }
+
+        $jsonData['option'] = $option;
+
+        $info = array('verify' => $option);
+        $this->User_model->update_user($id, $info);
+
+        echo json_encode($jsonData);
     }
 }

@@ -33,12 +33,78 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-10 mx-auto">
+        <div class="col-12 mx-auto">
             <section class="cms-table">
 
-                <!-- CATEGORIES -->
                 <h2 class="section-name">(CMS) <?php echo ($uri == 'categories') ? 'Category' : ucfirst($uri); ?></h2>
-                <?php if ($uri == 'categories') : ?>
+
+                <!-- SETTINGS -->
+                <?php if ($uri == 'settings') : ?>
+                    <?php $settings = $this->settings; ?>
+                    <?php if (is_array($settings) && $settings != null): ?>
+                        <div class="table-wrapper pt-2">
+                            <table class="table table-hover table-dark">
+                                <thead>
+                                <tr class="bg-danger text-dark">
+                                    <th class="text-uppercase">Name</th>
+                                    <th class="text-uppercase">Option</th>
+                                </tr>
+                                </thead>
+
+                                <?php foreach ($settings as $item) : ?>
+
+                                    <tbody>
+                                    <tr class="text-white">
+                                        <?php //Name ?>
+                                        <td class="" style="width: 100%;"><?php echo $item->name; ?></td>
+
+                                        <?php //Option toggle?>
+                                        <td class="">
+                                            <form class="option-toggle" id="<?php echo $item->id; ?>">
+                                                <input type="checkbox" name="toggle-<?php echo $item->id; ?>" id="toggle-<?php echo $item->id; ?>" <?php echo ($item->option == 1) ? 'checked' : ''; ?>>
+                                                <label for="toggle-<?php echo $item->id; ?>"><?php echo ($item->option == 1) ? 'On' : 'Off'; ?></label>
+                                            </form>
+                                        </td>
+
+                                    </tr>
+                                    </tbody>
+
+                                <?php endforeach; ?>
+
+                                <script>
+                                    $(document).ready(function () {
+                                        var optionToggle = $('.option-toggle');
+
+                                        optionToggle.on('change', function (e) {
+                                            e.preventDefault();
+
+                                            var optionID = $(this).attr('id');
+                                            var label = $("[for='toggle-" + optionID + "']");
+
+                                            $.ajax({
+                                                url: '/admin/option_toggle/' + optionID,
+                                                data: $(this).serialize(),
+                                                type: 'post',
+                                                dataType: 'json',
+                                                success: function (data) {
+                                                    if (data.option === 1) {
+                                                        label.text('On');
+                                                    }
+                                                    else {
+                                                        label.text('Off');
+                                                    }
+                                                }
+                                            })
+                                        });
+                                    })
+                                </script>
+
+                            </table>
+                        </div>
+                    <?php endif; ?>
+
+                    <!-- CATEGORIES -->
+                <?php elseif ($uri == 'categories') : ?>
                     <div class="d-flex align-items-center">
                         <a class="btn btn-success mr-3" href="<?php echo base_url("/admin/add_category"); ?>">Add category</a>
                     </div>
@@ -87,7 +153,7 @@
                         <p>Sry, there is no category yet!</p>
                     <?php endif; ?>
 
-                <!-- CONTENT -->
+                    <!-- CONTENT -->
                 <?php elseif ($uri == 'content') : ?>
                     <div class="d-flex align-items-center">
                         <a class="btn btn-success" href="<?php echo base_url("/admin/add_content"); ?>">Add content</a>
@@ -119,7 +185,14 @@
                                                     target="_blank"
                                             ><?php echo $content->title; ?></a>
                                         </td>
-                                        <td class="text-center <?php echo ($content->status == 'public') ? 'text-success' : 'text-danger'; ?>"><?php echo $content->status; ?></td>
+
+                                        <td class="">
+                                            <form class="status-toggle text-center" id="<?php echo $content->id; ?>">
+                                                <input type="checkbox" name="toggle-<?php echo $content->id; ?>" id="toggle-<?php echo $content->id; ?>" <?php echo ($content->status == 'public') ? 'checked' : ''; ?>>
+                                                <label for="toggle-<?php echo $content->id; ?>"><?php echo ucfirst($content->status); ?></label>
+                                            </form>
+                                        </td>
+
                                         <td class="text-center <?php if ($content->category_name == 'Uncategorised') echo 'text-danger' ?>"><?php echo $content->category_name; ?></td>
                                         <td class="text-center">
                                             <a class="text-center text-success"
@@ -140,6 +213,36 @@
                                     </tbody>
 
                                 <?php endforeach; ?>
+
+                                <script>
+                                    $(document).ready(function () {
+                                        var statusToggle = $('.status-toggle');
+
+                                        statusToggle.on('change', function (e) {
+                                            e.preventDefault();
+
+                                            var contentID = $(this).attr('id');
+                                            console.log(contentID);
+                                            var label = $("[for='toggle-" + contentID + "']");
+
+                                            $.ajax({
+                                                url: '/admin/status_toggle/' + contentID,
+                                                data: $(this).serialize(),
+                                                type: 'post',
+                                                dataType: 'json',
+                                                success: function (data) {
+                                                    if (data.option === 'public') {
+                                                        label.text('Public');
+                                                    }
+                                                    else {
+                                                        label.text('Not public');
+                                                    }
+                                                }
+                                            })
+                                        });
+                                    })
+                                </script>
+
                             </table>
                         </div>
                     <?php else: ?>

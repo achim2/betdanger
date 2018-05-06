@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row">
-        <div class="col-7 mr-auto">
+        <div class="col-lg-8">
             <div class="newsletter-yes">
                 <h2 class="text-secondary">Send newsletter</h2>
                 <form id="send_newsletter">
@@ -13,13 +13,13 @@
                 </form>
             </div>
         </div>
-        <div class="col-4 ml-auto">
+        <div class="col-lg-4">
             <div class="newsletter-yes">
 
                 <h2 class="text-secondary">All subscribed user</h2>
                 <?php
-                foreach ($this->users as $each_user) {
-                    echo "<p class='text-warning'>" . $each_user->username . " => " . $each_user->email . "</p>";
+                foreach ($this->users as $user) {
+                    echo "<p class='text-warning'>" . $user->username . " => " . $user->email . "</p>";
                 }
                 ?>
 

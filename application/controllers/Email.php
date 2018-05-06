@@ -7,13 +7,7 @@ class Email extends CI_Controller {
         $jsonData = array();
 
         if ($this->input->method() == 'post') {
-
-            $this->form_validation->set_rules('name', 'Name', 'trim|required|min_length[4]|xss_clean',
-                array(
-//                    'min_length' => 'A %snek legalább 4 karaktert tartalmaznia kell.',
-//                    'required' => 'A %s mező kitöltése kötelező.',
-                )
-            );
+            $this->form_validation->set_rules('name', 'Name', 'trim|required|min_length[4]|xss_clean');
             $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|xss_clean');
             $this->form_validation->set_rules('message', 'Message', 'trim|required|min_length[4]|xss_clean');
 
@@ -22,7 +16,9 @@ class Email extends CI_Controller {
                 $jsonData['success'] = false;
 
             } else {
-//                error_log('email');
+                $input_email = $this->input->post('email');
+                $input_name = $this->input->post('name');
+                $input_msg = $this->input->post('message');
 
                 $config['protocol'] = 'smtp';
                 $config['smtp_host'] = 'mail.rackhost.hu';
@@ -38,11 +34,12 @@ class Email extends CI_Controller {
 
                 $this->email->from('info@juhahi.com');
                 $this->email->to('ahimjuhasz@gmail.com');
-                $this->email->subject('betDANGER! email ' . $this->input->post('name') . '!');
+                $this->email->subject('betDANGER! email ' . $input_name . '!');
 
-                $data = $this->input->post('name') . '<br/>';
-                $data .= 'Email: ' . $this->input->post('email') . '<br>';
-                $data .= 'Üzenet:' . $this->input->post('message');
+                $data = '<h2>Contact email from betDANGER!</h2>';
+                $data .= '<p>Name: ' . $input_name . '</p>';
+                $data .= '<p>Email: ' . $input_email . '</p>';
+                $data .= '<p>Üzenet: ' . $input_msg . '<p>';
 
                 $this->email->message($data);
 
@@ -82,9 +79,9 @@ class Email extends CI_Controller {
         $this->email->to($user->email);
         $this->email->subject('betDANGER! email: ' . $user->username . '!');
 
-        $data = $user->username . '<br/>';
-        $data .= 'Email: ' . $user->email . '<br>';
-        $data .= 'Üzenet: User verification. Click below the URL if you registered at betDANGER.com <br/>';
+        $data = '<p>Username: ' . $user->username . '</p>';
+        $data .= '<p>Email: ' . $user->email . '</p>';
+        $data .= '<p>Message: User verification. Click below the URL if you registered at betDANGER.com </p>';
         $data .= '<a href="' . base_url('/user/user_verify/' . $user->verify) . '">' . $user->verify . '</a>';
 
         $this->email->message($data);
@@ -156,7 +153,6 @@ class Email extends CI_Controller {
 
     public function send_newsletter() {
         $jsonData = array();
-
         $this->form_validation->set_rules('message', 'Message', 'trim|required|min_length[4]|xss_clean');
 
         if ($this->form_validation->run() == false) {
@@ -164,12 +160,10 @@ class Email extends CI_Controller {
             $jsonData['success'] = false;
 
         } else {
-
             $users = $this->User_model->get_user_to_newsletter();
             $message = $this->input->post('message');
 
-            foreach ($users as $each_user) {
-
+            foreach ($users as $user) {
                 $config['protocol'] = 'smtp';
                 $config['smtp_host'] = 'mail.rackhost.hu';
                 $config['smtp_user'] = 'info@juhahi.com';
@@ -183,13 +177,13 @@ class Email extends CI_Controller {
                 $this->email->initialize($config);
 
                 $this->email->from('info@betdanger.com');
-                $this->email->to($each_user->email);
-                $this->email->subject('betDANGER! email ' . $each_user->username . '!');
+                $this->email->to($user->email);
+                $this->email->subject('betDANGER! email ' . $user->username . '!');
 
-                $data = $each_user->username . '<br/>';
-                $data .= 'Email: ' . $each_user->email . '<br>';
-                $data .= 'Message:' . $message . '<br/>';
-                $data .= '<a href="' . base_url('/user/unsubscribe_from_email/' . md5($each_user->username)) . '">Unsubscribe</a>';
+                $data = '<h3>betDANGER! Newsletter</h3>';
+                $data .= '<p>Dear ' . $user->username . '!<br/> This is our weekly newsletter, if you want to unsubscribe just click below the link.</p>';
+                $data .= '<p>' . $message . '</p>';
+                $data .= '<a href="' . base_url('/user/unsubscribe_from_email/' . md5($user->username)) . '">Unsubscribe</a>';
 
                 $this->email->message($data);
                 $this->email->send();
@@ -203,6 +197,5 @@ class Email extends CI_Controller {
         }
 
         echo json_encode($jsonData);
-
     }
 }

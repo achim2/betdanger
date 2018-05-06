@@ -67,7 +67,7 @@ class Content_model extends CI_Model {
 
     public function get_content_to_public($slug = false, $category_id = false) {
         if ($slug != false) {
-            $this->db->select('content.*, users.username, content_category.name as category_name');
+            $this->db->select('content.*, users.username as author, content_category.name as category_name');
             $this->db->where('slug', $slug);
             $this->db->where('status', 'public');
             $this->db->not_like('category_id', 1);
@@ -79,7 +79,7 @@ class Content_model extends CI_Model {
         }
 
         if ($category_id != false) {
-            $this->db->select('content.*, users.username, content_category.name as category_name');
+            $this->db->select('content.*, users.username as author, content_category.name as category_name');
             $this->db->where('category_id', $category_id);
             $this->db->where('status', 'public');
             $this->db->not_like('category_id', 1);
@@ -90,7 +90,7 @@ class Content_model extends CI_Model {
             return $query->result();
         }
 
-        $this->db->select('content.*, users.username, content_category.name as category_name');
+        $this->db->select('content.*, users.username as author, content_category.name as category_name');
         $this->db->where('status', 'public');
         $this->db->not_like('category_id', 1);
         $this->db->order_by('content.created_at', 'DESC');
@@ -147,7 +147,7 @@ class Content_model extends CI_Model {
         $this->db->delete('content_tag_relationship');
     }
 
-    public function get_tags_from_tag_table(){
+    public function get_tags_from_tag_table() {
         $this->db->select('tags.*');
         $query = $this->db->get('tags');
         return $query->result();
@@ -156,5 +156,16 @@ class Content_model extends CI_Model {
     public function delete_tag($id) {
         $this->db->where('id', $id);
         $this->db->delete('tags');
+    }
+
+    public function get_settings() {
+        $this->db->select('settings.*');
+        $query = $this->db->get('settings');
+        return $query->result();
+    }
+
+    public function update_settings($id, $info) {
+        $this->db->where('id', $id);
+        $this->db->update('settings', $info);
     }
 }

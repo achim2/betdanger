@@ -44,6 +44,17 @@ class Content extends CI_Controller {
         }
     }
 
+    private function get_options() {
+        $settings = $this->Content_model->get_settings();
+        $options = array();
+
+        foreach ($settings as $key => $item) {
+            $options[$item->slug] = $item->option;
+        }
+
+        return $options;
+    }
+
     public function welcome() {
         //simple query
         $query = $this->Content_model->get_content_to_public();
@@ -51,6 +62,8 @@ class Content extends CI_Controller {
         $this->get_category = $this->Content_model->get_categories();
         //simple query with tags
         $this->contents = $this->get_content($query);
+        //settings
+        $this->options = $this->get_options();
 
         $this->load->view('/layouts/html_start');
         $this->load->view('/layouts/main/header');
@@ -66,6 +79,9 @@ class Content extends CI_Controller {
         $query = $this->Content_model->get_content_to_public(false, $this->get_category->id);
         //category filtered query with tags
         $this->contents = $this->get_content($query, false);
+        //settings
+        $this->options = $this->get_options();
+
 
         $this->load->view('/layouts/html_start');
         $this->load->view('/layouts/main/header');
@@ -79,6 +95,9 @@ class Content extends CI_Controller {
         $query = $this->Content_model->get_content_to_public($slug);
         //row query with tags
         $this->content = $this->get_content($query, $slug);
+        //settings
+        $this->options = $this->get_options();
+
 
         $this->load->view('/layouts/html_start');
         $this->load->view('/layouts/main/header');
@@ -94,6 +113,12 @@ class Content extends CI_Controller {
         $contents = $this->get_content($query);
         //empty array, after foreach pushed array
         $this->contents = array();
+        //settings
+        $this->options = $this->get_options();
+
+        if ($this->options['tags'] == 0){
+            redirect('/');
+        }
 
         foreach ($contents as $content) {
             foreach ($content->tag_names as $tag_name) {
@@ -115,6 +140,8 @@ class Content extends CI_Controller {
         $query = $this->Search_model->get_search_results($search_term);
         //searched query with tags
         $this->get_results = $this->get_content($query);
+        //settings
+        $this->options = $this->get_options();
 
         $this->load->view('/layouts/html_start');
         $this->load->view('/layouts/main/header');

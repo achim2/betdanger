@@ -1,0 +1,63 @@
+@mixin toggle-style($toogle-width) {
+  line-height: 0;
+
+  input[type='checkbox'] {
+    position: absolute;
+    width: 0;
+    height: 0;
+    visibility: hidden;
+  }
+
+  input[type='checkbox'] + label {
+    display: inline-flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    min-width: $toogle-width + 30px;
+    height: 30px;
+    margin: 0;
+    padding: 0 15px 0 30px;
+    transition: .1s linear;
+    border-radius: 20px;
+    background-color: $white;
+    font-weight: 600;
+    cursor: pointer;
+    z-index: 2;
+
+    &::before {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 15px;
+      transition: .1s linear;
+      border-radius: 20px;
+      background-color: $danger;
+      content: '';
+      z-index: -1;
+    }
+  }
+
+  input[type='checkbox']:checked + label {
+    padding: 0 30px 0 15px;
+
+    &::before {
+      right: 15px;
+      left: 0;
+      background-color: $success;
+    }
+  }
+}
+
+.option-toggle {
+  @include toggle-style(40px);
+}
+
+.status-toggle {
+  @include toggle-style(95px);
+}
+
+.tilt-toggle {
+  @include toggle-style(70px);
+}
