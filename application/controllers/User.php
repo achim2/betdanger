@@ -380,4 +380,23 @@ class User extends CI_Controller {
 
         echo json_encode($jsonData);
     }
+
+    public function change_user_type($id) {
+        $jsonData = array();
+        $type = $this->input->post('select_type');
+
+        if ($type != null) {
+            $jsonData['success'] = true;
+            $jsonData['type'] = $type;
+
+            $info = array('user_type' => $type);
+            $this->User_model->update_user($id, $info);
+
+        } else {
+            $jsonData['success'] = false;
+            $jsonData['msg'] = 'Something not cool, pls contact with a developer. :D';
+        }
+
+        echo json_encode($jsonData);
+    }
 }

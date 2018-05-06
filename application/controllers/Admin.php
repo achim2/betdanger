@@ -11,7 +11,7 @@ class Admin extends CI_Controller {
     }
 
     public function index() {
-        $this->users();
+        redirect(base_url('/admin/users'));
     }
 
     public function users() {
@@ -33,7 +33,6 @@ class Admin extends CI_Controller {
     }
 
     public function cms() {
-        $this->get_content = $this->Content_model->get_content();
         $this->categories = $this->Content_model->get_categories();
         $this->settings = $this->Content_model->get_settings();
 
@@ -408,6 +407,43 @@ class Admin extends CI_Controller {
 
         $info = array('status' => $option);
         $this->Content_model->update_content($id, $info);
+
+        echo json_encode($jsonData);
+    }
+
+    public function get_searchable_content() {
+        $jsonData = array();
+        $search_term = $this->input->post('search_content_on_admin');
+        $data = $this->Search_model->get_admin_content_search($search_term);
+        $str = '';
+
+        foreach ($data as $item) {
+
+            $str .= '<tr class="text-white" id="' . $item->id . '">
+                        <td>' . $item->id . '</td>
+                        <td><a ' . ($item->status == 'public' && $item->category_name != 'uncategorised' ? 'href="' . base_url("/page/$item->slug") . '"' : '') . ' target="_blank">' . $item->title . '</a></td>
+                        <td>
+                            <form class="status-toggle text-center" id="' . $item->id . '">
+                                <input type="checkbox" name="toggle-' . $item->id . '" id="toggle-' . $item->id . '" ' . ($item->status == 'public' ? 'checked' : '') . '>
+                                <label for="toggle-' . $item->id . '">' . ucfirst($item->status) . '</label>
+                            </form>
+                        </td>
+                        <td class="text-center" ' . ($item->category_name == 'Uncategorised' ? 'text-danger' : '') . '>' . $item->category_name . '</td>
+                        <td class="text-center">
+                            <a href="' . base_url("/admin/edit_content/$item->id") . '" class="text-center text-success">
+                                <span class="icon icon-pencil"></span>
+                            </a>
+                        </td>
+                        <td class="text-center">
+                            <a class="text-center text-danger delete_content_trigger" id="' . $item->id . '" name="' . $item->title . '">
+                                <span class="icon icon-close"></span>
+                            </a>
+                        </td>
+                        <td class="text-center">' . $this->mylib->custom_dateTime($item->created_at) . '</td>
+                    </tr>';
+        }
+
+        $jsonData['result'] = $str;
 
         echo json_encode($jsonData);
     }

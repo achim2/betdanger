@@ -14,7 +14,7 @@
                             <th class="text-uppercase">Name</th>
                             <th class="text-uppercase">User Type</th>
                             <th class="text-uppercase">Email</th>
-                            <th class="text-uppercase">Verify</th>
+                            <th class="text-uppercase text-center">Verify</th>
                         </tr>
                         </thead>
                         <?php foreach ($users as $user) : ?>
@@ -22,26 +22,28 @@
                                 <tbody>
                                 <tr class="text-white">
                                     <?php //user id ?>
-                                    <td class=""><?php echo $user->user_id; ?></td>
+                                    <td><?php echo $user->user_id; ?></td>
 
                                     <?php //username ?>
-                                    <td class=""><?php echo $user->username; ?></td>
+                                    <td><?php echo $user->username; ?></td>
 
                                     <?php //user type ?>
-                                    <?php if ($user->user_type == 'moderator'): ?>
-                                        <td class="text-success"><?php echo $user->user_type; ?></td>
-                                    <?php elseif ($user->user_type == 'administrator'): ?>
-                                        <td class="text-warning"><?php echo $user->user_type; ?></td>
-                                    <?php else: ?>
-                                        <td><?php echo $user->user_type; ?></td>
-                                    <?php endif; ?>
+                                    <td>
+                                        <form>
+                                            <select class="custom-select" name="select_type" id="<?php echo $user->user_id; ?>">
+                                                <option value="moderator" <?php echo ($user->user_type == 'moderator') ? 'selected' : ''; ?>>Moderator</option>
+                                                <option value="administrator" <?php echo ($user->user_type == 'administrator') ? 'selected' : ''; ?>>Administrator</option>
+                                                <option value="user" <?php echo ($user->user_type == 'user') ? 'selected' : ''; ?>>User</option>
+                                            </select>
+                                        </form>
+                                    </td>
 
                                     <?php //email ?>
-                                    <td class=""><?php echo $user->email; ?></td>
+                                    <td><?php echo $user->email; ?></td>
 
                                     <?php //verify ?>
-                                    <td class="">
-                                        <form class="tilt-toggle" id="<?php echo $user->user_id; ?>">
+                                    <td>
+                                        <form class="tilt-toggle text-center" id="<?php echo $user->user_id; ?>">
                                             <input type="checkbox"
                                                    name="toggle-<?php echo $user->user_id; ?>"
                                                    id="toggle-<?php echo $user->user_id; ?>"
@@ -64,29 +66,24 @@
 
 <script>
     $(document).ready(function () {
-        var tiltToggle = $('.tilt-toggle');
 
-        tiltToggle.on('change', function (e) {
-            e.preventDefault();
-
+        //CHANGE USER TYPE
+        var selectType = $('[name="select_type"]');
+        selectType.on('change', function () {
             var userID = $(this).attr('id');
-            console.log(userID);
-            var label = $("[for='toggle-" + userID + "']");
 
             $.ajax({
-                url: '/user/tilt_toggle/' + userID,
+                url: '/user/change_user_type/' + userID,
                 data: $(this).serialize(),
                 type: 'post',
                 dataType: 'json',
                 success: function (data) {
-                    if (data.option === 'verified') {
-                        label.text('Verified');
-                    }
-                    else {
-                        label.text('Tilted');
+                    if (data.success === false) {
+                        alert(data.msg);
                     }
                 }
             })
+
         });
     })
 </script>

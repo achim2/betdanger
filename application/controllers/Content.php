@@ -114,9 +114,9 @@ class Content extends CI_Controller {
         //empty array, after foreach pushed array
         $this->contents = array();
         //settings
-        $this->options = $this->get_options();
+        $options = $this->get_options();
 
-        if ($this->options['tags'] == 0){
+        if ($options['tags'] == 0) {
             redirect('/');
         }
 

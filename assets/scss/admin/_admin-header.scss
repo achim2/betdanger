@@ -23,9 +23,6 @@
     border-bottom: 1px solid $rusty-red;
     list-style-type: none;
 
-    &.nav-links {
-    }
-
     &.nav-sub-links {
       padding-top: 0;
       border-bottom: none;
@@ -34,11 +31,21 @@
 
     li {
 
+      &.is-active,
+      &.is-active a,
+      ul.nav-sub-links li.is-active,
+      ul.nav-sub-links li.is-active a {
+        color: $rusty-red;
+      }
+
+      ul.nav-sub-links li,
+      ul.nav-sub-links li a,
       a {
         color: $white;
 
         &.username {
           color: $warm-yellow;
+          pointer-events: none;
         }
       }
     }

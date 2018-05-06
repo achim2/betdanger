@@ -36,7 +36,6 @@ class Comment extends CI_Controller {
         echo json_encode($jsonData);
     }
 
-    //ellenőrizni h valóban a user szerkeszt (már egyszer ellenőrizve van de mivan ha átírja az id-t?)
     public function edit_comment_process($id) {
         //$id == comment id
         $jsonData = array();
@@ -129,7 +128,6 @@ class Comment extends CI_Controller {
         if ((isset($user['user_id']) && $user['user_id'] == $comment->user_id) || (isset($user['user_type']) && $user['user_type'] == 'moderator')) {
             $this->Comment_model->delete_comment($comm_id);
         }
-//           echo "You have not permission to delete this comment!";
     }
 
 }

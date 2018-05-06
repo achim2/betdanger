@@ -43,11 +43,11 @@
                     <?php $settings = $this->settings; ?>
                     <?php if (is_array($settings) && $settings != null): ?>
                         <div class="table-wrapper pt-2">
-                            <table class="table table-hover table-dark">
+                            <table class="table table-hover table-dark admin-settings">
                                 <thead>
                                 <tr class="bg-danger text-dark">
                                     <th class="text-uppercase">Name</th>
-                                    <th class="text-uppercase">Option</th>
+                                    <th class="text-uppercase text-center">Option</th>
                                 </tr>
                                 </thead>
 
@@ -56,10 +56,10 @@
                                     <tbody>
                                     <tr class="text-white">
                                         <?php //Name ?>
-                                        <td class="" style="width: 100%;"><?php echo $item->name; ?></td>
+                                        <td><?php echo $item->name; ?></td>
 
                                         <?php //Option toggle?>
-                                        <td class="">
+                                        <td class="td-option text-center">
                                             <form class="option-toggle" id="<?php echo $item->id; ?>">
                                                 <input type="checkbox" name="toggle-<?php echo $item->id; ?>" id="toggle-<?php echo $item->id; ?>" <?php echo ($item->option == 1) ? 'checked' : ''; ?>>
                                                 <label for="toggle-<?php echo $item->id; ?>"><?php echo ($item->option == 1) ? 'On' : 'Off'; ?></label>
@@ -70,34 +70,6 @@
                                     </tbody>
 
                                 <?php endforeach; ?>
-
-                                <script>
-                                    $(document).ready(function () {
-                                        var optionToggle = $('.option-toggle');
-
-                                        optionToggle.on('change', function (e) {
-                                            e.preventDefault();
-
-                                            var optionID = $(this).attr('id');
-                                            var label = $("[for='toggle-" + optionID + "']");
-
-                                            $.ajax({
-                                                url: '/admin/option_toggle/' + optionID,
-                                                data: $(this).serialize(),
-                                                type: 'post',
-                                                dataType: 'json',
-                                                success: function (data) {
-                                                    if (data.option === 1) {
-                                                        label.text('On');
-                                                    }
-                                                    else {
-                                                        label.text('Off');
-                                                    }
-                                                }
-                                            })
-                                        });
-                                    })
-                                </script>
 
                             </table>
                         </div>
@@ -114,6 +86,7 @@
                             <table class="table table-hover table-dark">
                                 <thead>
                                 <tr class="bg-danger text-dark">
+                                    <th class="text-uppercase">ID</th>
                                     <th class="text-uppercase">Category name</th>
                                     <th class="text-uppercase text-center">Edit</th>
                                     <th class="text-uppercase text-center">Delete</th>
@@ -122,7 +95,8 @@
                                 <?php foreach ($this->categories as $category) : ?>
                                     <tbody>
                                     <tr class="text-white" id="<?php echo $category->id; ?>">
-                                        <td class=""><?php echo $category->name; ?></td>
+                                        <td><?php echo $category->id; ?></td>
+                                        <td><?php echo $category->name; ?></td>
                                         <?php if ($category->id != 1) : ?>
                                             <td class="text-center">
                                                 <a class="text-center text-success"
@@ -155,99 +129,33 @@
 
                     <!-- CONTENT -->
                 <?php elseif ($uri == 'content') : ?>
-                    <div class="d-flex align-items-center">
+                    <div class="d-flex align-items-center justify-content-between">
                         <a class="btn btn-success" href="<?php echo base_url("/admin/add_content"); ?>">Add content</a>
+                        <form style="width: 50%">
+                            <div class="form-group m-0 ml-5">
+                                <input type="text" class="form-control" name="search_content_on_admin" id="lolasd" placeholder="Find your content ...">
+                            </div>
+                        </form>
                     </div>
 
-                    <?php if ($this->get_content != null) : ?>
+                    <div class="table-wrapper pt-2">
+                        <table class="table table-hover table-dark">
+                            <thead>
+                            <tr class="bg-danger text-dark">
+                                <th class="text-uppercase">ID</th>
+                                <th class="text-uppercase">Content name</th>
+                                <th class="text-uppercase text-center">Status</th>
+                                <th class="text-uppercase text-center">category</th>
+                                <th class="text-uppercase text-center">Edit</th>
+                                <th class="text-uppercase text-center">Delete</th>
+                                <th class="text-uppercase text-center">Created at</th>
+                            </tr>
+                            </thead>
 
-                        <div class="table-wrapper pt-2">
-                            <table class="table table-hover table-dark">
-                                <thead>
-                                <tr class="bg-danger text-dark">
-                                    <th class="text-uppercase">Content name</th>
-                                    <th class="text-uppercase text-center">Status</th>
-                                    <th class="text-uppercase text-center">category</th>
-                                    <th class="text-uppercase text-center">Edit</th>
-                                    <th class="text-uppercase text-center">Delete</th>
-                                    <th class="text-uppercase text-center">Created at</th>
-                                </tr>
-                                </thead>
-                                <?php foreach ($this->get_content as $content) : ?>
-                                    <tbody>
-                                    <tr class="text-white" id="<?php echo $content->id; ?>">
-                                        <td class="ml-auto">
-                                            <a
-                                                <?php if ($content->status == 'public' && $content->category_name != 'uncategorised'): ?>
-                                                    href="<?php echo base_url("/page/$content->slug"); ?>"
-                                                <?php endif; ?>
-                                                    class="text-white"
-                                                    target="_blank"
-                                            ><?php echo $content->title; ?></a>
-                                        </td>
+                            <tbody id="searchable-content"></tbody>
 
-                                        <td class="">
-                                            <form class="status-toggle text-center" id="<?php echo $content->id; ?>">
-                                                <input type="checkbox" name="toggle-<?php echo $content->id; ?>" id="toggle-<?php echo $content->id; ?>" <?php echo ($content->status == 'public') ? 'checked' : ''; ?>>
-                                                <label for="toggle-<?php echo $content->id; ?>"><?php echo ucfirst($content->status); ?></label>
-                                            </form>
-                                        </td>
-
-                                        <td class="text-center <?php if ($content->category_name == 'Uncategorised') echo 'text-danger' ?>"><?php echo $content->category_name; ?></td>
-                                        <td class="text-center">
-                                            <a class="text-center text-success"
-                                               href="<?php echo base_url("/admin/edit_content/$content->id"); ?>"
-                                            >
-                                                <span class="icon icon-pencil"></span>
-                                            </a>
-                                        </td>
-                                        <td class="text-center">
-                                            <a class="text-center text-danger delete_content_trigger"
-                                               id="<?php echo $content->id; ?>"
-                                               name="<?php echo $content->title; ?>"
-                                            ><span class="icon icon-close"></span>
-                                            </a>
-                                        </td>
-                                        <td class="text-center"><?php echo $this->mylib->custom_dateTime($content->created_at); ?></td>
-                                    </tr>
-                                    </tbody>
-
-                                <?php endforeach; ?>
-
-                                <script>
-                                    $(document).ready(function () {
-                                        var statusToggle = $('.status-toggle');
-
-                                        statusToggle.on('change', function (e) {
-                                            e.preventDefault();
-
-                                            var contentID = $(this).attr('id');
-                                            console.log(contentID);
-                                            var label = $("[for='toggle-" + contentID + "']");
-
-                                            $.ajax({
-                                                url: '/admin/status_toggle/' + contentID,
-                                                data: $(this).serialize(),
-                                                type: 'post',
-                                                dataType: 'json',
-                                                success: function (data) {
-                                                    if (data.option === 'public') {
-                                                        label.text('Public');
-                                                    }
-                                                    else {
-                                                        label.text('Not public');
-                                                    }
-                                                }
-                                            })
-                                        });
-                                    })
-                                </script>
-
-                            </table>
-                        </div>
-                    <?php else: ?>
-                        <p>Sry, there is no content yet!</p>
-                    <?php endif; ?>
+                        </table>
+                    </div>
 
                 <?php else: ?>
                 <?php endif; ?>
@@ -256,3 +164,39 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+
+        //SEARCHABLE CONTENT
+        var contentSearchInput = $('[name="search_content_on_admin"]');
+        var searchAbleContent = $('#searchable-content');
+
+        contentSearchInput.keyup(function () {
+            ajax_search_result();
+        });
+
+        function ajax_search_result() {
+            var txt = contentSearchInput.val();
+            searchAbleContent.empty();
+
+            $.ajax({
+                url: '/admin/get_searchable_content',
+                data: {search_content_on_admin: txt},
+                type: 'post',
+                dataType: 'json',
+                success: function (data, status, xhr) {
+
+                    if (data.result.length !== 0) {
+                        searchAbleContent.append(data.result);
+
+                    } else {
+                        searchAbleContent.append('<tr><td colspan="100">No result!</td></tr>');
+                    }
+                }
+            })
+        }
+
+        ajax_search_result();
+    });
+</script>

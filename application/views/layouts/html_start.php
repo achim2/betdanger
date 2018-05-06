@@ -21,6 +21,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/assets/js/src/general.js"></script>
     <script src="/assets/js/src/ajax_form_validation.js"></script>
+    <script src="/assets/js/src/toggle.js"></script>
     <script src="/node_modules/jquery-tags-input/dist/jquery.tagsinput.min.js"></script>
 
     <?php

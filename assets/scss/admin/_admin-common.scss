@@ -5,6 +5,15 @@
   .table {
     border: 2px solid $white;
 
+    th,
+    td {
+      vertical-align: middle;
+
+      &.td-option {
+        width: 100px;
+      }
+    }
+
   }
 
   thead {

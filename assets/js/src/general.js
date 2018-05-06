@@ -26,10 +26,11 @@ $(document).ready(function () {
         flash_alert.slideUp(1000)
     }, 5000);
 
-    var deleteTrigger = $('.delete_content_trigger');
+    var deleteTrigger = '.delete_content_trigger';
 
     //delete confirm
-    deleteTrigger.on('click', function () {
+    $(document).on('click', deleteTrigger, function () {
+    // deleteTrigger.on('click', function () {
         var deleteModal = $('#delete-content-modal');
         var category = deleteModal.attr("data-category");
         var id = $(this).attr("id");
