@@ -45,7 +45,7 @@ class MyLib {
         $moderator = 'moderator';
 
         //if user type from db not isset
-        if ((isset($user_type)) && ($user_type != null) && ($user_type != '')) {
+        if ((isset($user_type)) && ($user_type == $user || $user_type == $administrator || $user_type == $moderator)) {
             //for debug
             $string = 'Permission level: ' . $permission_level . ', user type: ' . $user_type . ', result: ';
 

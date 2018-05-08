@@ -3,9 +3,6 @@ $user = $this->session->userdata();
 $logged_in = (isset($user['logged_in'])) ? $user['logged_in'] : false;
 $categories = $this->Content_model->get_categories();
 
-?>
-
-<?php
 if ($logged_in == false) {
 
     $this->load->view('/user/lost_pass');
@@ -51,11 +48,9 @@ $this->load->view('/search/search_form');
                         <?php
                         $user_type = $user['user_type'];
 
-                        if (($user_type === 'user') || ($user_type === 'administrator') || ($user_type === 'moderator')) {
-                            echo '<a class="dropdown-item dropdown-user">' . $user['username'] . '</a>';
-                        }
+                        echo '<a class="dropdown-item dropdown-user">' . $user['username'] . '</a>';
 
-                        if ($user_type === 'moderator') {
+                        if (($user_type === 'moderator') || ($user_type === 'administrator')) {
                             echo "<a class=\"dropdown-item\" href=" . base_url('/admin') . ">admin</a>";
                         }
 

@@ -1,4 +1,5 @@
-<!--admin header-->
+<?php $user = $this->session->userdata(); ?>
+<?php $user_type = $user['user_type']; ?>
 
 <nav class="admin-nav">
 
@@ -17,9 +18,11 @@
     </ul>
 
     <ul class="nav-links">
-        <li <?php echo ($this->uri->segment(2) == 'users') ? 'class="is-active"' : ''; ?>>
-            <a href="/admin/users">Users</a>
-        </li>
+        <?php if ($user_type === 'moderator') : ?>
+            <li <?php echo ($this->uri->segment(2) == 'users') ? 'class="is-active"' : ''; ?>>
+                <a href="/admin/users">Users</a>
+            </li>
+        <?php endif; ?>
         <li <?php echo ($this->uri->segment(2) == 'cms') ? 'class="is-active"' : ''; ?>>
             <a>Cms</a>
             <ul class="nav-sub-links">

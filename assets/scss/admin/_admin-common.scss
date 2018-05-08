@@ -7,13 +7,13 @@
 
     th,
     td {
+      table-layout: fixed;
       vertical-align: middle;
 
       &.td-option {
         width: 100px;
       }
     }
-
   }
 
   thead {

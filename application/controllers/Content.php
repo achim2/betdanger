@@ -5,8 +5,6 @@ class Content extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-
-//        $this->mylib->auth('administrator');
     }
 
     //add tags to the contents array
@@ -114,9 +112,9 @@ class Content extends CI_Controller {
         //empty array, after foreach pushed array
         $this->contents = array();
         //settings
-        $options = $this->get_options();
+        $this->options = $this->get_options();
 
-        if ($options['tags'] == 0) {
+        if ($this->options['tags'] == 0) {
             redirect('/');
         }
 

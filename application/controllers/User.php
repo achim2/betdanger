@@ -174,6 +174,7 @@ class User extends CI_Controller {
     }
 
     public function profile() {
+        $this->mylib->auth('user');
         $user_type = $this->session->userdata('user_type');
 
         if ($user_type == null) {

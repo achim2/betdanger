@@ -191,7 +191,7 @@
                         searchAbleContent.append(data.result);
 
                     } else {
-                        searchAbleContent.append('<tr><td colspan="100">No result!</td></tr>');
+                        searchAbleContent.append('<tr><td colspan="10">No result!</td></tr>');
                     }
                 }
             })

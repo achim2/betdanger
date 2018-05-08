@@ -7,14 +7,25 @@ class Admin extends CI_Controller {
         parent::__construct();
 
         $this->load->helper('file');
-//        $this->mylib->auth('moderator');
+        $this->mylib->auth('administrator');
     }
 
     public function index() {
-        redirect(base_url('/admin/users'));
+        $user = $this->session->userdata('user_type');
+
+        if ($user == 'administrator') {
+            redirect(base_url('/admin/cms/content'));
+
+        } else if ($user == 'moderator') {
+            redirect(base_url('/admin/users'));
+
+        } else {
+            redirect(base_url('/'));
+        }
     }
 
     public function users() {
+        $this->mylib->auth('moderator');
         $this->users = $this->User_model->get_users_to_admin();
 
         $this->load->view('/layouts/html_start');
@@ -420,8 +431,8 @@ class Admin extends CI_Controller {
         foreach ($data as $item) {
 
             $str .= '<tr class="text-white" id="' . $item->id . '">
-                        <td>' . $item->id . '</td>
-                        <td><a ' . ($item->status == 'public' && $item->category_name != 'uncategorised' ? 'href="' . base_url("/page/$item->slug") . '"' : '') . ' target="_blank">' . $item->title . '</a></td>
+                        <td class="id">' . $item->id . '</td>
+                        <td class="title"><a ' . ($item->status == 'public' && $item->category_name != 'uncategorised' ? 'href="' . base_url("/page/$item->slug") . '"' : '') . ' target="_blank">' . $item->title . '</a></td>
                         <td>
                             <form class="status-toggle text-center" id="' . $item->id . '">
                                 <input type="checkbox" name="toggle-' . $item->id . '" id="toggle-' . $item->id . '" ' . ($item->status == 'public' ? 'checked' : '') . '>
@@ -439,7 +450,7 @@ class Admin extends CI_Controller {
                                 <span class="icon icon-close"></span>
                             </a>
                         </td>
-                        <td class="text-center">' . $this->mylib->custom_dateTime($item->created_at) . '</td>
+                        <td class="text-center created-at">' . $this->mylib->custom_dateTime($item->created_at) . '</td>
                     </tr>';
         }
 
