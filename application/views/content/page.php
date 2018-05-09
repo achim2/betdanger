@@ -158,7 +158,9 @@
                     cache: true,
                     success: function (data) {
                         if (data.success === true) {
-                            get_comments();
+                            // get_comments();
+                            window.location.href = "<?php echo base_url('/page/' . $this->content->slug);?>";
+
 
                         } else {
                             alert(data.message.edit_comment);

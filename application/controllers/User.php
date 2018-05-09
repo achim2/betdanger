@@ -175,14 +175,8 @@ class User extends CI_Controller {
 
     public function profile() {
         $this->mylib->auth('user');
-        $user_type = $this->session->userdata('user_type');
-
-        if ($user_type == null) {
-            redirect('/');
-        }
-
-        $logged_user = $this->session->userdata('email');
-        $this->user = $this->User_model->get_user($logged_user);
+        $user = $this->session->userdata();
+        $this->user = $this->User_model->get_user($user['email']);
 
         $this->load->view('/layouts/html_start');
         $this->load->view('/layouts/main/header');

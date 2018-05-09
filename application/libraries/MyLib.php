@@ -36,7 +36,7 @@ class MyLib {
         }
     }
 
-    function auth($permission_level) {
+    function auth($permission) {
         $user_type = $this->ci->session->userdata('user_type');
 
         // user -> administrator -> moderator
@@ -44,38 +44,34 @@ class MyLib {
         $administrator = 'administrator';
         $moderator = 'moderator';
 
-        //if user type from db not isset
-        if ((isset($user_type)) && ($user_type == $user || $user_type == $administrator || $user_type == $moderator)) {
-            //for debug
-            $string = 'Permission level: ' . $permission_level . ', user type: ' . $user_type . ', result: ';
+        //for debug
+        $error = 'Permission level: ' . $permission . ', user type: ' . $user_type . ', result: redirect';
 
-            //if permission level administrator then admin and moderator has access
-            if ($permission_level == $administrator) {
+        switch ($user_type) {
+            case $moderator:
+                break;
 
-                if ($user_type == $user) {
-//                    echo $string . 'redirect';
+            case $administrator:
+                if ($permission == $moderator) {
+//                    echo $error;
                     redirect(base_url());
                 }
+                break;
 
-                //if permission level moderator then moderator has access
-            } elseif ($permission_level == $moderator) {
-
-                if ($user_type == $user || $user_type == $administrator) {
-//                    echo $string . 'redirect';
+            case $user:
+                if ($permission == $moderator || $permission == $administrator) {
+//                    echo $error;
                     redirect(base_url());
                 }
+                break;
 
-                //if permission level something else then redirect
-            } else {
-//                echo $string . 'redirect';
+            default:
+//                echo $error;
                 redirect(base_url());
-            }
-
-        } else {
-//            echo 'user_type not isset, redirect';
-            redirect(base_url());
+                break;
         }
 
+        return;
     }
 
     function get_clear_slug($str) {
