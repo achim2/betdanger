@@ -30,4 +30,4 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 .editorconfig
 node_modules
 assets/css
-assets/images/uploaded/*
+#assets/images/uploaded/*

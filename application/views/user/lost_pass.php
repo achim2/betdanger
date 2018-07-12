@@ -9,7 +9,7 @@
             <div class="modal-body">
                 <form id="lost_pass">
                     <div class="form-group">
-                        <input type="text" name="email" class="form-control" placeholder="Email" value="ahimjuhasz@gmail.com">
+                        <input type="text" name="email" class="form-control" placeholder="Email">
                     </div>
                     <div class="form-group d-flex justify-content-between align-items-center">
                         <input type="submit" class="btn btn-dark" value="Submit">

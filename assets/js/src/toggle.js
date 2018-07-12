@@ -1,72 +1,35 @@
 $(document).ready(function () {
 
-    //TILT TOGGLE
-    $(document).on("change", '.tilt-toggle', function (e) {
-        e.preventDefault();
+  function customToggle(url, formClass, statusOn, statusOff) {
+    $(document).on("change", formClass, function (e) {
+      e.preventDefault();
 
-        var userID = $(this).attr('id');
-        var label = $("[for='toggle-" + userID + "']");
+      var id = $(this).attr('id');
+      var label = $("[for='toggle-" + id + "']");
 
-        $.ajax({
-            url: '/user/tilt_toggle/' + userID,
-            data: $(this).serialize(),
-            type: 'post',
-            dataType: 'json',
-            success: function (data) {
-                if (data.option === 'verified') {
-                    label.text('Verified');
-                }
-                else {
-                    label.text('Tilted');
-                }
-            }
-        })
+      $.ajax({
+        url: url + id,
+        data: $(this).serialize(),
+        type: 'post',
+        dataType: 'json',
+        success: function (data) {
+          if (data.option === 1 || data.option === statusOn) {
+            label.text(statusOn.capitalize());
+          }
+          else {
+            label.text(statusOff.capitalize());
+          }
+        }
+      })
     });
+  }
 
+  //OPTION TOGGLE
+  customToggle('/admin/option_toggle/', '.option-toggle', 'on', 'off');
 
-    //STATUS TOGGLE
-    $(document).on("change", '.status-toggle', function (e) {
-        e.preventDefault();
+  //TILT TOGGLE
+  customToggle('/user/tilt_toggle/', '.tilt-toggle', 'verified', 'tilted');
 
-        var contentID = $(this).attr('id');
-        var label = $("[for='toggle-" + contentID + "']");
-
-        $.ajax({
-            url: '/admin/status_toggle/' + contentID,
-            data: $(this).serialize(),
-            type: 'post',
-            dataType: 'json',
-            success: function (data) {
-                if (data.option === 'public') {
-                    label.text('Public');
-                }
-                else {
-                    label.text('Not public');
-                }
-            }
-        })
-    });
-
-    //OPTION TOGGLE
-    $(document).on("change", '.option-toggle', function (e) {
-        e.preventDefault();
-
-        var optionID = $(this).attr('id');
-        var label = $("[for='toggle-" + optionID + "']");
-
-        $.ajax({
-            url: '/admin/option_toggle/' + optionID,
-            data: $(this).serialize(),
-            type: 'post',
-            dataType: 'json',
-            success: function (data) {
-                if (data.option === 1) {
-                    label.text('On');
-                }
-                else {
-                    label.text('Off');
-                }
-            }
-        })
-    });
+  //STATUS TOGGLE
+  customToggle('/admin/status_toggle/', '.status-toggle', 'public', 'not public');
 });

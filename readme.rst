@@ -1,29 +1,75 @@
 ###################
-What is CodeIgniter
+BetDANGER! :D
 ###################
 
-CodeIgniter is an Application Development Framework - a toolkit - for people
-who build web sites using PHP. Its goal is to enable you to develop projects
-much faster than you could if you were writing code from scratch, by providing
-a rich set of libraries for commonly needed tasks, as well as a simple
-interface and logical structure to access these libraries. CodeIgniter lets
-you creatively focus on your project by minimizing the amount of code needed
-for a given task.
+This is one of my practice project for improving my skills in web development.
+Based on codeIgniter php framework. Besides this i use php, js, jQuery, ajax, npm, gulp, sass, bootstrap.
+This repo contains development code.
 
-*******************
-Release Information
-*******************
+About my blog, yeah it's a blog. :D
 
-This repo contains in-development code for future releases. To download the
-latest stable release please visit the `CodeIgniter Downloads
-<https://codeigniter.com/download>`_ page.
+The frontend is not perfect & not responsive everywhere. It's not purpose for me to make perfect frontend in the project.
 
-**************************
-Changelog and New Features
-**************************
+Test user:
+email: testuser@gmail.com
+pass: admin123
 
-You can find a list of all changes for each release in the `user
-guide change log <https://github.com/bcit-ci/CodeIgniter/blob/develop/user_guide_src/source/changelog.rst>`_.
+************
+Installation
+************
+
+The main branch is the 'developer' branch
+
+- pull or download the project
+- set the db (the sql file in the assets)
+- run npm install
+- run gulp (to the developer mode run gulp --dev)
+
+###################
+Features
+###################
+
+//Admin
+There are 3 types of user. (user, administrator, moderator).
+User can't enter to the admin page.
+Administrator can handle categories and posts or contents.
+Only the Moderator can handle the users.
+
+- Users:
+So the moderator can change the user type of the members or tilt the member but of course can see information about the users.
+
+- CMS settings:
+There are featured cards on the main page & category & tags & search pages.
+On this menu the admin & moderator can change the card settings, set the status of the image, author, short description and tags, depends on which would like to see or not.
+
+- CMS categories:
+On this page the admin & moderator can handle the categories (CRUD) except the first one (uncategorised).
+A category belongs to posts or contents and if a category will be deleted then the posts will be re-categorised to the first one (uncategorised).
+
+- CMS contents:
+On this page there are information about the posts (id, name, public status, category, created at).
+Of course the admins & moderators can handle the posts (CRUD). On link 'Add content' can set the post title, content, tags, image, etc.
+There is an ajax, js based async search field too.
+
+- Newsletter:
+Here the admin & moderator can send newsletters to the subscribed users. The user can subscribe on sign up or later on the profile.
+
+//Page profile:
+The users can see their data on this page. (username, email)
+Can subscribe or unsubscribe from the newsletter.
+Change their password or remove the profile.
+
+//Comments:
+The users can write comments on the reading page if logged in. Of course can edit & delete their own comments.
+Moderator can tilt or delete the comments.
+If a post will be deleted then the comments that belongs to the post will be deleted too.
+
+//Search:
+Async ajax based search feature.
+There is a search result page if the user wants more option or can choose one of post by click on it.
+
+//More features:
+Tag choice, login, registration, password recovery, contact us on the footer
 
 *******************
 Server Requirements
@@ -31,40 +77,7 @@ Server Requirements
 
 PHP version 5.6 or newer is recommended.
 
-It should work on 5.3.7 as well, but we strongly advise you NOT to run
-such old versions of PHP, because of potential security and performance
-issues, as well as missing features.
-
-************
-Installation
-************
-
-Please see the `installation section <https://codeigniter.com/user_guide/installation/index.html>`_
-of the CodeIgniter User Guide.
-
-*******
-License
-*******
-
-Please see the `license
-agreement <https://github.com/bcit-ci/CodeIgniter/blob/develop/user_guide_src/source/license.rst>`_.
-
 *********
 Resources
 *********
-
 -  `User Guide <https://codeigniter.com/docs>`_
--  `Language File Translations <https://github.com/bcit-ci/codeigniter3-translations>`_
--  `Community Forums <http://forum.codeigniter.com/>`_
--  `Community Wiki <https://github.com/bcit-ci/CodeIgniter/wiki>`_
--  `Community IRC <https://webchat.freenode.net/?channels=%23codeigniter>`_
-
-Report security issues to our `Security Panel <mailto:security@codeigniter.com>`_
-or via our `page on HackerOne <https://hackerone.com/codeigniter>`_, thank you.
-
-***************
-Acknowledgement
-***************
-
-The CodeIgniter team would like to thank EllisLab, all the
-contributors to the CodeIgniter project and you, the CodeIgniter user.
